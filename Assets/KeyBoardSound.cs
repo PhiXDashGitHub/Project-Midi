@@ -28,6 +28,8 @@ public class KeyBoardSound : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
     void Update()
     {
         CheckKey();
+        SetVolume();
+        SetPitch();
     }
 
     public void OnPointerDown(PointerEventData data)
@@ -82,5 +84,15 @@ public class KeyBoardSound : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
                 Events.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
             }
         }
+    }
+
+    void SetVolume()
+    {
+        Tone.volume = PlayerPrefs.GetFloat("KeyboardVolume");
+    }
+
+    void SetPitch()
+    {
+        Tone.pitch = PlayerPrefs.GetFloat("KeyboardPitch");
     }
 }
