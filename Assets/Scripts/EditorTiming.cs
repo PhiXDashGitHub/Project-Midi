@@ -26,6 +26,8 @@ public class EditorTiming : MonoBehaviour
 
     void UpdateTimer()
     {
+        PlayerPrefs.SetString("TimerCount", TimerCount.ToString());
+
         if (TimerCount == true)
         {
             fElapsedTime += Time.deltaTime;

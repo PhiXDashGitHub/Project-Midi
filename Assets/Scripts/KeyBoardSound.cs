@@ -95,4 +95,9 @@ public class KeyBoardSound : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
     {
         Tone.pitch = PlayerPrefs.GetFloat("KeyboardPitch");
     }
+
+    public void PlaySound()
+    {
+        Tone.Play();
+    }
 }
