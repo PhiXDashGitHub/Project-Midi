@@ -12854,10 +12854,10 @@ MonoBehaviour:
   MousePosition: {x: 0, y: 0}
   PlacingMode: 0
   ErasingMode: 0
-  xMin: 80
-  xMax: 850
-  yMin: 240
-  yMax: 410
+  xMin: 0
+  xMax: 0
+  yMin: 0
+  yMax: 0
   xGridSize: 50
   yGridSize: 21.2
 --- !u!1 &1240681230
