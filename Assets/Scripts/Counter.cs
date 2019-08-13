@@ -12,6 +12,8 @@ public class Counter : MonoBehaviour
 
     RectTransform CounterTransform;
 
+    public RectTransform Viewport;
+
     public TextMeshProUGUI SpeedMeter;
 
     void Start()
@@ -31,6 +33,11 @@ public class Counter : MonoBehaviour
         }
 
         SpeedMeter.text = BPM + " BPM";
+
+        if (transform.position.x > Viewport.rect.width)
+        {
+            Reset();
+        }
     }
 
     public void Reset()

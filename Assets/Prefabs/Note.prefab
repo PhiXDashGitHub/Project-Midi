@@ -40,7 +40,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 50, y: 25}
+  m_SizeDelta: {x: 25, y: 25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &676635115866731530
 CanvasRenderer:
@@ -148,6 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f773404a28194b458a7af0458df545a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SelectedKeyboard: {fileID: 0}
 --- !u!61 &7470732681224239739
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -172,7 +173,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 50, y: 25}
+  m_Size: {x: 25, y: 25}
   m_EdgeRadius: 0
 --- !u!50 &-4245588359613096269
 Rigidbody2D:

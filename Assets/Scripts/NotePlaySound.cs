@@ -36,6 +36,10 @@ public class NotePlaySound : MonoBehaviour
 
             transform.position = new Vector2(transform.position.x, Line.transform.position.y);
         }
+        else if (Line.tag == "Space")
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void PlaySound()

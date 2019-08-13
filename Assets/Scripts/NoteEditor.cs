@@ -26,9 +26,6 @@ public class NoteEditor : MonoBehaviour
     public float yMin;
     public float yMax;
 
-    public float xGridSize;
-    public float yGridSize;
-
     void Update()
     {
         for (int i = 0; i < NotesParent.transform.childCount; i++)
@@ -46,14 +43,6 @@ public class NoteEditor : MonoBehaviour
 
         MousePosition = Input.mousePosition;
 
-        float xReciprocalGridSize = 1f / xGridSize;
-        float yReciprocalGridSize = 1f / yGridSize;
-
-        float xGrid = Mathf.Round(MousePosition.x * xReciprocalGridSize) / xReciprocalGridSize;
-        float yGrid = Mathf.Round(MousePosition.y * yReciprocalGridSize) / yReciprocalGridSize;
-
-        Vector2 GridMousePosition = new Vector2(Mathf.Round(xGrid), yGrid);
-
         xMin = Viewport.position.x;
         xMax = Viewport.rect.width;
         yMin = Viewport.position.y - Viewport.rect.height;
@@ -68,7 +57,7 @@ public class NoteEditor : MonoBehaviour
                     GameObject PlacableNote = Instantiate<GameObject>(NoteToPlace);
                     PlacableNote.transform.SetParent(MusicGrid.transform);
                     PlacableNote.transform.localScale = Vector3.one;
-                    PlacableNote.transform.position = GridMousePosition;
+                    PlacableNote.transform.position = MousePosition;
                 }
             }
 
