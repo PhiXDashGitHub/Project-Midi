@@ -12692,9 +12692,9 @@ MonoBehaviour:
   PlacingMode: 0
   ErasingMode: 0
   xMin: 80
-  xMax: 850
-  yMin: 240
-  yMax: 410
+  xMax: 1850
+  yMin: 540
+  yMax: 900
   xGridSize: 25
   yGridSize: 11.35
 --- !u!1 &1240681230

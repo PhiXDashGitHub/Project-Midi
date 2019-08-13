@@ -7,6 +7,7 @@ public class NoteEditor : MonoBehaviour
 {
     public GameObject NoteToPlace;
 
+
     public GameObject NotesParent;
 
     GameObject MusicGrid;
@@ -47,23 +48,32 @@ public class NoteEditor : MonoBehaviour
         float xReciprocalGridSize = 1f / xGridSize;
         float yReciprocalGridSize = 1f / yGridSize;
 
-        float xGrid = Mathf.Round(MousePosition.x * xReciprocalGridSize) / xReciprocalGridSize;
-        float yGrid = Mathf.Round(MousePosition.y * yReciprocalGridSize) / yReciprocalGridSize;
+        float xGrid = Mathf.Round(Input.mousePosition.x * xReciprocalGridSize) / xReciprocalGridSize;
+        float yGrid = Mathf.Round(Input.mousePosition.y * yReciprocalGridSize) / yReciprocalGridSize;
 
         Vector2 GridMousePosition = new Vector2(Mathf.Round(xGrid), yGrid);
 
+        float testmousepositionx = Input.mousePosition.x;
+        float testmousepositiony = Input.mousePosition.y;
+
         if (PlacingMode == true)
         {
-            if (MousePosition.x > xMin && MousePosition.x < xMax && MousePosition.y > yMin && MousePosition.y < yMax)
+            //if (MousePosition.x > xMin && MousePosition.x < xMax && MousePosition.y > yMin && MousePosition.y < yMax)
+            //{
+            if((testmousepositionx > xMin) && (testmousepositionx < xMax))
             {
-                if (Input.GetMouseButtonDown(0))
+                if ((testmousepositiony > yMin )&& (testmousepositiony < yMax))
                 {
-                    GameObject PlacableNote = Instantiate<GameObject>(NoteToPlace);
-                    PlacableNote.transform.SetParent(MusicGrid.transform);
-                    PlacableNote.transform.localScale = Vector3.one;
-                    PlacableNote.transform.position = GridMousePosition;
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        GameObject PlacableNote = Instantiate<GameObject>(NoteToPlace);
+                        PlacableNote.transform.SetParent(MusicGrid.transform);
+                        PlacableNote.transform.localScale = Vector3.one;
+                        PlacableNote.transform.position = GridMousePosition;
+                    }
                 }
             }
+            //}
 
             PencilButton.image.color = Color.green;
         }
