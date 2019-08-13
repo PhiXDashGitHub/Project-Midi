@@ -33,6 +33,8 @@ public class NotePlaySound : MonoBehaviour
                     Key = SelectedKeyboard.transform.GetChild(i).gameObject;
                 }
             }
+
+            transform.position = new Vector2(transform.position.x, Line.transform.position.y);
         }
     }
 
