@@ -36,7 +36,7 @@ public class GameTimer : MonoBehaviour
 
     void UpdateUI()
     {
-        Timer.text = Minutes + ":" + Seconds.ToString("f0");
+        Timer.text = Minutes.ToString("00") + ":" + Mathf.Round(Seconds).ToString("00");
     }
 
     void Count()
