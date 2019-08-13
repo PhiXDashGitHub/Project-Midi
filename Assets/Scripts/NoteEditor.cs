@@ -9,6 +9,8 @@ public class NoteEditor : MonoBehaviour
 
     public GameObject NotesParent;
 
+    public RectTransform Viewport;
+
     GameObject MusicGrid;
 
     public Button PencilButton;
@@ -51,6 +53,11 @@ public class NoteEditor : MonoBehaviour
         float yGrid = Mathf.Round(MousePosition.y * yReciprocalGridSize) / yReciprocalGridSize;
 
         Vector2 GridMousePosition = new Vector2(Mathf.Round(xGrid), yGrid);
+
+        xMin = Viewport.position.x;
+        xMax = Viewport.rect.width;
+        yMin = Viewport.position.y - Viewport.rect.height;
+        yMax = Viewport.position.y;
 
         if (PlacingMode == true)
         {
