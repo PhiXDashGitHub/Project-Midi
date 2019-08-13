@@ -48,8 +48,8 @@ public class NoteEditor : MonoBehaviour
         float xReciprocalGridSize = 1f / xGridSize;
         float yReciprocalGridSize = 1f / yGridSize;
 
-        float xGrid = Mathf.Round(Input.mousePosition.x * xReciprocalGridSize) / xReciprocalGridSize;
-        float yGrid = Mathf.Round(Input.mousePosition.y * yReciprocalGridSize) / yReciprocalGridSize;
+        float xGrid = Mathf.Round(Mathf.Round(Input.mousePosition.x) * xReciprocalGridSize) / xReciprocalGridSize;
+        float yGrid = Mathf.Round(Mathf.Round(Input.mousePosition.y) * yReciprocalGridSize) / yReciprocalGridSize;
 
         Vector2 GridMousePosition = new Vector2(Mathf.Round(xGrid), yGrid);
 
