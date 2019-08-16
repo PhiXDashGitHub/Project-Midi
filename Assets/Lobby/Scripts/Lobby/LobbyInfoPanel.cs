@@ -15,7 +15,7 @@ namespace Prototype.NetworkLobby
         {
             infoText.text = info;
 
-            buttonText.text = buttonInfo;
+            //buttonText.text = buttonInfo;
 
             singleButton.onClick.RemoveAllListeners();
 

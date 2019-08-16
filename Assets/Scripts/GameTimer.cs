@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+
 public class GameTimer : MonoBehaviour
 {
     TextMeshProUGUI Timer;
@@ -52,8 +53,8 @@ public class GameTimer : MonoBehaviour
         }
     }
 
-    void EndGame()
+    public void EndGame()
     {
-
+        this.transform.root.GetComponent<OnlinePlayerController>().DisplayEndScreen();
     }
 }
