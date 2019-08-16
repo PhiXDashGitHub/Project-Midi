@@ -27,6 +27,8 @@ public class KeyBoardSound : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
 
     void Update()
     {
+        Events = GameObject.Find("EventSystem").GetComponent<EventSystem>();
+
         CheckKey();
         SetVolume();
         SetPitch();
