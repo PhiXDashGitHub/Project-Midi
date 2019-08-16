@@ -9,6 +9,7 @@ public class OnlinePlayerController : NetworkBehaviour
     public bool GameEnd;
     public float playerscore;
     public string playername;
+    public string[] PlayerSong;
 
     public GameObject Endscreen;
 
@@ -17,13 +18,17 @@ public class OnlinePlayerController : NetworkBehaviour
         this.gameObject.name = playername;
         if (!isLocalPlayer)
         {
-            this.gameObject.SetActive(false);
+            for(int i = 0; i< this.transform.childCount; i++)
+            {
+                this.transform.GetChild(i).gameObject.SetActive(false);
+            }
             return;
         }
         else
         {
             CmdSendNameToServer(playername);
             CmdSendScoreToServer(playerscore);
+            CmdSendSongToServer(PlayerSong);
         }
         if(GameEnd == true)
         {
@@ -58,5 +63,17 @@ public class OnlinePlayerController : NetworkBehaviour
     void RpcSetPlayerScore(float score)
     {
         playerscore = score;
+    }
+
+    [Command]
+    void CmdSendSongToServer(string[] song)
+    {
+        RpcSetPlayerSong(song);
+    }
+
+    [ClientRpc]
+    void RpcSetPlayerSong(string[] song)
+    {
+        PlayerSong = song;
     }
 }

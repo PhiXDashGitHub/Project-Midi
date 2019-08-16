@@ -56,5 +56,6 @@ public class GameTimer : MonoBehaviour
     public void EndGame()
     {
         this.transform.root.GetComponent<OnlinePlayerController>().DisplayEndScreen();
+        this.transform.root.GetComponent<PlaySongsONGameEnd>().PlaySong();
     }
 }

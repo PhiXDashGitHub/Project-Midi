@@ -8,8 +8,6 @@ public class NotePlaySound : MonoBehaviour
     public GameObject SelectedKeyboard;
 
     public static string[] Song = new string[1];
-    float timebetweennotes = 0;
-
     GameObject Key;
 
     void Update()
@@ -53,26 +51,20 @@ public class NotePlaySound : MonoBehaviour
 
     public void Save(string name)
     {
-        StopCoroutine(Counttimebetweenplay());
         string[] tmpstring = new string[NotePlaySound.Song.Length + 2];
         for (int i = 0; i < NotePlaySound.Song.Length; i++)
         {
             tmpstring[i] = NotePlaySound.Song[i];
         }
         tmpstring[NotePlaySound.Song.Length] = name;
-        tmpstring[NotePlaySound.Song.Length + 1] = timebetweennotes.ToString();
+        tmpstring[NotePlaySound.Song.Length + 1] = EditorTiming.fElapsedTime.ToString();
         NotePlaySound.Song = tmpstring;
-        StartCoroutine(Counttimebetweenplay());
-    }
 
-    public IEnumerator Counttimebetweenplay()
-    {
-        timebetweennotes = 0;
-        float tmptimesincestart = Time.time;
-        for(float i = 0; i < 100; i =  i + 1* Time.deltaTime)
+        GameObject[] tmpplayers = GameObject.FindGameObjectsWithTag("Player");
+
+        for (int i = 0; i < tmpplayers.Length; i++)
         {
-            timebetweennotes = Time.time - tmptimesincestart;
+            tmpplayers[i].GetComponent<OnlinePlayerController>().PlayerSong = NotePlaySound.Song;
         }
-        yield return new WaitForSeconds(0);
     }
 }
