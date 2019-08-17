@@ -5,7 +5,7 @@ using TMPro;
 
 public class EditorTiming : MonoBehaviour
 {
-    public float fElapsedTime;
+    public static float fElapsedTime;
 
     public TextMeshProUGUI Timer;
 
