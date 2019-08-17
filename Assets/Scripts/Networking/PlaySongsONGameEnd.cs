@@ -23,13 +23,21 @@ public class PlaySongsONGameEnd : MonoBehaviour
     {
         if(Playsongbool == true)
         {
-            currentsongtext.GetComponent<TextMeshProUGUI>().text = "Current Song: " + tmpplayers[tmpi].name;
+            try
+            {
+                currentsongtext.GetComponent<TextMeshProUGUI>().text = "Current Song: " + tmpplayers[tmpi].name;
+            }
+            catch (IndexOutOfRangeException)
+            {
+                currentsongtext.GetComponent<TextMeshProUGUI>().text = "No Song is Playing!";
+            }
             if (countdownisactiv == false && playersongplay == false)
             {
-                if(tmpi == tmpplayers.Length)
+                if(tmpi >= tmpplayers.Length)
                 {
                     tmpi = 0;
                     Playsongbool = false;
+                    Debug.Log("Song has stoppt playing");
                     return;
                 }
                 else
@@ -52,7 +60,7 @@ public class PlaySongsONGameEnd : MonoBehaviour
                     tmpj++;
                 }
             }
-        }    
+        }
     }
 
 
@@ -70,7 +78,6 @@ public class PlaySongsONGameEnd : MonoBehaviour
         songisplayed = true;
         try
         {
-            //tmptime = Int32.Parse(note);
             tmptime = float.Parse(note);
             Debug.Log("Time Play works " + tmptime);
         }

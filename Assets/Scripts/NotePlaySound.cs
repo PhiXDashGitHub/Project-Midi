@@ -6,7 +6,7 @@ public class NotePlaySound : MonoBehaviour
 {
     GameObject KeyboardParent;
     public GameObject SelectedKeyboard;
-
+    public static float timeoflastnote = 0;
     public static string[] Song = new string[1];
     GameObject Key;
 
@@ -57,14 +57,19 @@ public class NotePlaySound : MonoBehaviour
             tmpstring[i] = NotePlaySound.Song[i];
         }
         tmpstring[NotePlaySound.Song.Length] = name;
-        tmpstring[NotePlaySound.Song.Length + 1] = EditorTiming.fElapsedTime.ToString();
+        tmpstring[NotePlaySound.Song.Length + 1] = (EditorTiming.fElapsedTime - NotePlaySound.timeoflastnote).ToString();
         NotePlaySound.Song = tmpstring;
 
         GameObject[] tmpplayers = GameObject.FindGameObjectsWithTag("Player");
 
+        NotePlaySound.timeoflastnote = EditorTiming.fElapsedTime;
+        Debug.Log("time of last note" + NotePlaySound.timeoflastnote);
         for (int i = 0; i < tmpplayers.Length; i++)
         {
-            tmpplayers[i].GetComponent<OnlinePlayerController>().PlayerSong = NotePlaySound.Song;
+            if(this.transform.root.gameObject.name == tmpplayers[i].name)
+            {
+                tmpplayers[i].GetComponent<OnlinePlayerController>().PlayerSong = NotePlaySound.Song;
+            }
         }
     }
 }
