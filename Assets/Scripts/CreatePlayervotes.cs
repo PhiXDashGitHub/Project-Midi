@@ -17,7 +17,13 @@ public class CreatePlayervotes : NetworkBehaviour
         {
             for(int i = 0; i < players.Length; i++)
             {
-                CmdSpawnPlayervotes(players[i].name);
+                if(allplayersspawned == false)
+                {
+                    playervoteparent.transform.GetChild(i).GetComponent<VoteforPlayer>().playername = players[i].name;
+                }
+
+                //CmdSpawnPlayervotes(players[i].name);
+
             }
             allplayersspawned = true;
         }
@@ -30,12 +36,6 @@ public class CreatePlayervotes : NetworkBehaviour
         {
             return;
         }
-
-        GameObject playervote = (GameObject)Instantiate(playervote_obj, playervoteparent.transform);
-        playervote.transform.localPosition = new Vector3(playervote.transform.localPosition.x,playervote.transform.localPosition.y - offset - 100, 0);
-        offset += 105;
-        playervote.GetComponent<VoteforPlayer>().playername = name;
-        NetworkServer.Spawn(playervote);
     }
 
 }

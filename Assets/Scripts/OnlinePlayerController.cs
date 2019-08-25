@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 public class OnlinePlayerController : NetworkBehaviour
 {
@@ -40,6 +41,11 @@ public class OnlinePlayerController : NetworkBehaviour
     public void DisplayEndScreen()
     {
         GameEnd = true;
+    }
+
+    public void LeaveGame()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 
     [Command]

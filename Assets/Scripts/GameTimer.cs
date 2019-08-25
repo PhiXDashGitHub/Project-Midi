@@ -17,6 +17,8 @@ public class GameTimer : MonoBehaviour
 
     bool GameIsReady;
 
+    public GameObject Editor_obj;
+
     void Start()
     {
         GameIsReady = true;
@@ -57,5 +59,6 @@ public class GameTimer : MonoBehaviour
     {
         this.transform.root.GetComponent<OnlinePlayerController>().DisplayEndScreen();
         this.transform.root.GetComponent<PlaySongsONGameEnd>().PlaySong();
+        Editor_obj.GetComponent<EditorTiming>().StopTimer();
     }
 }

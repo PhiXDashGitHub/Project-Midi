@@ -11,7 +11,7 @@ public class PlaySongsONGameEnd : MonoBehaviour
     public GameObject currentsongtext;
     string[] currentsong;
     bool songisplayed = false, countdownisactiv = false, Playsongbool = false, playersongplay = false;
-    int tmpj = 0, tmpi = 0;
+    int tmpj, tmpi;
 
     public void PlaySong()
     {
@@ -19,18 +19,16 @@ public class PlaySongsONGameEnd : MonoBehaviour
         Playsongbool = true;
     }
 
+    public void Start()
+    {
+        tmpi = 0;
+        tmpj = 0;
+    }
+
     void Update()
     {
         if(Playsongbool == true)
         {
-            try
-            {
-                currentsongtext.GetComponent<TextMeshProUGUI>().text = "Current Song: " + tmpplayers[tmpi].name;
-            }
-            catch (IndexOutOfRangeException)
-            {
-                currentsongtext.GetComponent<TextMeshProUGUI>().text = "No Song is Playing!";
-            }
             if (countdownisactiv == false && playersongplay == false)
             {
                 if(tmpi >= tmpplayers.Length)
@@ -38,11 +36,20 @@ public class PlaySongsONGameEnd : MonoBehaviour
                     tmpi = 0;
                     Playsongbool = false;
                     Debug.Log("Song has stoppt playing");
+                    currentsongtext.GetComponent<TextMeshProUGUI>().text = "No Song is Playing!";
                     return;
                 }
                 else
                 {
                     currentsong = tmpplayers[tmpi].GetComponent<OnlinePlayerController>().PlayerSong;
+                    try
+                    {
+                        currentsongtext.GetComponent<TextMeshProUGUI>().text = "Current Song: " + tmpplayers[tmpi].name;
+                    }
+                    catch (IndexOutOfRangeException)
+                    {
+                        currentsongtext.GetComponent<TextMeshProUGUI>().text = "No Song is Playing!";
+                    }
                     StartCoroutine(Countdown());
                     tmpi++;
                 }
