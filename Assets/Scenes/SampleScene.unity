@@ -601,7 +601,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5592e26524399c4490436eda9ad0d01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fElapsedTime: 0
   Timer: {fileID: 1635010040}
   TimerCount: 0
   IsPaused: 0
@@ -10607,6 +10606,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxTimeSeconds: 599
+  Editor_obj: {fileID: 0}
 --- !u!1 &877801782
 GameObject:
   m_ObjectHideFlags: 0

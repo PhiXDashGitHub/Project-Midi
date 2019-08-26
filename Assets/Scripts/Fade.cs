@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Fade : MonoBehaviour
 {
     public void Start()
@@ -10,10 +11,12 @@ public class Fade : MonoBehaviour
         GameObject.FindGameObjectWithTag("LobbyManager").transform.GetChild(0).transform.GetChild(1).gameObject.SetActive(true);
     }
 
+
     public void Fadeinout(GameObject FadeIn)
     {
         StartCoroutine(FadeIEmnum(FadeIn));
     }
+
     public void FadeLobbyinout()
     {
         StartCoroutine(FadeILobbyEmnum(GameObject.FindGameObjectWithTag("LobbyManager")));

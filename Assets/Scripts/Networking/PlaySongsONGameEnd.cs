@@ -74,7 +74,7 @@ public class PlaySongsONGameEnd : MonoBehaviour
     public IEnumerator Countdown()
     {
         countdownisactiv = true;
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(1);
         countdownisactiv = false;
         playersongplay = true;
     }
