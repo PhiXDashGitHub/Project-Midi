@@ -8,6 +8,7 @@ public class ControlKnob : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [Range(0, 1)] public float value = 0.25f;
 
     public Vector2 angleLimits;
+    public float sensitivity;
 
     bool mouseOver;
     bool dragging;
@@ -37,7 +38,7 @@ public class ControlKnob : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         {
             dragging = true;
 
-            value = dragValue + (Input.mousePosition - dragStart).x / 50f;
+            value = dragValue + (Input.mousePosition - dragStart).x / sensitivity;
             value = Mathf.Clamp01(value);
         }
     }
