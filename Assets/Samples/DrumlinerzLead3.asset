@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26ea46afc1e409a4cb53c30b71e43160, type: 3}
+  m_Name: DrumlinerzLead3
+  m_EditorClassIdentifier: 
+  icon: {fileID: 0}
+  samples:
+  - {fileID: 8300000, guid: 7daaf6f410a83df448fe274df499d2d2, type: 3}
+  - {fileID: 8300000, guid: 8ddf0d44c4af0784b9e1e28359f0382e, type: 3}
+  - {fileID: 8300000, guid: 2c31987be6f38e44b9e595b82a781b79, type: 3}
+  - {fileID: 8300000, guid: 32066d4fc3e896d46b41b9aa88c34760, type: 3}
+  - {fileID: 8300000, guid: 0aa941d28e679874295bf70356d31d0b, type: 3}
+  - {fileID: 8300000, guid: e236663c2a51db04ca2173ba90ef8637, type: 3}
+  - {fileID: 8300000, guid: d82ebcbc0fb61014e9fc712a47b083e6, type: 3}
+  affectedByPitch: 1
