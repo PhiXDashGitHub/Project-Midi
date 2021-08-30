@@ -5,6 +5,7 @@ using System.Globalization;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class NoteEditor : MonoBehaviour
 {
@@ -58,6 +59,8 @@ public class NoteEditor : MonoBehaviour
 
     public static bool recording;
     public static float lastNoteLength;
+
+    public float SongLenght;
 
     void Start()
     {
@@ -180,7 +183,7 @@ public class NoteEditor : MonoBehaviour
     {
         List<string> newData = new List<string>();
 
-        for (int c = 0; c < 332; c++)
+        for (float c = 0; c < 332; c+=0.25f)
         {
             for (int i = 0; i < noteData.Count; i++)
             {
@@ -190,14 +193,19 @@ public class NoteEditor : MonoBehaviour
                 }
 
                 string[] values = noteData[i].Replace('[', ' ').Replace(']', ' ').Split(',');
-                int pos = int.Parse(values[2]);
+                float pos = float.Parse(values[2]);
 
                 if (pos == c && !newData.Contains(noteData[i]))
                 {
                     newData.Add(noteData[i]);
+                    if (i == noteData.Count-1)
+                    {
+                        SongLenght =(pos + float.Parse(values[3])) * bpmOffset;
+                    }
                 }
             }
         }
+
 
         noteData = newData;
     }
@@ -445,6 +453,8 @@ public class NoteEditor : MonoBehaviour
     //When the Gametimer reached zero
     public void GameEnd()
     {
-
+        this.GetComponent<SendSong>().Send(NoteDataToString());
+        this.enabled = false;
+        SceneManager.LoadScene(2);
     }
 }
