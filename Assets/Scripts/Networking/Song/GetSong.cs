@@ -10,45 +10,65 @@ public class GetSong : MonoBehaviour
     public Rating rating;
     public NoteEditor noteEditor;
 
+    public PlayerInfo[] playerinfo = new PlayerInfo[0];
 
     void Start()
     {
-        networkManager = FindObjectOfType<NetworkManager>();
-        requestManager = FindObjectOfType<RequestManager>();
+        
     }
 
     public void Play(string player)
     {
+
         StartCoroutine(PlayInner(player));
     }
 
     public IEnumerator PlayInner(string player)
     {
-        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/GetPlayerData.php", "PassWD=" + "1MRf!s13" + "&LobbyId=" + networkManager.LobbyID, this.gameObject);
-
-        float time = 0;
-        while (this.GetComponent<RequestAnswer>().Message.Length < 1)
+        if (playerinfo.Length > 1)
         {
-            if (time > networkManager.Timeout)
+            for (int i = 0; i < playerinfo.Length; i++)
             {
-                break;
-            }
-            time += Time.deltaTime;
-            yield return new WaitForSeconds(Time.deltaTime);
-        }
-        if (this.GetComponent<RequestAnswer>().Message.Length > 1)
-        {
-            string josn = "{\"Items\":" + this.GetComponent<RequestAnswer>().Message + "}";
-            PlayerInfo[] PlayerInfo = JsonHelper.FromJson<PlayerInfo>(josn);
-
-            for (int i = 0; i < PlayerInfo.Length; i++)
-            {
-                if (PlayerInfo[i].PlayerName == player)
+                if (playerinfo[i].PlayerName == player)
                 {
                     //PlaySong
-                    noteEditor.StringToNoteData(PlayerInfo[i].Song);
+                    noteEditor.StringToNoteData(playerinfo[i].Notes);
                     noteEditor.PlaySoundData();
                     StartCoroutine(WaitforSongEnd());
+                }
+            }
+        }
+        else
+        {
+            networkManager = FindObjectOfType<NetworkManager>();
+            requestManager = FindObjectOfType<RequestManager>();
+            requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/GetPlayerData.php", "PassWD=" + "1MRf!s13" + "&LobbyId=" + networkManager.LobbyID, this.gameObject);
+
+            float time = 0;
+            while (this.GetComponent<RequestAnswer>().Message.Length < 1)
+            {
+                if (time > networkManager.Timeout)
+                {
+                    break;
+                }
+                time += Time.deltaTime;
+                yield return new WaitForSeconds(Time.deltaTime);
+            }
+
+            if (this.GetComponent<RequestAnswer>().Message.Length > 1)
+            {
+                string josn = "{\"Items\":" + this.GetComponent<RequestAnswer>().Message + "}";
+                playerinfo = JsonHelper.FromJson<PlayerInfo>(josn);
+
+                for (int i = 0; i < playerinfo.Length; i++)
+                {
+                    if (playerinfo[i].PlayerName == player)
+                    {
+                        //PlaySong
+                        noteEditor.StringToNoteData(playerinfo[i].Notes);
+                        noteEditor.PlaySoundData();
+                        StartCoroutine(WaitforSongEnd());
+                    }
                 }
             }
         }
@@ -57,7 +77,10 @@ public class GetSong : MonoBehaviour
     public IEnumerator WaitforSongEnd()
     {
         yield return new WaitForSeconds(noteEditor.SongLenght);
-        rating.LoadNewPlayer();
+        Debug.Log("SL: " + noteEditor.SongLenght);
+        yield return new WaitForSeconds(5);
+        Debug.Log("Loading new Player");
+        rating.songend = true;
     }
 
     [System.Serializable]
@@ -65,7 +88,7 @@ public class GetSong : MonoBehaviour
     {
         public string PlayerName;
         public string Score;
-        public string Song;
+        public string Notes;
 
         public static PlayerInfo CreateFromJSON(string jsonString)
         {

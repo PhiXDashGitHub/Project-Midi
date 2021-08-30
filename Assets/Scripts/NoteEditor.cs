@@ -72,7 +72,7 @@ public class NoteEditor : MonoBehaviour
         s_gridSize = gridSize;
         bpmOffset = 15 / bpm;
 
-        gameTimer = 600f;
+        gameTimer = 60f;
         lastNoteLength = 1f;
 
         playBack = false;
@@ -89,9 +89,11 @@ public class NoteEditor : MonoBehaviour
 
             audioMixerGroups[i].name = instruments[i].name;
         }
-
-        volumeKnob.value = instrumentVolumes[selectedInstrument];
-        reverbKnob.value = instrumentReverbs[selectedInstrument];
+        if (volumeKnob)
+        {
+            volumeKnob.value = instrumentVolumes[selectedInstrument];
+            reverbKnob.value = instrumentReverbs[selectedInstrument];
+        }
     }
 
     void Update()
@@ -157,7 +159,14 @@ public class NoteEditor : MonoBehaviour
 
     void LateUpdate()
     {
+
+
         //Audio Updates
+        if (!volumeKnob)
+        {
+            return;
+        }
+
         if (volumeKnob.valueChanged)
         {
             instrumentVolumes[selectedInstrument] = volumeKnob.value;
@@ -235,6 +244,11 @@ public class NoteEditor : MonoBehaviour
     //Converts a single string into NoteData
     public void StringToNoteData(string input)
     {
+        if (input == null)
+        {
+            Debug.Log("Input string 0");
+            return;
+        }
         noteData = new List<string>();
         string[] splitInput = input.Split(';');
 
@@ -457,6 +471,10 @@ public class NoteEditor : MonoBehaviour
     //When the Gametimer reached zero
     public void GameEnd()
     {
+        if (SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            return;
+        }
         this.GetComponent<SendSong>().Send(NoteDataToString());
         this.enabled = false;
         SceneManager.LoadScene(2);

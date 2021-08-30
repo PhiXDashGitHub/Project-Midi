@@ -12,7 +12,11 @@ public class Rating : MonoBehaviour
 
     int score;
     int playerindex = -1;
-    
+    int tmpplayerindexvoted;
+    bool vooted = true;
+    [HideInInspector]
+    public bool songend;
+
     List<string> players = new List<string>();
 
     List<int> scores = new List<int>();
@@ -33,30 +37,48 @@ public class Rating : MonoBehaviour
     {
         networkManager = FindObjectOfType<NetworkManager>();
         requestManager = FindObjectOfType<RequestManager>();
+        players = networkManager.players;
         LoadNewPlayer();
     }
 
     public void LoadNewPlayer()
     {
+        if (vooted == false && songend == false)
+        {
+            return;
+        }
         playerindex++;
-
-        if (playerindex == players.Count)
+        
+        if (playerindex == players.Count-1)
         {
             DisplayWinners();
+            return;
         }
 
 
         if (players[playerindex] == networkManager.Name)
         {
             LoadNewPlayer();
+            return;
         }
         PlayerNameText.text = "Currently Playing: " + players[playerindex];
         getSong.Play(players[playerindex]);
+        songend = false;
+        vooted = false;
     }
 
     public void Vote(int i)
     {
-        StartCoroutine(VoteInner(i));
+        if (tmpplayerindexvoted != playerindex)
+        {
+            StartCoroutine(VoteInner(i));
+            tmpplayerindexvoted = playerindex;
+            if (vooted == false && songend == true)
+            {
+                vooted = true;
+                LoadNewPlayer();
+            }
+        }
     }
 
     public IEnumerator VoteInner(int i)
@@ -110,15 +132,15 @@ public class Rating : MonoBehaviour
             for (int i = 0; i < PlayerInfo.Length; i++)
             {
                 sortscore[i] = int.Parse(PlayerInfo[i].Score);
-
             }
+
             Array.Sort(sortscore);
             
             for (int i = 0; i< sortscore.Length; i++)
             {
                 for (int j = 0; j < PlayerInfo.Length; j++)
                 {
-                    if (sortscore[i] == int.Parse(PlayerInfo[i].Score))
+                    if (sortscore[i] == int.Parse(PlayerInfo[j].Score))
                     {
                         if (i == 0)
                         {
@@ -126,8 +148,9 @@ public class Rating : MonoBehaviour
                         }
                         else
                         {
-                            PlayerListText.text += i+1 + " Place: " + PlayerInfo[j].PlayerName;
+                            PlayerListText.text += i+1 + " Place: " + PlayerInfo[j].PlayerName + "\n";
                         }
+                        break;
                     }
                 }
                

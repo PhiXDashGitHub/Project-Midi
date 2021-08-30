@@ -2146,18 +2146,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Scound Place: Player2
-
-    Score: 11
-
-    Third Place: Player3
-
-    Score:
-    2
-
-    Fourth Place: Player4
-
-    Score: 0'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ae4c32b409d23a04699472d1cf1c2884, type: 2}
   m_sharedMaterial: {fileID: 3991455896184980606, guid: ae4c32b409d23a04699472d1cf1c2884,
@@ -8500,6 +8489,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rating: {fileID: 8351270132317243281}
   noteEditor: {fileID: 1745340283}
+  playerinfo: []
 --- !u!114 &8351270132495051464
 MonoBehaviour:
   m_ObjectHideFlags: 0
