@@ -60,18 +60,17 @@ public class Note : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                     resizeing = false;
 
                     Vector3 localPos = transform.localPosition;
+                    localPos += mouseOffset;
 
-                    Vector3 clampedMousePos = mouseOffset;
-                    clampedMousePos.x = Mathf.FloorToInt(mouseOffset.x / NoteEditor.s_gridSize) * NoteEditor.s_gridSize;
-                    clampedMousePos.y = Mathf.FloorToInt(clampedMousePos.y);
-                    localPos += clampedMousePos;
+                    localPos.x = Mathf.FloorToInt(localPos.x / NoteEditor.s_gridSize) * NoteEditor.s_gridSize;
+                    localPos.y = Mathf.FloorToInt(localPos.y);
 
                     localPos.x = Mathf.Clamp(localPos.x, 0, 72);
                     localPos.y = Mathf.Clamp(localPos.y, 0, NoteEditor.s_keyRange);
                     transform.localPosition = localPos;
 
                     value = (int)transform.localPosition.y;
-                    pos = clampedMousePos.x;
+                    pos = localPos.x;
                 }
             }
             else if (Input.GetMouseButton(0) && NoteEditor.editMode == NoteEditor.EditMode.Erase)
