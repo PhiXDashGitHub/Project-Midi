@@ -202,6 +202,36 @@ public class NoteEditor : MonoBehaviour
         noteData = newData;
     }
 
+    //Converts the NoteData into a single string
+    public string NoteDataToString()
+    {
+        string output = "";
+
+        for (int i = 0; i < noteData.Count; i++)
+        {
+            output += noteData[i];
+
+            if (i < noteData.Count - 1)
+            {
+                output += ";";
+            }
+        }
+
+        return output;
+    }
+
+    //Converts a single string into NoteData
+    public void StringToNoteData(string input)
+    {
+        noteData = new List<string>();
+        string[] splitInput = input.Split(';');
+
+        for (int i = 0; i < splitInput.Length; i++)
+        {
+            noteData.Add(splitInput[i]);
+        }
+    }
+
     //Decodes the Sounddata into samples for the AudioSources to play all at once
     public void PlaySoundData(float delay = 0, float position = 0)
     {
