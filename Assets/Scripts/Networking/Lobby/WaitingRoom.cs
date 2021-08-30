@@ -68,7 +68,7 @@ public class WaitingRoom : MonoBehaviour
                 }
             }
 
-            if (PlayerInfo.Length == amoutofplayers)
+            if (PlayerInfo.Length >= amoutofplayers)
             {
                 networkManager.players = players;
                 StartGame();
@@ -84,7 +84,7 @@ public class WaitingRoom : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene(GameSceneBuildIndex);
+        FindObjectOfType<UIManager>().LoadSceneWithAnim(1);
     }
 
     [System.Serializable]

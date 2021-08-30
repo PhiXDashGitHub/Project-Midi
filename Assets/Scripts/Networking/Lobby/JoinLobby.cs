@@ -31,6 +31,7 @@ public class JoinLobby : MonoBehaviour
     public void Join()
     {
         WaitingRoom.SetActive(true);
+        this.gameObject.SetActive(false);
         WaitingRoom.GetComponent<WaitingRoom>().LobbyID = LobbyID;
         WaitingRoom.GetComponent<WaitingRoom>().amoutofplayers = AmountofPlayers;
         Playername = PlayerName.text;

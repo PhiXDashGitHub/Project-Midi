@@ -116,8 +116,12 @@ public class NoteEditor : MonoBehaviour
         float seconds = (gameTimer % 60);
 
         //UI Update
-        timerText.text = timer.ToString("00:00.000").Replace(',', ':');
-        countdownText.text = minutes.ToString("00") + ":" + seconds.ToString("00");
+        if (timerText)
+        {
+            timerText.text = timer.ToString("00:00.000").Replace(',', ':');
+            countdownText.text = minutes.ToString("00") + ":" + seconds.ToString("00");
+        }
+        
 
         //Debug Input
         if (Input.GetKeyDown(KeyCode.Space))
@@ -200,7 +204,7 @@ public class NoteEditor : MonoBehaviour
                     newData.Add(noteData[i]);
                     if (i == noteData.Count-1)
                     {
-                        SongLenght =(pos + float.Parse(values[3])) * bpmOffset;
+                        SongLenght =(pos + float.Parse(values[3], CultureInfo.InvariantCulture)) * bpmOffset;
                     }
                 }
             }

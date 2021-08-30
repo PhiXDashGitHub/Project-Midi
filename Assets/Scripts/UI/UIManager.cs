@@ -12,6 +12,16 @@ public class UIManager : MonoBehaviour
     {
         SceneManager.LoadScene(0);
     }
+    public void LoadSceneWithAnim(int i)
+    {
+        StartCoroutine(LoadInner(i));
+    }
+    public IEnumerator LoadInner(int i)
+    {
+        FadeIn.Play();
+        yield return new WaitForSeconds(0.5f);
+        SceneManager.LoadScene(i);
+    }
 
     public void QuitGame()
     {

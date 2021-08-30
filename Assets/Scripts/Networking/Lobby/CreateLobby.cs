@@ -117,12 +117,13 @@ public class CreateLobby : MonoBehaviour
         requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/CreateLobby.php", "PassWD=" + "1MRf!s13" + "&Id=" + LobbyID + "&AmountofPlayer=" + AmountofPlayers + "&LobbyKey=" + LobbyKey.ToString() + "&Ispublic="+ isprivate + "&Timestart=" + 0, this.gameObject);
 
         Debug.Log("Post to ClearOldPlayers");
-        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/ClearAllPlayers.php", "PassWD=" + "1MRf!s13" + "&LobbyId=" + LobbyID, this.gameObject);
+        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Game/ClearAllPlayers.php", "PassWD=" + "1MRf!s13" + "&LobbyId=" + LobbyID, this.gameObject);
 
         Debug.Log("Post to AddPlayers");
-        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Game/AddPlayerToLobby.php", "PassWD=" + "1" + "&PlayerName=" + Playername + "&LobbyId=" + LobbyID, this.gameObject);
+        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/AddPlayerToLobby.php", "PassWD=" + "1" + "&PlayerName=" + Playername + "&LobbyId=" + LobbyID, this.gameObject);
         
         WaitingRoom.SetActive(true);
+        this.gameObject.SetActive(false);
         WaitingRoom.GetComponent<WaitingRoom>().LobbyID = LobbyID;
         WaitingRoom.GetComponent<WaitingRoom>().amoutofplayers = AmountofPlayers;
         WaitingRoom.GetComponent<WaitingRoom>().LobbyKey = LobbyKey;
