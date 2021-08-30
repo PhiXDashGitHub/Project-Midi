@@ -25,6 +25,9 @@ public class Note : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public Color[] baseColors;
     public Color[] lengthColors;
 
+    Scrollbar horizontalScrollbar;
+    Scrollbar verticalScrollbar;
+
     void Start()
     {
         rectTransform = GetComponent<RectTransform>();
@@ -37,6 +40,12 @@ public class Note : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         lengthImage.color = lengthColors[instrument];
 
         UpdateTransform(length);
+
+        horizontalScrollbar = FindObjectsOfType<Scrollbar>()[0];
+        verticalScrollbar = FindObjectsOfType<Scrollbar>()[1];
+
+        horizontalScrollbar.onValueChanged.AddListener(StopModifying);
+        verticalScrollbar.onValueChanged.AddListener(StopModifying);
     }
 
     void Update()
@@ -46,6 +55,7 @@ public class Note : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             if (Input.GetMouseButton(0) && NoteEditor.editMode == NoteEditor.EditMode.None)
             {
                 Vector3 mouseOffset = transform.InverseTransformPoint(Input.mousePosition) + Vector3Int.up;
+                NoteEditor.lastNoteLength = length;
 
                 if (!dragging && (mouseOffset.x > baseTransform.localScale.x || resizeing))
                 {
@@ -109,7 +119,7 @@ public class Note : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         Vector3 localPos = transform.localPosition;
         localPos.x = Mathf.Clamp(localPos.x, 0, 72);
-        localPos.x = Mathf.FloorToInt(localPos.x / NoteEditor.s_gridSize) * NoteEditor.s_gridSize; ;
+        localPos.x = Mathf.FloorToInt(localPos.x / NoteEditor.s_gridSize) * NoteEditor.s_gridSize;
         localPos.y = Mathf.Clamp(localPos.y, 0, NoteEditor.s_keyRange);
         localPos.y = Mathf.FloorToInt(localPos.y);
         transform.localPosition = localPos;
@@ -123,6 +133,7 @@ public class Note : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         if (NoteEditor.editMode == NoteEditor.EditMode.Place)
         {
             mouseOver = true;
+            NoteEditor.lastNoteLength = length;
             return;
         }
         else if (dragging || DraggingOtherNote())
@@ -157,5 +168,12 @@ public class Note : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         {
             mouseOver = false;
         }
+    }
+
+    public void StopModifying(float value)
+    {
+        mouseOver = false;
+        dragging = false;
+        resizeing = false;
     }
 }

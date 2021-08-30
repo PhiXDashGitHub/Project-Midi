@@ -23,7 +23,7 @@ public class NoteEditor : MonoBehaviour
     public RectTransform scrollView;
     public Image playButton;
     public Image recordButton;
-    [Tooltip("0 = Play, 1 = Pause")] public Sprite[] playButtonSprites;
+    public Sprite[] playButtonSprites;
     public TextMeshProUGUI bpmText;
     public TextMeshProUGUI timerText;
     public TextMeshProUGUI countdownText;
@@ -42,7 +42,6 @@ public class NoteEditor : MonoBehaviour
 
     public GameObject audioSourcePrefab;
 
-    //public string instrumentData;
     public List<string> noteData;
 
     public Instrument[] instruments;
@@ -58,6 +57,7 @@ public class NoteEditor : MonoBehaviour
     bool playBack, pause;
 
     public static bool recording;
+    public static float lastNoteLength;
 
     void Start()
     {
@@ -70,6 +70,7 @@ public class NoteEditor : MonoBehaviour
         bpmOffset = 15 / bpm;
 
         gameTimer = 600f;
+        lastNoteLength = 1f;
 
         playBack = false;
         pause = false;
@@ -132,6 +133,7 @@ public class NoteEditor : MonoBehaviour
             Note newNote = Instantiate(notePrefab, noteParent).GetComponent<Note>();
             newNote.transform.localPosition = newNote.transform.InverseTransformPoint(Input.mousePosition) + Vector3Int.up;
             newNote.instrument = selectedInstrument;
+            newNote.length = lastNoteLength;
 
             if (newNote.transform.localPosition.x < -1)
             {
