@@ -704,7 +704,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 3, y: 4}
-  m_SizeDelta: {x: 72, y: 76}
+  m_SizeDelta: {x: 332, y: 76}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &70200084
 MonoBehaviour:
@@ -13316,7 +13316,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 2512.4998}
-  m_SizeDelta: {x: 72, y: 72}
+  m_SizeDelta: {x: 332, y: 72}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &917135738
 GameObject:
@@ -15045,7 +15045,7 @@ Canvas:
   m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
-  m_PixelPerfect: 0
+  m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
@@ -16353,7 +16353,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 625309990}
   m_HandleRect: {fileID: 625309988}
   m_Direction: 2
-  m_Value: 0.5
+  m_Value: 0.50000006
   m_Size: 0.06944445
   m_NumberOfSteps: 1
   m_OnValueChanged:
@@ -20074,7 +20074,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1084157635}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.32018518
+  m_Size: 0.06943775
   m_NumberOfSteps: 1
   m_OnValueChanged:
     m_PersistentCalls:
@@ -22059,7 +22059,6 @@ GameObject:
   - component: {fileID: 1655506166}
   - component: {fileID: 1655506169}
   - component: {fileID: 1655506168}
-  - component: {fileID: 1655506167}
   m_Layer: 5
   m_Name: GameTimer
   m_TagString: Untagged
@@ -22086,18 +22085,6 @@ RectTransform:
   m_AnchoredPosition: {x: 761, y: 7.5}
   m_SizeDelta: {x: 250, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1655506167
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1655506165}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 554198938134a344183521d2cae58887, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1655506168
 MonoBehaviour:
   m_ObjectHideFlags: 0

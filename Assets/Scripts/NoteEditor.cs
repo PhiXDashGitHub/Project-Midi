@@ -154,7 +154,7 @@ public class NoteEditor : MonoBehaviour
 
         foreach (Note note in noteParent.GetComponentsInChildren<Note>())
         {
-            string output = "[" + note.instrument + "," + note.value + "," + note.pos + "," + note.length.ToString().Replace(',', '.') + "]";
+            string output = "[" + note.instrument + "," + note.value + "," + note.pos.ToString().Replace(',', '.') + "," + note.length.ToString().Replace(',', '.') + "]";
             noteData.Add(output);
         }
     }
@@ -164,7 +164,7 @@ public class NoteEditor : MonoBehaviour
     {
         List<string> newData = new List<string>();
 
-        for (int c = 0; c < 32; c++)
+        for (int c = 0; c < 332; c++)
         {
             for (int i = 0; i < noteData.Count; i++)
             {
@@ -174,9 +174,9 @@ public class NoteEditor : MonoBehaviour
                 }
 
                 string[] values = noteData[i].Replace('[', ' ').Replace(']', ' ').Split(',');
-                int note = int.Parse(values[2]);
+                int pos = int.Parse(values[2]);
 
-                if (note == c && !newData.Contains(noteData[i]))
+                if (pos == c && !newData.Contains(noteData[i]))
                 {
                     newData.Add(noteData[i]);
                 }

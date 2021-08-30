@@ -75,7 +75,7 @@ public class Note : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
                     localPos.x = Mathf.FloorToInt(localPos.x / NoteEditor.s_gridSize) * NoteEditor.s_gridSize;
                     localPos.y = Mathf.FloorToInt(localPos.y);
 
-                    localPos.x = Mathf.Clamp(localPos.x, 0, 72);
+                    localPos.x = Mathf.Clamp(localPos.x, 0, 332);
                     localPos.y = Mathf.Clamp(localPos.y, 0, NoteEditor.s_keyRange);
                     transform.localPosition = localPos;
 
@@ -118,7 +118,7 @@ public class Note : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public void UpdatePosition()
     {
         Vector3 localPos = transform.localPosition;
-        localPos.x = Mathf.Clamp(localPos.x, 0, 72);
+        localPos.x = Mathf.Clamp(localPos.x, 0, 332);
         localPos.x = Mathf.FloorToInt(localPos.x / NoteEditor.s_gridSize) * NoteEditor.s_gridSize;
         localPos.y = Mathf.Clamp(localPos.y, 0, NoteEditor.s_keyRange);
         localPos.y = Mathf.FloorToInt(localPos.y);
