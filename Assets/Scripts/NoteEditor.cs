@@ -119,13 +119,15 @@ public class NoteEditor : MonoBehaviour
         //Debug Input
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            PlayButtonPressed();
+            if (playBack)
+            {
+                StopButtonPressed();
+            }
+            else
+            {
+                PlayButtonPressed();
+            }
         }
-
-        //Audio Updates
-        instrumentVolumes[selectedInstrument] = volumeKnob.value;
-        instrumentReverbs[selectedInstrument] = reverbKnob.value * 10f;
-        audioMixerGroups[selectedInstrument].audioMixer.SetFloat(selectedInstrument + "_Reverb", instrumentReverbs[selectedInstrument]);
 
         //Place Notes
         if (editMode == EditMode.Place && Input.GetMouseButtonDown(0) && InsideScrollviewBounds() && !OverAnyNote())
@@ -143,6 +145,20 @@ public class NoteEditor : MonoBehaviour
             {
                 newNote.UpdatePosition();
             }
+        }
+    }
+
+    void LateUpdate()
+    {
+        //Audio Updates
+        if (volumeKnob.valueChanged)
+        {
+            instrumentVolumes[selectedInstrument] = volumeKnob.value;
+        }
+        else if (reverbKnob.valueChanged)
+        {
+            instrumentReverbs[selectedInstrument] = reverbKnob.value * 10f;
+            audioMixerGroups[selectedInstrument].audioMixer.SetFloat(selectedInstrument + "_Reverb", instrumentReverbs[selectedInstrument]);
         }
     }
 
@@ -225,7 +241,7 @@ public class NoteEditor : MonoBehaviour
 
         audioSource.clip = sample;
         audioSource.pitch = pitch;
-        audioSource.volume = instrumentVolumes[selectedInstrument];
+        audioSource.volume = instrumentVolumes[instrument];
         audioSource.outputAudioMixerGroup = audioMixerGroups[instrument];
 
         audioSource.GetComponent<AudioPlayer>().PlayForSeconds(startTime, duration, useRealTime);
