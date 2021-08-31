@@ -72,7 +72,7 @@ public class NoteEditor : MonoBehaviour
         s_gridSize = gridSize;
         bpmOffset = 15 / bpm;
 
-        gameTimer = 60f;
+        gameTimer = 600f;
         lastNoteLength = 1f;
 
         playBack = false;
@@ -244,7 +244,7 @@ public class NoteEditor : MonoBehaviour
     //Converts a single string into NoteData
     public void StringToNoteData(string input)
     {
-        if (input == null)
+        if (input == null && input.Length < 4)
         {
             Debug.Log("Input string 0");
             return;
@@ -475,6 +475,7 @@ public class NoteEditor : MonoBehaviour
         {
             return;
         }
+        this.GetComponent<SendSong>().bpm = (int)bpm;
         this.GetComponent<SendSong>().Send(NoteDataToString());
         this.enabled = false;
         SceneManager.LoadScene(2);

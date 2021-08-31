@@ -65,7 +65,9 @@ public class GetSong : MonoBehaviour
                     if (playerinfo[i].PlayerName == player)
                     {
                         //PlaySong
+                        noteEditor.SongLenght = 0;
                         noteEditor.StringToNoteData(playerinfo[i].Notes);
+                        noteEditor.bpm = int.Parse(playerinfo[i].BPM);
                         noteEditor.PlaySoundData();
                         StartCoroutine(WaitforSongEnd());
                     }
@@ -77,9 +79,8 @@ public class GetSong : MonoBehaviour
     public IEnumerator WaitforSongEnd()
     {
         yield return new WaitForSeconds(noteEditor.SongLenght);
-        Debug.Log("SL: " + noteEditor.SongLenght);
         yield return new WaitForSeconds(5);
-        Debug.Log("Loading new Player");
+        Debug.Log("Setting Songend true");
         rating.songend = true;
     }
 
@@ -89,7 +90,7 @@ public class GetSong : MonoBehaviour
         public string PlayerName;
         public string Score;
         public string Notes;
-
+        public string BPM;
         public static PlayerInfo CreateFromJSON(string jsonString)
         {
             return JsonUtility.FromJson<PlayerInfo>(jsonString);

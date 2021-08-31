@@ -11,7 +11,6 @@ public class JoinLobby : MonoBehaviour
     public RequestManager requestManager;
     NetworkManager networkManager;
 
-
     public GameObject WaitingRoom;
 
     string LobbyKey;
@@ -56,6 +55,8 @@ public class JoinLobby : MonoBehaviour
             }
             return;
         }
+
+
         if (PlayerName.text.Length <= 1)
         {
             ErrorText.text = "Please enter a Name";
@@ -68,6 +69,7 @@ public class JoinLobby : MonoBehaviour
 
     public IEnumerator Check()
     {
+        this.GetComponent<RequestAnswer>().Message = "";
         requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/GetAllLobbys.php", "PassWD=" + "1MRf!s13", this.gameObject);
 
         float time = 0;
@@ -97,12 +99,11 @@ public class JoinLobby : MonoBehaviour
                 {
                     LobbyID = LobbyInfo[i].Id;
                     AmountofPlayers = int.Parse(LobbyInfo[i].AmountofPlayer);
-                    Join();
+                    StartCoroutine(UpdatePlayers());
                     break;
                 }
             }
             ErrorText.text = "No Open Lobby Found";
-            
         }
         else
         {
@@ -110,6 +111,59 @@ public class JoinLobby : MonoBehaviour
         }
     }
 
+    public IEnumerator UpdatePlayers()
+    {
+        this.GetComponent<RequestAnswer>().Message = "";
+        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/GetPlayerData.php", "PassWD=" + "1MRf!s13" + "&LobbyId=" + LobbyID, this.gameObject);
+
+        float time = 0;
+        while (this.GetComponent<RequestAnswer>().Message.Length < 1)
+        {
+            if (time > networkManager.Timeout)
+            {
+                break;
+            }
+            time += Time.deltaTime;
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
+        Debug.Log("M: " + this.GetComponent<RequestAnswer>().Message);
+        if (this.GetComponent<RequestAnswer>().Message.Length > 1)
+        {
+            string josn = "{\"Items\":" + this.GetComponent<RequestAnswer>().Message + "}";
+            PlayerInfo[] PlayerInfo = JsonHelper.FromJson<PlayerInfo>(josn);
+            bool nameisused = false;
+
+            for (int i = 0; i < PlayerInfo.Length; i++)
+            {
+                Debug.Log("Playername: " + PlayerInfo[i].PlayerName);
+                if (PlayerName.text.ToString().Trim() == PlayerInfo[i].PlayerName)
+                {
+                    ErrorText.text = "Name is Allready Used!";
+                    nameisused = true;
+                }
+
+                if (i == PlayerInfo.Length-1 && !nameisused)
+                {
+                    Join();
+                }
+            }
+        }
+        else
+        {
+            ErrorText.text = "Timeout :(";
+        }
+    }
+
+    [System.Serializable]
+    public class PlayerInfo
+    {
+        public string PlayerName;
+
+        public static PlayerInfo CreateFromJSON(string jsonString)
+        {
+            return JsonUtility.FromJson<PlayerInfo>(jsonString);
+        }
+    }
     [System.Serializable]
     public class LobbyInfo
     {
