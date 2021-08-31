@@ -72,7 +72,7 @@ public class NoteEditor : MonoBehaviour
         s_gridSize = gridSize;
         bpmOffset = 15 / bpm;
 
-        gameTimer = 600f;
+        gameTimer = 15f;
         lastNoteLength = 1f;
 
         playBack = false;
@@ -200,7 +200,7 @@ public class NoteEditor : MonoBehaviour
         {
             for (int i = 0; i < noteData.Count; i++)
             {
-                if (noteData[i] == "")
+                if (noteData[i].Length < 4)
                 {
                     continue;
                 }
