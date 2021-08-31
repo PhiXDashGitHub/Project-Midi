@@ -131,7 +131,7 @@ public class CreateLobby : MonoBehaviour
         networkManager.Name = Playername;
         networkManager.LobbyID = LobbyID;
     }
-
+   
     [System.Serializable]
     public class LobbyInfo
     {
