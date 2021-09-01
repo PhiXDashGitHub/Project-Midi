@@ -242,17 +242,78 @@ public class NoteEditor : MonoBehaviour
     //Converts a single string into NoteData
     public void StringToNoteData(string input)
     {
-        if (input == null && input.Length < 4)
+        if (input == null || input.Length < 4)
         {
-            Debug.Log("Input string 0");
+            Debug.Log("Note String is null");
             return;
         }
+
         noteData = new List<string>();
         string[] splitInput = input.Split(';');
 
         for (int i = 0; i < splitInput.Length; i++)
         {
             noteData.Add(splitInput[i]);
+        }
+    }
+
+    //Converts the VolumeData into a single string
+    public string VolumeToString()
+    {
+        string output = "[";
+
+        for (int i = 0; i < instrumentVolumes.Length; i++)
+        {
+            output += instrumentVolumes[i] + (i < instrumentVolumes.Length - 1 ? ";" : "]");
+        }
+
+        return output;
+    }
+
+    //Converts a single string into VolumeData
+    public void StringToVolume(string input)
+    {
+        if (input == null || input.Length < 4)
+        {
+            Debug.Log("Volume String is null");
+            return;
+        }
+
+        string[] stringVolumes = input.Remove('[').Remove(']').Split(';');
+
+        for (int i = 0; i < stringVolumes.Length; i++)
+        {
+            instrumentVolumes[i] = float.Parse(stringVolumes[i]);
+        }
+    }
+
+    //Converts the ReverbData into a single string
+    public string ReverbToString()
+    {
+        string output = "[";
+
+        for (int i = 0; i < instrumentReverbs.Length; i++)
+        {
+            output += instrumentReverbs[i] + (i < instrumentReverbs.Length - 1 ? ";" : "]");
+        }
+
+        return output;
+    }
+
+    //Converts a single string into ReverbData
+    public void StringToReverb(string input)
+    {
+        if (input == null || input.Length < 4)
+        {
+            Debug.Log("Reverb String is null");
+            return;
+        }
+
+        string[] stringReverbs = input.Remove('[').Remove(']').Split(';');
+
+        for (int i = 0; i < stringReverbs.Length; i++)
+        {
+            instrumentReverbs[i] = float.Parse(stringReverbs[i]);
         }
     }
 
