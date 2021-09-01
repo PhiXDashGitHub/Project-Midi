@@ -7,10 +7,11 @@ public class SendRating : MonoBehaviour
     RequestManager requestManager;
     NetworkManager networkManager;
 
-    public Rating rating;
-    public NoteEditor noteEditor;
-
-    public PlayerInfo[] playerinfo = new PlayerInfo[0];
+    void Start()
+    {
+        networkManager = FindObjectOfType<NetworkManager>();
+        requestManager = FindObjectOfType<RequestManager>();
+    }
 
     public void Send()
     {
