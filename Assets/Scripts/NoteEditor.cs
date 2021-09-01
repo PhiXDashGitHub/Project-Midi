@@ -173,15 +173,9 @@ public class NoteEditor : MonoBehaviour
             return;
         }
 
-        if (volumeKnob.valueChanged)
-        {
-            instrumentVolumes[selectedInstrument] = volumeKnob.value;
-        }
-        else if (reverbKnob.valueChanged)
-        {
-            instrumentReverbs[selectedInstrument] = reverbKnob.value * 10f;
-            audioMixerGroups[selectedInstrument].audioMixer.SetFloat(selectedInstrument + "_Reverb", instrumentReverbs[selectedInstrument]);
-        }
+        instrumentVolumes[selectedInstrument] = volumeKnob.value;
+        instrumentReverbs[selectedInstrument] = reverbKnob.value * 10f;
+        audioMixerGroups[selectedInstrument].audioMixer.SetFloat(selectedInstrument + "_Reverb", instrumentReverbs[selectedInstrument]);
     }
 
     //Encodes the Notes of the Editor into the Sounddata
