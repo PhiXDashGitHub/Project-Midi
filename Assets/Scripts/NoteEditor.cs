@@ -72,7 +72,7 @@ public class NoteEditor : MonoBehaviour
         s_gridSize = gridSize;
         bpmOffset = 15 / bpm;
 
-        gameTimer = 15f;
+        gameTimer = 60f;
         lastNoteLength = 1f;
 
         playBack = false;
@@ -159,8 +159,6 @@ public class NoteEditor : MonoBehaviour
 
     void LateUpdate()
     {
-
-
         //Audio Updates
         if (!volumeKnob)
         {
@@ -475,6 +473,9 @@ public class NoteEditor : MonoBehaviour
         {
             return;
         }
+
+        Cursor.SetCursor(null, cursorOffsetErase, CursorMode.ForceSoftware);
+        EncodeSoundData();
         this.GetComponent<SendSong>().bpm = (int)bpm;
         this.GetComponent<SendSong>().Send(NoteDataToString());
         this.enabled = false;

@@ -21,7 +21,12 @@ public class RequestManager : MonoBehaviour
         {
             yield return new WaitForSeconds(0.01f);
         }
-        sender.GetComponent<RequestAnswer>().Message = go.GetComponent<Getrequest>().Message;
+
+        if (sender.TryGetComponent(out RequestAnswer answer) && go.TryGetComponent(out Getrequest request))
+        {
+            answer.Message = request.Message;
+        }
+
         Destroy(go);
     }
 }
