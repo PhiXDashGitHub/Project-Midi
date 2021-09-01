@@ -372,6 +372,11 @@ public class NoteEditor : MonoBehaviour
     //Checks if Mouse Cursor is inside the Scrollview
     public bool InsideScrollviewBounds()
     {
+        if (!scrollView)
+        {
+            return false;
+        }
+
         Vector3 relativeMousePosition = scrollView.InverseTransformPoint(Input.mousePosition);
         bool insideHorizontal = relativeMousePosition.x > scrollView.rect.xMin && relativeMousePosition.x < scrollView.rect.xMax;
         bool insideVertical = relativeMousePosition.y > scrollView.rect.yMin && relativeMousePosition.y < scrollView.rect.yMax;
