@@ -100,7 +100,8 @@ public class Rating : MonoBehaviour
 
         if (tmpplayerindexvoted != playerindex)
         {
-            StartCoroutine(VoteInner(i));
+            StartCoroutine(SendReadyInner(i));
+            
             tmpplayerindexvoted = playerindex;
             LoadNewPlayer();
         }
@@ -108,8 +109,6 @@ public class Rating : MonoBehaviour
 
     public IEnumerator VoteInner(int i)
     {
-        this.GetComponent<SendRating>().Send();
-        yield return new WaitForSeconds(0.5f);
         requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Game/SendScore.php", "PassWD=" + "1" + "&PlayerName=" + players[playerindex] + "&LobbyId=" + networkManager.LobbyID + "&Score=" + i, this.gameObject);
 
         float time = 0;
@@ -135,7 +134,7 @@ public class Rating : MonoBehaviour
 
     public IEnumerator GetAllVotings()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.5f);
         requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/GetPlayerData.php", "PassWD=" + "1MRf!s13" + "&LobbyId=" + networkManager.LobbyID, this.gameObject);
 
         float time = 0;
@@ -172,6 +171,27 @@ public class Rating : MonoBehaviour
             {
                 StartCoroutine(GetAllVotings());
             }
+        }
+    }
+
+    public IEnumerator SendReadyInner(int i)
+    {
+        Debug.Log("Send Inner");
+        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Game/SendReady.php", "PassWD=" + "1" + "&PlayerName=" + networkManager.Name + "&LobbyId=" + networkManager.LobbyID + "&VotingReady=true", this.gameObject);
+
+        float time = 0;
+        while (this.GetComponent<RequestAnswer>().Message.Length < 1)
+        {
+            if (time > networkManager.Timeout)
+            {
+                break;
+            }
+            time += Time.deltaTime;
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
+        if (this.GetComponent<RequestAnswer>().Message.Length > 1)
+        {
+            StartCoroutine(VoteInner(i));
         }
     }
 
