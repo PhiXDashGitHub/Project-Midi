@@ -19,7 +19,7 @@ public class SendRating : MonoBehaviour
 
     public IEnumerator SendInner()
     {
-        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Game/SendSong.php", "PassWD=" + "1" + "&PlayerName=" + networkManager.Name + "&LobbyId=" + networkManager.LobbyID + "&VotingReady=true", this.gameObject);
+        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Game/SendReady.php", "PassWD=" + "1" + "&PlayerName=" + networkManager.Name + "&LobbyId=" + networkManager.LobbyID + "&VotingReady=true", this.gameObject);
 
         float time = 0;
         while (this.GetComponent<RequestAnswer>().Message.Length < 1)

@@ -129,8 +129,6 @@ public class Rating : MonoBehaviour
 
     public void DisplayWinners()
     {
-        WinScreen.SetActive(true);
-        VoteScreen.SetActive(false);
         StartCoroutine(GetAllVotings());
     }
 
@@ -178,6 +176,9 @@ public class Rating : MonoBehaviour
 
     public IEnumerator DisplayWinnersInner()
     {
+        WinScreen.SetActive(true);
+        VoteScreen.SetActive(false);
+
         requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/GetPlayerData.php", "PassWD=" + "1MRf!s13" + "&LobbyId=" + networkManager.LobbyID, this.gameObject);
 
         float time = 0;
