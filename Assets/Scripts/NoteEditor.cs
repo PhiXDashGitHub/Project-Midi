@@ -168,7 +168,7 @@ public class NoteEditor : MonoBehaviour
     void LateUpdate()
     {
         //Audio Updates
-        if (!volumeKnob)
+        if (!volumeKnob || !enabled)
         {
             return;
         }
