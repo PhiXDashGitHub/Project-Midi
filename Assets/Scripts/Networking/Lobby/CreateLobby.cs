@@ -113,11 +113,8 @@ public class CreateLobby : MonoBehaviour
     void Open()
     {
         Playername = PlayerName.text;
-        Debug.Log("LK" + LobbyKey);
-        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/CreateLobbyTabel.php", "PassWD=" + "1" + "&LobbyId=" + LobbyID, this.gameObject);
 
-        Debug.Log("Post to AddPlayers");
-        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/AddPlayerToLobby.php", "PassWD=" + "1" + "&PlayerName=" + Playername + "&LobbyId=" + LobbyID, this.gameObject);
+        StartCoroutine(Openrequestdelay());
         
         WaitingRoom.SetActive(true);
         this.gameObject.SetActive(false);
@@ -127,6 +124,14 @@ public class CreateLobby : MonoBehaviour
 
         networkManager.Name = Playername;
         networkManager.LobbyID = LobbyID;
+    }
+    public IEnumerator Openrequestdelay()
+    {
+        Debug.Log("LK" + LobbyKey);
+        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/CreateLobbyTabel.php", "PassWD=" + "1" + "&LobbyId=" + LobbyID, this.gameObject);
+        yield return new WaitForSeconds(1);
+        Debug.Log("Post to AddPlayers");
+        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/AddPlayerToLobby.php", "PassWD=" + "1" + "&PlayerName=" + Playername + "&LobbyId=" + LobbyID, this.gameObject);
     }
    
     [System.Serializable]
