@@ -2887,6 +2887,7 @@ MonoBehaviour:
   - {fileID: 6347802426608785579, guid: a3d3984ad14a8784283aaf16c2e1f71a, type: 2}
   - {fileID: 7519200358527019576, guid: a3d3984ad14a8784283aaf16c2e1f71a, type: 2}
   SongLenght: 0
+  votingScene: {fileID: 102900000, guid: f679da144760574489baa215e1740824, type: 3}
 --- !u!1 &1901520964
 GameObject:
   m_ObjectHideFlags: 0

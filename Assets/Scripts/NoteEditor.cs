@@ -62,6 +62,9 @@ public class NoteEditor : MonoBehaviour
 
     public float SongLenght;
 
+    [Header("Online")]
+    public Object votingScene;
+
     void Start()
     {
         noteEditor = this;
@@ -98,6 +101,11 @@ public class NoteEditor : MonoBehaviour
 
     void Update()
     {
+        if (!enabled)
+        {
+            return;
+        }
+
         //Update Timer
         if (playBack && !pause)
         {
@@ -216,7 +224,6 @@ public class NoteEditor : MonoBehaviour
                 }
             }
         }
-
 
         noteData = newData;
     }
@@ -530,16 +537,18 @@ public class NoteEditor : MonoBehaviour
     //When the Gametimer reached zero
     public void GameEnd()
     {
-        if (SceneManager.GetActiveScene().buildIndex == 2)
+        if (SceneManager.GetActiveScene().name == votingScene.name)
         {
             return;
         }
 
         Cursor.SetCursor(null, cursorOffsetErase, CursorMode.ForceSoftware);
         EncodeSoundData();
-        this.GetComponent<SendSong>().bpm = (int)bpm;
-        this.GetComponent<SendSong>().Send(NoteDataToString());
-        this.enabled = false;
-        SceneManager.LoadScene(2);
+
+        GetComponent<SendSong>().bpm = (int)bpm;
+        GetComponent<SendSong>().Send(NoteDataToString());
+        enabled = false;
+
+        SceneManager.LoadScene(votingScene.name);
     }
 }
