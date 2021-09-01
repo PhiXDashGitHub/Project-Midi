@@ -1,30 +1,25 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 [RequireComponent(typeof(RequestAnswer))]
-public class SendSong : MonoBehaviour
+public class SendRating : MonoBehaviour
 {
     RequestManager requestManager;
     NetworkManager networkManager;
 
-    public int bpm;
-    public string volume;
-    public string reverb;
+    public Rating rating;
+    public NoteEditor noteEditor;
 
-    void Start()
+    public PlayerInfo[] playerinfo = new PlayerInfo[0];
+
+    public void Send()
     {
-        networkManager = FindObjectOfType<NetworkManager>();
-        requestManager = FindObjectOfType<RequestManager>();
+        StartCoroutine(SendInner());
     }
 
-    public void Send(string song)
+    public IEnumerator SendInner()
     {
-        StartCoroutine(SendInner(song));
-    }
-
-    public IEnumerator SendInner(string song)
-    {
-        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Game/SendSong.php", "PassWD=" + "1" + "&PlayerName=" + networkManager.Name + "&Song=" + song + "&LobbyId=" + networkManager.LobbyID + "&BPM=" + bpm + "&Ready=true" + "&Reverb=" + reverb + "&Volume=" + volume, this.gameObject);
+        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Game/SendSong.php", "PassWD=" + "1" + "&PlayerName=" + networkManager.Name + "&LobbyId=" + networkManager.LobbyID + "&VotingReady=true", this.gameObject);
 
         float time = 0;
         while (this.GetComponent<RequestAnswer>().Message.Length < 1)
@@ -38,7 +33,7 @@ public class SendSong : MonoBehaviour
         }
         if (this.GetComponent<RequestAnswer>().Message.Length > 1)
         {
-            Debug.Log("Song Updated");
+            Debug.Log("Voting Ready Updated");
         }
     }
 

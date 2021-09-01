@@ -540,6 +540,8 @@ public class NoteEditor : MonoBehaviour
         EncodeSoundData();
 
         GetComponent<SendSong>().bpm = (int)bpm;
+        GetComponent<SendSong>().reverb = ReverbToString();
+        GetComponent<SendSong>().volume = VolumeToString();
         GetComponent<SendSong>().Send(NoteDataToString());
         enabled = false;
 
