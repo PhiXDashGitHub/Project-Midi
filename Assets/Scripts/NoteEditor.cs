@@ -280,7 +280,7 @@ public class NoteEditor : MonoBehaviour
             return;
         }
 
-        string[] stringVolumes = input.Remove('[').Remove(']').Split(';');
+        string[] stringVolumes = input.Replace('[', ' ').Replace(']', ' ').Split(';');
 
         for (int i = 0; i < stringVolumes.Length; i++)
         {
@@ -310,7 +310,7 @@ public class NoteEditor : MonoBehaviour
             return;
         }
 
-        string[] stringReverbs = input.Remove('[').Remove(']').Split(';');
+        string[] stringReverbs = input.Replace('[', ' ').Replace(']', ' ').Split(';');
 
         for (int i = 0; i < stringReverbs.Length; i++)
         {
