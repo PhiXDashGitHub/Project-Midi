@@ -75,8 +75,8 @@ public class CreateLobby : MonoBehaviour
 
     IEnumerator CheckforOpenLobbys()
     {
-        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/GetAllLobbys.php","PassWD=" + "1MRf!s13", this.gameObject);
-        
+        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/CreateLobby.php", "PassWD=" + "1MRf!s13" + "&Id=" + LobbyID + "&AmountofPlayer=" + AmountofPlayers + "&LobbyKey=" + LobbyKey.ToString() + "&Ispublic=" + isprivate + "&Timestart=" + 0, this.gameObject);
+
         float time = 0;
         while (this.GetComponent<RequestAnswer>().Message.Length < 1)
         {
@@ -94,7 +94,7 @@ public class CreateLobby : MonoBehaviour
             LobbyInfo[] LobbyInfo = JsonHelper.FromJson<LobbyInfo>(josn);
             for (int i = 0; i< LobbyInfo.Length; i++)
             {
-                if (int.Parse(LobbyInfo[i].Timestart) > 14)
+                if (LobbyInfo[i].LobbyKey == LobbyKey)
                 {
                     LobbyID = LobbyInfo[i].Id;
                     Open();
@@ -114,10 +114,7 @@ public class CreateLobby : MonoBehaviour
     {
         Playername = PlayerName.text;
         Debug.Log("LK" + LobbyKey);
-        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/CreateLobby.php", "PassWD=" + "1MRf!s13" + "&Id=" + LobbyID + "&AmountofPlayer=" + AmountofPlayers + "&LobbyKey=" + LobbyKey.ToString() + "&Ispublic="+ isprivate + "&Timestart=" + 0, this.gameObject);
-
-        Debug.Log("Post to ClearOldPlayers");
-        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Game/ClearAllPlayers.php", "PassWD=" + "1MRf!s13" + "&LobbyId=" + LobbyID, this.gameObject);
+        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/CreateLobbyTabel.php", "PassWD=" + "1" + "&LobbyId=" + LobbyID, this.gameObject);
 
         Debug.Log("Post to AddPlayers");
         requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/AddPlayerToLobby.php", "PassWD=" + "1" + "&PlayerName=" + Playername + "&LobbyId=" + LobbyID, this.gameObject);
@@ -137,6 +134,7 @@ public class CreateLobby : MonoBehaviour
     {
         public int Id;
         public string Name;
+        public string LobbyKey;
         public string AmountofPlayer;
         public string Timestart;
 

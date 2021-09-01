@@ -33,7 +33,7 @@ public class Getrequest : MonoBehaviour
             string[] pages = uri.Split('/');
             int page = pages.Length - 1;
 
-            if (webRequest.isNetworkError)
+            if (webRequest.result == UnityWebRequest.Result.ConnectionError)
             {
                 Debug.Log(pages[page] + ": Error: " + webRequest.error);
             }
@@ -44,7 +44,7 @@ public class Getrequest : MonoBehaviour
                     //Message = System.Text.Encoding.UTF8.GetString(webRequest.downloadHandler.data, 3, webRequest.downloadHandler.data.Length - 3);
                     Message = webRequest.downloadHandler.text;
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     Message = webRequest.downloadHandler.text;
                 }
@@ -69,7 +69,7 @@ public class Getrequest : MonoBehaviour
         {
             yield return www.SendWebRequest();
 
-            if (www.isNetworkError || www.isHttpError)
+            if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.DataProcessingError)
             {
                 Debug.Log(www.error + " : " + URL);
             }

@@ -8,6 +8,8 @@ public class SendSong : MonoBehaviour
     NetworkManager networkManager;
 
     public int bpm;
+    public float volume;
+    public float reverb;
 
     void Start()
     {
@@ -22,7 +24,7 @@ public class SendSong : MonoBehaviour
 
     public IEnumerator SendInner(string song)
     {
-        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Game/SendSong.php", "PassWD=" + "1" + "&PlayerName=" + networkManager.Name + "&Song=" + song + "&LobbyId=" + networkManager.LobbyID + "&BPM=" + bpm + "&Ready=true", this.gameObject);
+        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Game/SendSong.php", "PassWD=" + "1" + "&PlayerName=" + networkManager.Name + "&Song=" + song + "&LobbyId=" + networkManager.LobbyID + "&BPM=" + bpm + "&Ready=true" + "&Reverb=(0,0,0,0,0,0)" + "&Volume=(0,0,0,0,0,0)", this.gameObject);
 
         float time = 0;
         while (this.GetComponent<RequestAnswer>().Message.Length < 1)

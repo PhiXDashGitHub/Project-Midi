@@ -32,6 +32,7 @@ public class JoinLobby : MonoBehaviour
         WaitingRoom.SetActive(true);
         this.gameObject.SetActive(false);
         WaitingRoom.GetComponent<WaitingRoom>().LobbyID = LobbyID;
+        WaitingRoom.GetComponent<WaitingRoom>().LobbyKey = LobbyKey;
         WaitingRoom.GetComponent<WaitingRoom>().amoutofplayers = AmountofPlayers;
         Playername = PlayerName.text;
         networkManager.Name = PlayerName.text;

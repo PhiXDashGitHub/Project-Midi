@@ -44,15 +44,6 @@ public class Rating : MonoBehaviour
 
     public void LoadNewPlayer()
     {
-        if (vooted == false || songend == false)
-        {
-            if (playerindex != 0)
-            {
-                playerindex++;
-                return;
-            }
-        }
-        Debug.Log("Index Playindex: " + playerindex);
         if (playerindex == players.Count)
         {
             DisplayWinners();
@@ -60,15 +51,25 @@ public class Rating : MonoBehaviour
             vooted = false;
             return;
         }
-
-
-        if (players[playerindex] == networkManager.Name)
+        else
         {
-            playerindex++;
-            LoadNewPlayer();
-            return;
+            if (players[playerindex] == networkManager.Name)
+            {
+                playerindex++;
+                LoadNewPlayer();
+                return;
+            }
+            /*
+            if (vooted == false)
+            {
+                if (playerindex == 0)
+                {
+                    playerindex++;
+                    return;
+                }
+            }*/
         }
-
+        Debug.Log("Index Playindex: " + playerindex);
         PlayerNameText.text = "Currently Playing: " + players[playerindex];
         getSong.Play(players[playerindex]);
         songend = false;
