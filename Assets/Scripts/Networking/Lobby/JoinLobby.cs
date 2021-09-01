@@ -104,7 +104,7 @@ public class JoinLobby : MonoBehaviour
                     break;
                 }
             }
-            ErrorText.text = "No Open Lobby Found";
+            
         }
         else
         {
@@ -147,6 +147,10 @@ public class JoinLobby : MonoBehaviour
                 {
                     Join();
                 }
+            }
+            if (PlayerInfo.Length == 0)
+            {
+                Join();
             }
         }
         else

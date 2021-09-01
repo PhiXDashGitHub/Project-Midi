@@ -67,7 +67,10 @@ public class GetSong : MonoBehaviour
                         //PlaySong
                         noteEditor.SongLenght = 0;
                         noteEditor.StringToNoteData(playerinfo[i].Notes);
+                        noteEditor.StringToReverb(playerinfo[i].Reverb);
+                        noteEditor.StringToVolume(playerinfo[i].Volume);
                         noteEditor.bpm = int.Parse(playerinfo[i].BPM);
+
                         noteEditor.PlaySoundData();
                         StartCoroutine(WaitforSongEnd());
                     }
@@ -91,6 +94,9 @@ public class GetSong : MonoBehaviour
         public string Score;
         public string Notes;
         public string BPM;
+        public string Reverb;
+        public string Volume;
+
         public static PlayerInfo CreateFromJSON(string jsonString)
         {
             return JsonUtility.FromJson<PlayerInfo>(jsonString);
