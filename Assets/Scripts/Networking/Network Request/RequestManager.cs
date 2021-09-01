@@ -22,11 +22,12 @@ public class RequestManager : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
         }
 
-        if (sender.TryGetComponent(out RequestAnswer answer) && go.TryGetComponent(out Getrequest request))
+        try
         {
-            answer.Message = request.Message;
-        }
+            sender.GetComponent<RequestAnswer>().Message = go.GetComponent<Getrequest>().Message;
 
-        Destroy(go);
+            Destroy(go);
+        }
+        catch (System.Exception) { }
     }
 }
