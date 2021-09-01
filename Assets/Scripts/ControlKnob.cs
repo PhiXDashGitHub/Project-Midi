@@ -6,14 +6,12 @@ using UnityEngine.EventSystems;
 public class ControlKnob : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [Range(0, 1)] public float value = 0.25f;
-    float previousValue;
 
     public Vector2 angleLimits;
     public float sensitivity;
 
     bool mouseOver;
     bool dragging;
-    [HideInInspector] public bool valueChanged;
 
     Vector3 dragStart;
     float dragValue;
@@ -43,10 +41,6 @@ public class ControlKnob : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             value = dragValue + (Input.mousePosition - dragStart).x / sensitivity;
             value = Mathf.Clamp01(value);
         }
-
-        valueChanged = value != previousValue;
-
-        previousValue = value;
     }
 
     public void OnPointerEnter(PointerEventData data)
