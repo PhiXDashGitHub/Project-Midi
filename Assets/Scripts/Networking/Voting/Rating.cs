@@ -91,7 +91,7 @@ public class Rating : MonoBehaviour
         {
             return;
         }
-
+        
         if (playerindex == players.Count)
         {
             LoadNewPlayer();
@@ -100,7 +100,8 @@ public class Rating : MonoBehaviour
 
         if (tmpplayerindexvoted != playerindex)
         {
-            StartCoroutine(SendReadyInner(i));
+            Debug.Log("Vote before Coroutine Working");
+            StartCoroutine(VoteInner(i));
             
             tmpplayerindexvoted = playerindex;
             LoadNewPlayer();
@@ -129,12 +130,13 @@ public class Rating : MonoBehaviour
 
     public void DisplayWinners()
     {
-        StartCoroutine(GetAllVotings());
+        StartCoroutine(SendReadyInner());   
     }
 
     public IEnumerator GetAllVotings()
     {
         yield return new WaitForSeconds(0.5f);
+        this.GetComponent<RequestAnswer>().Message = "";
         requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/GetPlayerData.php", "PassWD=" + "1MRf!s13" + "&LobbyId=" + networkManager.LobbyID, this.gameObject);
 
         float time = 0;
@@ -174,9 +176,10 @@ public class Rating : MonoBehaviour
         }
     }
 
-    public IEnumerator SendReadyInner(int i)
+    public IEnumerator SendReadyInner()
     {
         Debug.Log("Send Inner");
+
         requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Game/SendReady.php", "PassWD=" + "1" + "&PlayerName=" + networkManager.Name + "&LobbyId=" + networkManager.LobbyID + "&VotingReady=true", this.gameObject);
 
         float time = 0;
@@ -191,7 +194,7 @@ public class Rating : MonoBehaviour
         }
         if (this.GetComponent<RequestAnswer>().Message.Length > 1)
         {
-            StartCoroutine(VoteInner(i));
+            StartCoroutine(GetAllVotings());
         }
     }
 
