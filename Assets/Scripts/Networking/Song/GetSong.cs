@@ -12,11 +12,6 @@ public class GetSong : MonoBehaviour
 
     public PlayerInfo[] playerinfo = new PlayerInfo[0];
 
-    void Start()
-    {
-        
-    }
-
     public void Play(string player)
     {
 

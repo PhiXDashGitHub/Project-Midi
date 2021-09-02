@@ -169,6 +169,7 @@ public class JoinLobby : MonoBehaviour
             return JsonUtility.FromJson<PlayerInfo>(jsonString);
         }
     }
+
     [System.Serializable]
     public class LobbyInfo
     {

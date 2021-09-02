@@ -35,9 +35,17 @@ public class Rating : MonoBehaviour
     {
         networkManager = FindObjectOfType<NetworkManager>();
         requestManager = FindObjectOfType<RequestManager>();
-        players = networkManager.players;
-        playerindex = 0;
-        GetAllPlayerStats();
+
+        if (networkManager)
+        {
+            players = networkManager.players;
+            playerindex = 0;
+            GetAllPlayerStats();
+        }
+        else
+        {
+            Debug.LogError("NetworkManager not found.");
+        }
     }
 
     public void LoadNewPlayer()
@@ -56,15 +64,6 @@ public class Rating : MonoBehaviour
                 LoadNewPlayer();
                 return;
             }
-            /*
-            if (vooted == false)
-            {
-                if (playerindex == 0)
-                {
-                    playerindex++;
-                    return;
-                }
-            }*/
         }
         Debug.Log("Index Playindex: " + playerindex);
         PlayerNameText.text = "Currently Playing: " + players[playerindex];
@@ -254,6 +253,7 @@ public class Rating : MonoBehaviour
     {
         StartCoroutine(GetAllPlayerStatsInner());
     }
+
     public IEnumerator GetAllPlayerStatsInner()
     {
         yield return new WaitForSeconds(3);

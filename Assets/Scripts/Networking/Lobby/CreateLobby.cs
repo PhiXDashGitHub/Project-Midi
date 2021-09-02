@@ -27,6 +27,7 @@ public class CreateLobby : MonoBehaviour
     public TMP_InputField PlayerName;
 
     public TextMeshProUGUI ErrorText;
+
     public void Start()
     {
         networkManager = FindObjectOfType<NetworkManager>();

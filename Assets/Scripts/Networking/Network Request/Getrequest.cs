@@ -18,11 +18,13 @@ public class Getrequest : MonoBehaviour
         Message = null;
         StartCoroutine(GetRequest(URL));
     }
+
     public void Post(string URL, string data)
     {
         Message = null;
         StartCoroutine(PostRequest(URL, data));
     }
+
     IEnumerator GetRequest(string uri)
     {
         using (UnityWebRequest webRequest = UnityWebRequest.Get(uri))
@@ -35,7 +37,7 @@ public class Getrequest : MonoBehaviour
 
             if (webRequest.result == UnityWebRequest.Result.ConnectionError)
             {
-                Debug.Log(pages[page] + ": Error: " + webRequest.error);
+                Debug.LogError(pages[page] + ": Error: " + webRequest.error);
             }
             else
             {
@@ -48,6 +50,7 @@ public class Getrequest : MonoBehaviour
                 {
                     Message = webRequest.downloadHandler.text;
                 }
+
                 Debug.Log(pages[page] + ":\nReceived: " + webRequest.downloadHandler.text);
             }
         }
@@ -71,7 +74,7 @@ public class Getrequest : MonoBehaviour
 
             if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.DataProcessingError)
             {
-                Debug.Log(www.error + " : " + URL);
+                Debug.LogError(www.error + " : " + URL);
             }
             else
             {
