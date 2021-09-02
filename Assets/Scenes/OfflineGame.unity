@@ -11134,6 +11134,13 @@ MonoBehaviour:
   countdownText: {fileID: 1655506168}
   volumeKnob: {fileID: 1594223421}
   reverbKnob: {fileID: 417364922}
+  instrumentButtons:
+  - {fileID: 1578911733}
+  - {fileID: 1345663803}
+  - {fileID: 433905584}
+  - {fileID: 2146209571}
+  - {fileID: 1355474454}
+  - {fileID: 932934784}
   keyRange: 71
   bpm: 140
   gridSize: 1

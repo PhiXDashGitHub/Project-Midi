@@ -30,6 +30,7 @@ public class NoteEditor : MonoBehaviour
     public TextMeshProUGUI countdownText;
     public ControlKnob volumeKnob;
     public ControlKnob reverbKnob;
+    public Button[] instrumentButtons;
 
     [Header("Settings")]
     public int keyRange = 72;
@@ -274,11 +275,10 @@ public class NoteEditor : MonoBehaviour
         {
             for (int r = 0; r < allInstruments.Length; r++)
             {
-                Debug.Log(splitInput[i]);
                 if (allInstruments[r].name == splitInput[i] && splitInput[i].Length >1)
                 {
                     instruments[i] = allInstruments[r];
-                    Debug.Log("AL: " + allInstruments[r]);
+                    instrumentButtons[i].gameObject.SetActive(true);
                 }
             }
         }
