@@ -13,5 +13,12 @@ MonoBehaviour:
   m_Name: SubBass
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
-  samples: []
+  samples:
+  - {fileID: 8300000, guid: 4b072ac3aea489d4489f8d89ae531fec, type: 3}
+  - {fileID: 8300000, guid: 4dca62b08bc8ec044a0f8847f3f68602, type: 3}
+  - {fileID: 8300000, guid: 744fdf7daf6c6644b8a0f7e4e6933e4d, type: 3}
+  - {fileID: 8300000, guid: 71a4710647bfad54a9fd510581b5feaf, type: 3}
+  - {fileID: 8300000, guid: cb734de2b8669bc43b2260d2666aced9, type: 3}
+  - {fileID: 8300000, guid: bd90b05adce8dc34ca844e75122af083, type: 3}
+  - {fileID: 8300000, guid: 2598eedb155333640b704581803d5641, type: 3}
   affectedByPitch: 1

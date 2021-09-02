@@ -11145,10 +11145,10 @@ MonoBehaviour:
   instruments:
   - {fileID: 11400000, guid: 090cf7d0dab84464281f0496f4faae2b, type: 2}
   - {fileID: 11400000, guid: db7d3b4dc9e3a7b4d9c09dabf7dfbce9, type: 2}
-  - {fileID: 11400000, guid: db7d3b4dc9e3a7b4d9c09dabf7dfbce9, type: 2}
-  - {fileID: 11400000, guid: db7d3b4dc9e3a7b4d9c09dabf7dfbce9, type: 2}
-  - {fileID: 11400000, guid: db7d3b4dc9e3a7b4d9c09dabf7dfbce9, type: 2}
-  - {fileID: 11400000, guid: db7d3b4dc9e3a7b4d9c09dabf7dfbce9, type: 2}
+  - {fileID: 11400000, guid: 0164dd9b53653dd4e9dddc28d5e9ac68, type: 2}
+  - {fileID: 11400000, guid: 0164dd9b53653dd4e9dddc28d5e9ac68, type: 2}
+  - {fileID: 11400000, guid: 0164dd9b53653dd4e9dddc28d5e9ac68, type: 2}
+  - {fileID: 11400000, guid: 0164dd9b53653dd4e9dddc28d5e9ac68, type: 2}
   selectedInstrument: 0
   audioMixerGroups:
   - {fileID: -8612402505827083554, guid: a3d3984ad14a8784283aaf16c2e1f71a, type: 2}
@@ -11159,6 +11159,7 @@ MonoBehaviour:
   - {fileID: 7519200358527019576, guid: a3d3984ad14a8784283aaf16c2e1f71a, type: 2}
   songLength: 0
   votingScene: {fileID: 102900000, guid: f679da144760574489baa215e1740824, type: 3}
+  isonline: 1
 --- !u!114 &776571628
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26ea46afc1e409a4cb53c30b71e43160, type: 3}
+  m_Name: Tenor Sax
+  m_EditorClassIdentifier: 
+  icon: {fileID: 0}
+  samples:
+  - {fileID: 8300000, guid: b5c56cdabd62ab1409ac58301d775c95, type: 3}
+  - {fileID: 8300000, guid: 53331d349db649045a3e97e0767e99d3, type: 3}
+  - {fileID: 8300000, guid: 5c67fd60f0fd80b46882ea537e8fb9b7, type: 3}
+  - {fileID: 8300000, guid: ade1e7a7baa1f7a4e89698e942f6c236, type: 3}
+  - {fileID: 8300000, guid: 0d443f643678fc44a9bd878da9f777ca, type: 3}
+  - {fileID: 8300000, guid: fbbdcb04efb676f4587db9662f20deb9, type: 3}
+  - {fileID: 8300000, guid: 907b03cf8ca30084683f14d50483bbe4, type: 3}
+  affectedByPitch: 1
