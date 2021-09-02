@@ -65,7 +65,7 @@ public class GetSong : MonoBehaviour
                     if (playerinfo[i].PlayerName == player)
                     {
                         //PlaySong
-                        noteEditor.SongLenght = 0;
+                        noteEditor.songLength = 0;
                         noteEditor.StringToNoteData(playerinfo[i].Notes);
                         noteEditor.StringToReverb(playerinfo[i].Reverb);
                         noteEditor.StringToVolume(playerinfo[i].Volume);
@@ -81,8 +81,8 @@ public class GetSong : MonoBehaviour
 
     public IEnumerator WaitforSongEnd()
     {
-        yield return new WaitForSeconds(noteEditor.SongLenght);
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(noteEditor.songLength + 5);
+
         Debug.Log("Setting Songend true");
         rating.songend = true;
     }

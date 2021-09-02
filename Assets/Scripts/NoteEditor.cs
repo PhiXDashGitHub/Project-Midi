@@ -60,7 +60,7 @@ public class NoteEditor : MonoBehaviour
     public static bool recording;
     public static float lastNoteLength;
 
-    public float SongLenght;
+    public float songLength;
 
     [Header("Online")]
     public Object votingScene;
@@ -89,9 +89,8 @@ public class NoteEditor : MonoBehaviour
         {
             instrumentVolumes[i] = 0.75f;
             instrumentReverbs[i] = 0.25f;
-
-            audioMixerGroups[i].name = instruments[i].name;
         }
+
         if (volumeKnob)
         {
             volumeKnob.value = instrumentVolumes[selectedInstrument];
@@ -213,7 +212,7 @@ public class NoteEditor : MonoBehaviour
                     newData.Add(noteData[i]);
                     if (i == noteData.Count-1)
                     {
-                        SongLenght =(pos + float.Parse(values[3], CultureInfo.InvariantCulture)) * bpmOffset;
+                        songLength =  (pos + float.Parse(values[3], CultureInfo.InvariantCulture)) * bpmOffset;
                     }
                 }
             }
@@ -258,6 +257,7 @@ public class NoteEditor : MonoBehaviour
         }
     }
 
+    //Converts a single string into InstrumentData
     public bool StringToInstruments(string input)
     {
         if (input == null || input.Length < 4)
