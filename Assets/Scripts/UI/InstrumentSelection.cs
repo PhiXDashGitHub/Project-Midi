@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class InstrumentSelection : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    //Instrument Code: [Piano;...]
+    public GameObject ListObjectPreset;
+    public GameObject Content;
+    public int MaxamountofInstruments;
+    public int AmountOFInstruments = 0;
 
-    // Update is called once per frame
-    void Update()
+    public void Start()
     {
-        
+       Instrument[] arry = Resources.LoadAll<Instrument>("Instruments/");
+        for (int i = 0; i < arry.Length; i++)
+        {
+            GameObject go = Instantiate(ListObjectPreset, Content.transform);
+            go.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, (i * -100) - 50);
+            go.GetComponent<InstrumentButton>().name = arry[i].name;
+        }
     }
 }

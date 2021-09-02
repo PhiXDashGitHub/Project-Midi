@@ -18,6 +18,8 @@ public class CreateLobby : MonoBehaviour
     int AmountofPlayers = 5;
     int LobbyID;
 
+    public List<string> Instruments = new List<string>();
+
     public int LobbyKeyLeght;
 
     [Header("UI")]
@@ -73,6 +75,17 @@ public class CreateLobby : MonoBehaviour
         AmountofPlayers = i;
     }
 
+    public string InstrumentsToString()
+    {
+        string tmp = "[";
+
+        for (int i = 0; i< Instruments.Count;i++)
+        {
+            tmp += Instruments[i] + ";";
+        }
+        tmp += "]";
+        return tmp;
+    }
 
     IEnumerator CheckforOpenLobbys()
     {
@@ -123,7 +136,7 @@ public class CreateLobby : MonoBehaviour
         requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/CreateLobbyTabel.php", "PassWD=" + "1" + "&LobbyId=" + LobbyID, this.gameObject);
         yield return new WaitForSeconds(1);
         Debug.Log("Post to AddPlayers");
-        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/AddPlayerToLobby.php", "PassWD=" + "1" + "&PlayerName=" + Playername + "&LobbyId=" + LobbyID, this.gameObject);
+        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/AddPlayerToLobby.php", "PassWD=" + "1" + "&PlayerName=" + Playername + "&LobbyId=" + LobbyID + "&Instruments=" + InstrumentsToString(), this.gameObject);
         WaitingRoom.SetActive(true);
         this.gameObject.SetActive(false);
         WaitingRoom.GetComponent<WaitingRoom>().LobbyID = LobbyID;
