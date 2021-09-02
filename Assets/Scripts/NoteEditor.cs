@@ -258,6 +258,7 @@ public class NoteEditor : MonoBehaviour
         }
     }
 
+    //Converts a single string into InstrumentData
     public bool StringToInstruments(string input)
     {
         if (input == null || input.Length < 4)
