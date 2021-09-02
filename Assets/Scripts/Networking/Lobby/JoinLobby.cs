@@ -88,9 +88,9 @@ public class JoinLobby : MonoBehaviour
         {
             //Get Lobby Data
 
-
             string josn = "{\"Items\":" + this.GetComponent<RequestAnswer>().Message + "}";
             LobbyInfo[] LobbyInfo = JsonHelper.FromJson<LobbyInfo>(josn);
+
             for (int i = 0; i < LobbyInfo.Length; i++)
             {
                 Debug.Log(int.Parse(LobbyKeyInput.text));
@@ -99,12 +99,12 @@ public class JoinLobby : MonoBehaviour
                 if (int.Parse(LobbyInfo[i].LobbyKey) == int.Parse(LobbyKeyInput.text))
                 {
                     LobbyID = LobbyInfo[i].Id;
+                    networkManager.LobbyKey = LobbyKey;
                     AmountofPlayers = int.Parse(LobbyInfo[i].AmountofPlayer);
                     StartCoroutine(UpdatePlayers());
                     break;
                 }
             }
-            
         }
         else
         {

@@ -267,24 +267,18 @@ public class NoteEditor : MonoBehaviour
         }
 
         instruments = new Instrument[6];
-        string[] splitInput = input.Replace('[', ' ').Replace(']', ' ').Split(';');
+        string[] splitInput = input.Replace('[', ' ').Replace(']', ' ').Trim().Split(';');
         Instrument[] allInstruments = Resources.LoadAll<Instrument>("Instruments/");
 
         for (int i = 0; i < splitInput.Length; i++)
         {
             for (int r = 0; r < allInstruments.Length; r++)
             {
-                if (allInstruments[r].name == splitInput[i])
+                Debug.Log(splitInput[i]);
+                if (allInstruments[r].name == splitInput[i] && splitInput[i].Length >1)
                 {
                     instruments[i] = allInstruments[r];
-                }
-                else
-                {
-                    if (r == allInstruments.Length - 1)
-                    {
-                        Debug.LogError("Instrument " + allInstruments[r].name + " not found.");
-                        return false;
-                    }
+                    Debug.Log("AL: " + allInstruments[r]);
                 }
             }
         }

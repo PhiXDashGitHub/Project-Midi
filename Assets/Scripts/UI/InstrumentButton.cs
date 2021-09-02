@@ -19,19 +19,20 @@ public class InstrumentButton : MonoBehaviour
 
     public void SelectInstrument()
     {
-        if (isselected == false && FindObjectOfType<InstrumentSelection>().AmountOFInstruments < FindObjectOfType<InstrumentSelection>().MaxamountofInstruments)
+
+        if (isselected == false && InstrumentSelection.AmountOFInstruments < InstrumentSelection.MaxamountofInstruments)
         {
             isselected = true;
             FindObjectOfType<CreateLobby>().Instruments.Add(name + ";");
             this.GetComponent<Image>().color = SelectedColor;
-            FindObjectOfType<InstrumentSelection>().AmountOFInstruments++;
+            InstrumentSelection.AmountOFInstruments++;
         }
-        else
+        else if(isselected == true && InstrumentSelection.AmountOFInstruments > InstrumentSelection.minamountofInstruments)
         {
             isselected = false;
-            FindObjectOfType<CreateLobby>().Instruments.Add(name + ";");
+            FindObjectOfType<CreateLobby>().Instruments.Remove(name + ";");
             this.GetComponent<Image>().color = DeSelectColor;
-            FindObjectOfType<InstrumentSelection>().AmountOFInstruments--;
+            InstrumentSelection.AmountOFInstruments--;
         }
     }
 }

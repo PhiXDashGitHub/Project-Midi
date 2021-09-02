@@ -8,6 +8,7 @@ public class NetworkManager : MonoBehaviour
     public string Name;
     public float Timeout;
     public int LobbyID;
+    public string LobbyKey;
     public List<string> players = new List<string>();
 
 

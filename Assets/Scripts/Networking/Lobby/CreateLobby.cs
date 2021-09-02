@@ -81,7 +81,7 @@ public class CreateLobby : MonoBehaviour
 
         for (int i = 0; i< Instruments.Count;i++)
         {
-            tmp += Instruments[i] + ";";
+            tmp += Instruments[i];
         }
         tmp += "]";
         return tmp;
@@ -89,7 +89,7 @@ public class CreateLobby : MonoBehaviour
 
     IEnumerator CheckforOpenLobbys()
     {
-        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/CreateLobby.php", "PassWD=" + "1MRf!s13" + "&Id=" + LobbyID + "&AmountofPlayer=" + AmountofPlayers + "&LobbyKey=" + LobbyKey.ToString() + "&Ispublic=" + isprivate + "&Timestart=" + 0, this.gameObject);
+        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/CreateLobby.php", "PassWD=" + "1MRf!s13" + "&Id=" + LobbyID + "&AmountofPlayer=" + AmountofPlayers + "&LobbyKey=" + LobbyKey.ToString() + "&Ispublic=" + isprivate + "&Timestart=" + 0 + "&Instruments=" + InstrumentsToString(), this.gameObject);
 
         float time = 0;
         while (this.GetComponent<RequestAnswer>().Message.Length < 1)
@@ -111,6 +111,7 @@ public class CreateLobby : MonoBehaviour
                 if (LobbyInfo[i].LobbyKey == LobbyKey)
                 {
                     LobbyID = LobbyInfo[i].Id;
+                    networkManager.LobbyKey = LobbyKey;
                     Open();
                     break;
                 }
@@ -136,7 +137,7 @@ public class CreateLobby : MonoBehaviour
         requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/CreateLobbyTabel.php", "PassWD=" + "1" + "&LobbyId=" + LobbyID, this.gameObject);
         yield return new WaitForSeconds(1);
         Debug.Log("Post to AddPlayers");
-        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/AddPlayerToLobby.php", "PassWD=" + "1" + "&PlayerName=" + Playername + "&LobbyId=" + LobbyID + "&Instruments=" + InstrumentsToString(), this.gameObject);
+        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/AddPlayerToLobby.php", "PassWD=" + "1" + "&PlayerName=" + Playername + "&LobbyId=" + LobbyID , this.gameObject);
         WaitingRoom.SetActive(true);
         this.gameObject.SetActive(false);
         WaitingRoom.GetComponent<WaitingRoom>().LobbyID = LobbyID;
