@@ -245,7 +245,7 @@ public class NoteEditor : MonoBehaviour
     {
         if (input == null || input.Length < 4)
         {
-            Debug.Log("Note String is null");
+            Debug.LogError("Note String is null");
             return;
         }
 
@@ -256,6 +256,40 @@ public class NoteEditor : MonoBehaviour
         {
             noteData.Add(splitInput[i]);
         }
+    }
+
+    public bool StringToInstruments(string input)
+    {
+        if (input == null || input.Length < 4)
+        {
+            Debug.LogError("Instrument String is null");
+            return false;
+        }
+
+        instruments = new Instrument[6];
+        string[] splitInput = input.Replace('[', ' ').Replace(']', ' ').Split(';');
+        Instrument[] allInstruments = Resources.LoadAll<Instrument>("Instruments/");
+
+        for (int i = 0; i < splitInput.Length; i++)
+        {
+            for (int r = 0; r < allInstruments.Length; r++)
+            {
+                if (allInstruments[r].name == splitInput[i])
+                {
+                    instruments[i] = allInstruments[r];
+                }
+                else
+                {
+                    if (r == allInstruments.Length - 1)
+                    {
+                        Debug.LogError("Instrument " + allInstruments[r].name + " not found.");
+                        return false;
+                    }
+                }
+            }
+        }
+
+        return true;
     }
 
     //Converts the VolumeData into a single string
@@ -276,7 +310,7 @@ public class NoteEditor : MonoBehaviour
     {
         if (input == null || input.Length < 4)
         {
-            Debug.Log("Volume String is null");
+            Debug.LogError("Volume String is null");
             return;
         }
 
@@ -306,7 +340,7 @@ public class NoteEditor : MonoBehaviour
     {
         if (input == null || input.Length < 4)
         {
-            Debug.Log("Reverb String is null");
+            Debug.LogError("Reverb String is null");
             return;
         }
 
