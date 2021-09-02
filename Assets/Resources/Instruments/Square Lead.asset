@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26ea46afc1e409a4cb53c30b71e43160, type: 3}
+  m_Name: Square Lead
+  m_EditorClassIdentifier: 
+  icon: {fileID: 0}
+  samples:
+  - {fileID: 8300000, guid: 1a781b576b252284e84223bea4d17ebf, type: 3}
+  - {fileID: 8300000, guid: 839987eefcdccf54b9610ba91377d038, type: 3}
+  - {fileID: 8300000, guid: 4df6ebe60d896bc42ae27ed3f48b5c54, type: 3}
+  - {fileID: 8300000, guid: 234e3ef243f184a41b0381b77f539160, type: 3}
+  - {fileID: 8300000, guid: ae0cedd86a4dc3b4e80c2852d910e418, type: 3}
+  - {fileID: 8300000, guid: cd330f4169ac3a14bb229b0331fdac18, type: 3}
+  - {fileID: 8300000, guid: e9b264ee161fafe4c89262caa9a386f9, type: 3}
+  affectedByPitch: 1

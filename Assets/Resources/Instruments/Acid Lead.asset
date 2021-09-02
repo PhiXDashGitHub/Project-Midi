@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26ea46afc1e409a4cb53c30b71e43160, type: 3}
+  m_Name: Acid Lead
+  m_EditorClassIdentifier: 
+  icon: {fileID: 0}
+  samples:
+  - {fileID: 8300000, guid: b982f84c5fb2192459922b3859a9a2ba, type: 3}
+  - {fileID: 8300000, guid: 09a0ee990273dc84393e256a54f03568, type: 3}
+  - {fileID: 8300000, guid: 8dac194cd15089042b46ad48644f4c20, type: 3}
+  - {fileID: 8300000, guid: 5db08a5e008c0f8479ada4fd35152e7b, type: 3}
+  - {fileID: 8300000, guid: 1db5b155c19b5a74cbbe5a6debad9718, type: 3}
+  - {fileID: 8300000, guid: e59a19d55b7155143a9af6ee73370576, type: 3}
+  - {fileID: 8300000, guid: 02cd90c1db3a20b4ba8ea0831bfb2d67, type: 3}
+  affectedByPitch: 1

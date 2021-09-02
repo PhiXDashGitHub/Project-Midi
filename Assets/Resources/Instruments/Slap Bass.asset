@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26ea46afc1e409a4cb53c30b71e43160, type: 3}
+  m_Name: Slap Bass
+  m_EditorClassIdentifier: 
+  icon: {fileID: 0}
+  samples:
+  - {fileID: 8300000, guid: 0596906890f6ac743ba088c0cd9afb98, type: 3}
+  - {fileID: 8300000, guid: af7bb37703f4c104c84d23a61041804f, type: 3}
+  - {fileID: 8300000, guid: 4fd12becf831d824abba8edda17cdcde, type: 3}
+  - {fileID: 8300000, guid: 4ed1cdfe4cd56204ca04d5360d9247d8, type: 3}
+  - {fileID: 8300000, guid: 17fd22e15bd01504cbbaa20141c00ac6, type: 3}
+  - {fileID: 8300000, guid: 9876a0a4c08d34c4984bc244cd4c2318, type: 3}
+  - {fileID: 8300000, guid: 90a7b93c6ab513b4386154458f8d8deb, type: 3}
+  affectedByPitch: 1
