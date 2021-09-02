@@ -7,7 +7,8 @@ using UnityEngine.SceneManagement;
 public class UIManager : MonoBehaviour
 {
     public Animation FadeIn;
-    
+    public Sprite[] AudioIcons;
+
     public void BackToMainMenu()
     {
         SceneManager.LoadScene(0);
@@ -45,5 +46,10 @@ public class UIManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         g.SetActive(false);
+    }
+
+    public void SetAudio()
+    {
+
     }
 }

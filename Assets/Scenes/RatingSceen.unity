@@ -2873,11 +2873,11 @@ MonoBehaviour:
   noteData: []
   instruments:
   - {fileID: 11400000, guid: 090cf7d0dab84464281f0496f4faae2b, type: 2}
-  - {fileID: 11400000, guid: 26064dfbf6ff58740abcdfad0433b41e, type: 2}
-  - {fileID: 11400000, guid: 4f3b776456415e34eade34c4d7f8944d, type: 2}
-  - {fileID: 11400000, guid: 4f3b776456415e34eade34c4d7f8944d, type: 2}
-  - {fileID: 11400000, guid: 4f3b776456415e34eade34c4d7f8944d, type: 2}
-  - {fileID: 11400000, guid: 4f3b776456415e34eade34c4d7f8944d, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   selectedInstrument: 0
   audioMixerGroups:
   - {fileID: -8612402505827083554, guid: a3d3984ad14a8784283aaf16c2e1f71a, type: 2}
@@ -7695,7 +7695,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1901520964}
   m_LocalRotation: {x: -0.0000019446015, y: 0.7071068, z: -0.7071068, w: 0.0000019446015}
-  m_LocalPosition: {x: -4.3199997, y: 534.5999, z: -10458.719}
+  m_LocalPosition: {x: -4.3199997, y: 534.5999, z: 425}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 620543368}
@@ -8723,7 +8723,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8351270132754515301}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 617}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8351270132317243266}

@@ -3884,8 +3884,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278255369
-  m_fontColor: {r: 0.03571427, g: 1, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -5838,7 +5838,6 @@ MonoBehaviour:
   value: 0.25
   angleLimits: {x: 130, y: -130}
   sensitivity: 150
-  valueChanged: 0
 --- !u!114 &417364923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11145,11 +11144,11 @@ MonoBehaviour:
   noteData: []
   instruments:
   - {fileID: 11400000, guid: 090cf7d0dab84464281f0496f4faae2b, type: 2}
-  - {fileID: 11400000, guid: 26064dfbf6ff58740abcdfad0433b41e, type: 2}
-  - {fileID: 11400000, guid: 26064dfbf6ff58740abcdfad0433b41e, type: 2}
-  - {fileID: 11400000, guid: 26064dfbf6ff58740abcdfad0433b41e, type: 2}
-  - {fileID: 11400000, guid: 26064dfbf6ff58740abcdfad0433b41e, type: 2}
-  - {fileID: 11400000, guid: 26064dfbf6ff58740abcdfad0433b41e, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   selectedInstrument: 0
   audioMixerGroups:
   - {fileID: -8612402505827083554, guid: a3d3984ad14a8784283aaf16c2e1f71a, type: 2}
@@ -20585,8 +20584,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278255369
-  m_fontColor: {r: 0.03571427, g: 1, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -21724,7 +21723,6 @@ MonoBehaviour:
   value: 0.75
   angleLimits: {x: 130, y: -130}
   sensitivity: 150
-  valueChanged: 0
 --- !u!1 &1635338453
 GameObject:
   m_ObjectHideFlags: 0
