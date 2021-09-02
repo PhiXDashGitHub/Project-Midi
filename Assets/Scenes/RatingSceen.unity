@@ -1830,7 +1830,7 @@ GameObject:
   - component: {fileID: 478682090}
   - component: {fileID: 478682089}
   m_Layer: 5
-  m_Name: WinnerText (2)
+  m_Name: 3PlaceText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2283,7 +2283,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 620543368}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2566,10 +2566,10 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 390047854}
-  - {fileID: 981477883}
   - {fileID: 541711134}
   - {fileID: 1901520967}
   - {fileID: 701707144}
+  - {fileID: 981477883}
   - {fileID: 478682088}
   - {fileID: 1590199758}
   m_Father: {fileID: 8351270132317243266}
@@ -2952,7 +2952,7 @@ RectTransform:
   m_Children:
   - {fileID: 980296683}
   m_Father: {fileID: 620543368}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4481,7 +4481,7 @@ GameObject:
   - component: {fileID: 981477885}
   - component: {fileID: 981477884}
   m_Layer: 5
-  m_Name: WinnerText (1)
+  m_Name: 2PlaceText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4499,7 +4499,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 620543368}
-  m_RootOrder: 1
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -6433,7 +6433,7 @@ GameObject:
   - component: {fileID: 1590199760}
   - component: {fileID: 1590199759}
   m_Layer: 5
-  m_Name: WinnerText (3)
+  m_Name: 4PlaceText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12316,7 +12316,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 620543368}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: -180}
 --- !u!1 &1908050261
 GameObject:
@@ -13726,7 +13726,9 @@ MonoBehaviour:
   getSong: {fileID: 8351270132317243283}
   WinScreen: {fileID: 620543367}
   WinnerText: {fileID: 390047855}
-  PlayerListText: {fileID: 981477884}
+  PlaceText2: {fileID: 981477884}
+  PlaceText3: {fileID: 478682089}
+  PlaceText4: {fileID: 1590199759}
   Buttons: {fileID: 1360703011}
   DebugText: {fileID: 1606775546}
 --- !u!114 &8351270132317243282
