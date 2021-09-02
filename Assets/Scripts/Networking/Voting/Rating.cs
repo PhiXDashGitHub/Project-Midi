@@ -237,7 +237,7 @@ public class Rating : MonoBehaviour
                     {
                         if (i == 0)
                         {
-                            WinnerText.text = "The Winner is: " + PlayerInfo[j].PlayerName;
+                            WinnerText.text = "The Winner is: " + PlayerInfo[j].PlayerName +"\n" + "Score: " + PlayerInfo[j].Score;
                         }
                         else
                         {

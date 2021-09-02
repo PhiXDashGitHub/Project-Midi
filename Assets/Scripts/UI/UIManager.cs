@@ -2,13 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using UnityEngine.Audio;
 
 
 public class UIManager : MonoBehaviour
 {
     public Animation FadeIn;
     public Sprite[] AudioIcons;
-
+    int audiocounter;
+    public AudioMixer audiomixer;
     public void BackToMainMenu()
     {
         SceneManager.LoadScene(0);
@@ -48,8 +51,22 @@ public class UIManager : MonoBehaviour
         g.SetActive(false);
     }
 
-    public void SetAudio()
+    public void SetAudio(Image Audiobutton)
     {
+        audiocounter++;
+        if (audiocounter == AudioIcons.Length)
+        {
+            audiocounter = 0;
+        }
+        Audiobutton.sprite = AudioIcons[audiocounter];
+        Debug.Log(audiocounter);
+        Debug.Log(-80 * ((float)audiocounter / 3));
+        audiomixer.SetFloat("Volume",-80 * ((float)audiocounter /3));
+    }
 
+
+    public void OpenURL(string URL)
+    {
+        Application.OpenURL(URL);
     }
 }
