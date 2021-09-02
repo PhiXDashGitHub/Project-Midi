@@ -173,8 +173,8 @@ public class NoteEditor : MonoBehaviour
         }
 
         instrumentVolumes[selectedInstrument] = volumeKnob.value;
-        instrumentReverbs[selectedInstrument] = reverbKnob.value * 10f;
-        audioMixerGroups[selectedInstrument].audioMixer.SetFloat(selectedInstrument + "_Reverb", instrumentReverbs[selectedInstrument]);
+        instrumentReverbs[selectedInstrument] = reverbKnob.value;
+        audioMixerGroups[selectedInstrument].audioMixer.SetFloat(selectedInstrument + "_Reverb", instrumentReverbs[selectedInstrument] * 10f);
     }
 
     //Encodes the Notes of the Editor into the Sounddata
@@ -377,16 +377,21 @@ public class NoteEditor : MonoBehaviour
     public void PlaySound(int instrument, int note, float startTime, float duration, bool useRealTime = false)
     {
         AudioSource audioSource = Instantiate(audioSourcePrefab).GetComponent<AudioSource>();
+        AudioClip sample = instruments[instrument].samples[0];
 
-        int index = Mathf.RoundToInt((float)note / 12);                 //Calculate correct Sample Index
-        index = Mathf.Clamp(index, 0, keyRange / 12);                   //Clamps the Sample Index to prevent OutOfBounds-Error                    
-        int octave = 12 * index;                                        //Calculates the current octave the note is in
-        AudioClip sample = instruments[instrument].samples[index];      //Selects the correct Audio Sample
-        float pitch = 1;                                                //Calculates the correct pitch
+        float pitch = 1;
 
         if (instruments[instrument].affectedByPitch)
         {
-            pitch = Mathf.Pow(pitchOffset, note - octave);
+            int index = Mathf.RoundToInt((float)note / 12);                 //Calculate correct Sample Index
+            index = Mathf.Clamp(index, 0, keyRange / 12);                   //Clamps the Sample Index to prevent OutOfBounds-Error                    
+            int octave = 12 * index;                                        //Calculates the current octave the note is in
+            sample = instruments[instrument].samples[index];                //Selects the correct Audio Sample
+            pitch = Mathf.Pow(pitchOffset, note - octave);                  //Calculates the correct pitch
+        }
+        else
+        {
+            sample = note < instruments[instrument].samples.Length ? instruments[instrument].samples[note] : null;
         }
 
         audioSource.clip = sample;

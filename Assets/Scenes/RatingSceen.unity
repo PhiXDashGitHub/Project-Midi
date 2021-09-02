@@ -7340,11 +7340,11 @@ MonoBehaviour:
   noteData: []
   instruments:
   - {fileID: 11400000, guid: 090cf7d0dab84464281f0496f4faae2b, type: 2}
-  - {fileID: 11400000, guid: 090cf7d0dab84464281f0496f4faae2b, type: 2}
-  - {fileID: 11400000, guid: 090cf7d0dab84464281f0496f4faae2b, type: 2}
-  - {fileID: 11400000, guid: 090cf7d0dab84464281f0496f4faae2b, type: 2}
-  - {fileID: 11400000, guid: 090cf7d0dab84464281f0496f4faae2b, type: 2}
-  - {fileID: 11400000, guid: 090cf7d0dab84464281f0496f4faae2b, type: 2}
+  - {fileID: 11400000, guid: db7d3b4dc9e3a7b4d9c09dabf7dfbce9, type: 2}
+  - {fileID: 11400000, guid: db7d3b4dc9e3a7b4d9c09dabf7dfbce9, type: 2}
+  - {fileID: 11400000, guid: db7d3b4dc9e3a7b4d9c09dabf7dfbce9, type: 2}
+  - {fileID: 11400000, guid: db7d3b4dc9e3a7b4d9c09dabf7dfbce9, type: 2}
+  - {fileID: 11400000, guid: db7d3b4dc9e3a7b4d9c09dabf7dfbce9, type: 2}
   selectedInstrument: 0
   audioMixerGroups:
   - {fileID: -8612402505827083554, guid: a3d3984ad14a8784283aaf16c2e1f71a, type: 2}
