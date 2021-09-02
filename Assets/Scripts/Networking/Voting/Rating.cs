@@ -27,7 +27,9 @@ public class Rating : MonoBehaviour
     [Header("WinnScreen UI")]
     public GameObject WinScreen;
     public TextMeshProUGUI WinnerText;
-    public TextMeshProUGUI PlayerListText;
+    public TextMeshProUGUI PlaceText2;
+    public TextMeshProUGUI PlaceText3;
+    public TextMeshProUGUI PlaceText4;
     public GameObject Buttons;
 
     public TextMeshProUGUI DebugText;
@@ -238,9 +240,17 @@ public class Rating : MonoBehaviour
                         {
                             WinnerText.text = "The Winner is: " + PlayerInfo[j].PlayerName +"\n" + "Score: " + PlayerInfo[j].Score;
                         }
-                        else
+                        else if (i == 1)
                         {
-                            PlayerListText.text += i+1 + " Place: " + PlayerInfo[j].PlayerName + "Score: " + PlayerInfo[j].Score + "\n";
+                            PlaceText2.text += i+1 + " Place: " + PlayerInfo[j].PlayerName + "Score: " + PlayerInfo[j].Score;
+                        }
+                        else if (i == 2)
+                        {
+                            PlaceText3.text += i + 1 + " Place: " + PlayerInfo[j].PlayerName + "Score: " + PlayerInfo[j].Score;
+                        }
+                        else if (i == 3)
+                        {
+                            PlaceText4.text += i + 1 + " Place: " + PlayerInfo[j].PlayerName + "Score: " + PlayerInfo[j].Score;
                         }
                         break;
                     }

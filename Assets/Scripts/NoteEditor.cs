@@ -64,7 +64,7 @@ public class NoteEditor : MonoBehaviour
 
     [Header("Online")]
     public Object votingScene;
-
+    public bool isonline = true;
     void Start()
     {
         noteEditor = this;
@@ -115,7 +115,7 @@ public class NoteEditor : MonoBehaviour
         {
             gameTimer -= Time.deltaTime;
         }
-        else
+        else if(isonline)
         {
             GameEnd();
             return;
