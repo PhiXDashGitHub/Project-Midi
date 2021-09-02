@@ -252,8 +252,6 @@ AudioMixerController:
   m_EnableSuspend: 1
   m_UpdateMode: 0
   m_ExposedParameters:
-  - guid: 24398ab811dc9904d9c7ead247b61cea
-    name: 1_Reverb
   - guid: 83c2142ca3e71234fab81d0554b6008e
     name: 2_Reverb
   - guid: d94f3cf1841a99947be99f5769bcf9eb
@@ -262,6 +260,10 @@ AudioMixerController:
     name: 4_Reverb
   - guid: ee28cc417ef2f934e9b7457a0658aff5
     name: 5_Reverb
+  - guid: 24398ab811dc9904d9c7ead247b61cea
+    name: 1_Reverb
+  - guid: b0c8849d0422d1d42971f283ab65a649
+    name: Volume
   - guid: 39e85e56b2063af4485fa8a18b0ff1da
     name: 0_Reverb
   m_AudioMixerGroupViews:
@@ -379,7 +381,7 @@ AudioMixerSnapshotController:
     16cbdf6c69f45cb468398dff033d5b28: 1000
     d095ff7dc84fef74c9c7846264c268c1: 0
     cb97329d4e3ac1f469f1a46f6d890e4f: 0
-    b0c8849d0422d1d42971f283ab65a649: -10.414379
+    b0c8849d0422d1d42971f283ab65a649: 0
     c3442addef6db2945891cbcbfb6314e4: 0.1
     14897a6ebd941fb40b01ad9d66cb076a: 1000
     f190ca9e606b6e945bb6720f13d75bb4: 0
