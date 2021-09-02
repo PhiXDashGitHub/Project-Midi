@@ -6,7 +6,7 @@ AudioMixerGroupController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Nebula
+  m_Name: Instrument_0
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: 4635443f98c85d64c87f160d5257eaa4
   m_Children: []
@@ -26,7 +26,7 @@ AudioMixerGroupController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: HiHat
+  m_Name: Instrument_1
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: 5dcf2e571d67db745a983769bfd3f633
   m_Children: []
@@ -518,7 +518,7 @@ AudioMixerGroupController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: DrumlinerzLead3
+  m_Name: Instrument_4
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: 770ef21a98f1bd34ebe503064a48a3c2
   m_Children: []
@@ -538,7 +538,7 @@ AudioMixerGroupController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: DrumlinerzLead3
+  m_Name: Instrument_2
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: 2f15d9cf7587ff34fbf234bdcc3de7c1
   m_Children: []
@@ -558,7 +558,7 @@ AudioMixerGroupController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: DrumlinerzLead3
+  m_Name: Instrument_3
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: 7e8a91d65ae9b024a8a2e588c54fc06e
   m_Children: []
@@ -578,7 +578,7 @@ AudioMixerGroupController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: DrumlinerzLead3
+  m_Name: Instrument_5
   m_AudioMixer: {fileID: 24100000}
   m_GroupID: d0e70847208981848b550efa7c446388
   m_Children: []
