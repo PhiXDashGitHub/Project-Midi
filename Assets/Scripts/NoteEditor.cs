@@ -76,7 +76,7 @@ public class NoteEditor : MonoBehaviour
         s_gridSize = gridSize;
         bpmOffset = 15 / bpm;
 
-        gameTimer = 60f;
+        gameTimer = 900f;
         lastNoteLength = 1f;
 
         playBack = false;
