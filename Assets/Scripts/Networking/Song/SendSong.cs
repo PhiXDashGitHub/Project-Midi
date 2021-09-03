@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 [RequireComponent(typeof(RequestAnswer))]
 public class SendSong : MonoBehaviour
 {
@@ -11,10 +13,13 @@ public class SendSong : MonoBehaviour
     public string volume;
     public string reverb;
 
+    public Object votingscene;
+    int Maxamountoftrys;
     void Start()
     {
         networkManager = FindObjectOfType<NetworkManager>();
         requestManager = FindObjectOfType<RequestManager>();
+        Maxamountoftrys = 3;
     }
 
     public void Send(string song)
@@ -38,7 +43,20 @@ public class SendSong : MonoBehaviour
         }
         if (this.GetComponent<RequestAnswer>().Message.Length > 1)
         {
-            Debug.Log("Song Updated");
+            SceneManager.LoadScene(votingscene.name);
+        }
+        else
+        {
+            if (Maxamountoftrys < 3)
+            {
+                yield return new WaitForSeconds(Time.deltaTime);
+                StartCoroutine(SendInner(song));
+                Maxamountoftrys++;
+            }
+            else
+            {
+                SceneManager.LoadScene(0);
+            }
         }
     }
 

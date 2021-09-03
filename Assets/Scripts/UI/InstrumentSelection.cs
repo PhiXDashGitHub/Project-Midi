@@ -11,12 +11,19 @@ public class InstrumentSelection : MonoBehaviour
     public static int AmountOFInstruments;
     public static int minamountofInstruments;
 
+    Instrument[] arry;
+
+    public void Awake()
+    {
+        arry = Resources.LoadAll<Instrument>("Instruments/");
+    }
+
+
     public void Start()
     {
         MaxamountofInstruments = 6;
         minamountofInstruments = 1;
 
-        Instrument[] arry = Resources.LoadAll<Instrument>("Instruments/");
         for (int i = 0; i < arry.Length; i++)
         {
             GameObject go = Instantiate(ListObjectPreset, Content.transform);

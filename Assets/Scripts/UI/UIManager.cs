@@ -12,6 +12,18 @@ public class UIManager : MonoBehaviour
     public Sprite[] AudioIcons;
     int audiocounter;
     public AudioMixer audiomixer;
+    public Image AudioButton;
+    public void Start()
+    {
+        audiocounter = 0;
+        if (PlayerPrefs.GetInt("Audiocounter") != audiocounter && SceneManager.GetActiveScene().buildIndex == 0)
+        {
+            audiocounter = PlayerPrefs.GetInt("Audiocounter");
+            AudioButton.sprite = AudioIcons[audiocounter];
+            float Volume = -80 * ((float)audiocounter / 3);
+            audiomixer.SetFloat("Volume", Volume);
+        }
+    }
     public void BackToMainMenu()
     {
         SceneManager.LoadScene(0);
@@ -59,9 +71,9 @@ public class UIManager : MonoBehaviour
             audiocounter = 0;
         }
         Audiobutton.sprite = AudioIcons[audiocounter];
-        Debug.Log(audiocounter);
-        Debug.Log(-80 * ((float)audiocounter / 3));
-        audiomixer.SetFloat("Volume",-80 * ((float)audiocounter /3));
+        float Volume = -80 * ((float)audiocounter / 3);
+        audiomixer.SetFloat("Volume", Volume);
+        PlayerPrefs.SetInt("Audiocounter", audiocounter);
     }
 
 
