@@ -132,7 +132,19 @@ PlayerSettings:
     16:9: 1
     Others: 1
   bundleVersion: 0.1
-  preloadedAssets: []
+  preloadedAssets:
+  - {fileID: 11400000, guid: ecef8fc4a3965274ea76f8b893c69cd5, type: 2}
+  - {fileID: 11400000, guid: 8e972923c816d0e4f8c8ffcd7a344e51, type: 2}
+  - {fileID: 11400000, guid: 8a5e2235c4db7894db133f5a536cb726, type: 2}
+  - {fileID: 11400000, guid: 090cf7d0dab84464281f0496f4faae2b, type: 2}
+  - {fileID: 11400000, guid: b52e39fb2171e644db6d9cb34f3b920b, type: 2}
+  - {fileID: 11400000, guid: fd7f6a7230b83f44eaac2cd1147a6d67, type: 2}
+  - {fileID: 11400000, guid: 6b7505c6a21d31541bc5195876a4afa9, type: 2}
+  - {fileID: 11400000, guid: db7d3b4dc9e3a7b4d9c09dabf7dfbce9, type: 2}
+  - {fileID: 11400000, guid: d1db7e290e0b30a41914965853ab2aac, type: 2}
+  - {fileID: 11400000, guid: 0164dd9b53653dd4e9dddc28d5e9ac68, type: 2}
+  - {fileID: 11400000, guid: e892e35affbff2641a2af0b122b27c26, type: 2}
+  - {fileID: 11400000, guid: 0588bd4980dd95744bfa9aece621b14f, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -151,7 +163,7 @@ PlayerSettings:
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
     Android: com.DefaultCompany.ProjectMidi
-    Standalone: com.DefaultCompany.Project-Midi
+    Standalone: com.GateGames.Project-Midi
   buildNumber:
     Standalone: 0
     iPhone: 0
@@ -446,6 +458,7 @@ PlayerSettings:
   switchScreenResolutionBehavior: 2
   switchUseCPUProfiler: 0
   switchUseGOLDLinker: 0
+  switchLTOSetting: 0
   switchApplicationID: 0x01004b9000490000
   switchNSODependencies: 
   switchTitleNames_0: 
@@ -463,6 +476,7 @@ PlayerSettings:
   switchTitleNames_12: 
   switchTitleNames_13: 
   switchTitleNames_14: 
+  switchTitleNames_15: 
   switchPublisherNames_0: 
   switchPublisherNames_1: 
   switchPublisherNames_2: 
@@ -478,6 +492,7 @@ PlayerSettings:
   switchPublisherNames_12: 
   switchPublisherNames_13: 
   switchPublisherNames_14: 
+  switchPublisherNames_15: 
   switchIcons_0: {fileID: 0}
   switchIcons_1: {fileID: 0}
   switchIcons_2: {fileID: 0}
@@ -493,6 +508,7 @@ PlayerSettings:
   switchIcons_12: {fileID: 0}
   switchIcons_13: {fileID: 0}
   switchIcons_14: {fileID: 0}
+  switchIcons_15: {fileID: 0}
   switchSmallIcons_0: {fileID: 0}
   switchSmallIcons_1: {fileID: 0}
   switchSmallIcons_2: {fileID: 0}
@@ -508,6 +524,7 @@ PlayerSettings:
   switchSmallIcons_12: {fileID: 0}
   switchSmallIcons_13: {fileID: 0}
   switchSmallIcons_14: {fileID: 0}
+  switchSmallIcons_15: {fileID: 0}
   switchManualHTML: 
   switchAccessibleURLs: 
   switchLegalInformation: 
@@ -571,6 +588,8 @@ PlayerSettings:
   switchNetworkInterfaceManagerInitializeEnabled: 1
   switchPlayerConnectionEnabled: 1
   switchUseNewStyleFilepaths: 0
+  switchUseMicroSleepForYield: 1
+  switchMicroSleepForYieldTime: 25
   ps4NPAgeRating: 12
   ps4NPTitleSecret: 
   ps4NPTrophyPackPath: 
@@ -676,7 +695,6 @@ PlayerSettings:
   suppressCommonWarnings: 1
   allowUnsafeCode: 0
   useDeterministicCompilation: 1
-  useReferenceAssemblies: 1
   enableRoslynAnalyzers: 1
   additionalIl2CppArgs: 
   scriptingRuntimeVersion: 1
