@@ -10,29 +10,34 @@ public class InstrumentButton : MonoBehaviour
     bool isselected;
     public Color SelectedColor;
     public Color DeSelectColor;
-    
+    CreateLobby createLobby;
+    AddInstrumenttoEditor addInstrumenttoEditor;
+
 
     public void Start()
     {
+        createLobby = FindObjectOfType<CreateLobby>();
+        addInstrumenttoEditor = FindObjectOfType<AddInstrumenttoEditor>();
+        isselected = false;
         this.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = name;
     }
 
     public void SelectInstrument()
     {
-        Debug.Log(FindObjectOfType<AddInstrumenttoEditor>());
-        Debug.Log(FindObjectOfType<CreateLobby>());
+        Debug.Log(addInstrumenttoEditor);
+        Debug.Log(createLobby);
 
         if (isselected == false && InstrumentSelection.AmountOFInstruments < InstrumentSelection.MaxamountofInstruments)
         {
             Debug.Log("Is selected");
             isselected = true;
-            if (FindObjectOfType<CreateLobby>())
+            if (createLobby)
             {
                 FindObjectOfType<CreateLobby>().Instruments.Add(name + ";");
             }
-            else if (FindObjectOfType<AddInstrumenttoEditor>())
+            else if (addInstrumenttoEditor)
             {
-                FindObjectOfType<AddInstrumenttoEditor>().Instruments.Add(name + ";");
+                addInstrumenttoEditor.Instruments.Add(name + ";");
             }
             this.GetComponent<Image>().color = SelectedColor;
             InstrumentSelection.AmountOFInstruments++;
@@ -40,13 +45,13 @@ public class InstrumentButton : MonoBehaviour
         else if(isselected == true && InstrumentSelection.AmountOFInstruments > InstrumentSelection.minamountofInstruments)
         {
             isselected = false;
-            if (FindObjectOfType<CreateLobby>())
+            if (createLobby)
             {
-                FindObjectOfType<CreateLobby>().Instruments.Remove(name + ";");
+                createLobby.Instruments.Remove(name + ";");
             }
-            else if (FindObjectOfType<AddInstrumenttoEditor>())
+            else if (addInstrumenttoEditor)
             {
-                FindObjectOfType<AddInstrumenttoEditor>().Instruments.Remove(name + ";");
+                addInstrumenttoEditor.Instruments.Remove(name + ";");
             }
             this.GetComponent<Image>().color = DeSelectColor;
             InstrumentSelection.AmountOFInstruments--;

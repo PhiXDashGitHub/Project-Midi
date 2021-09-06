@@ -20,7 +20,8 @@ public class UIManager : MonoBehaviour
         {
             audiocounter = PlayerPrefs.GetInt("Audiocounter");
             AudioButton.sprite = AudioIcons[audiocounter];
-            float Volume = -80 * ((float)audiocounter / 3);
+            float Volume = -50 * ((float)audiocounter / 3);
+            Volume = Volume == -50 ? -80 : Volume;
             audiomixer.SetFloat("Volume", Volume);
         }
     }
@@ -71,7 +72,8 @@ public class UIManager : MonoBehaviour
             audiocounter = 0;
         }
         Audiobutton.sprite = AudioIcons[audiocounter];
-        float Volume = -80 * ((float)audiocounter / 3);
+        float Volume = -50 * ((float)audiocounter / 3);
+        Volume = Volume == -50 ? -80 : Volume;
         audiomixer.SetFloat("Volume", Volume);
         PlayerPrefs.SetInt("Audiocounter", audiocounter);
     }
