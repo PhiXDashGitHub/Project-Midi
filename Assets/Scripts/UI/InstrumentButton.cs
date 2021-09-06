@@ -19,9 +19,12 @@ public class InstrumentButton : MonoBehaviour
 
     public void SelectInstrument()
     {
+        Debug.Log(FindObjectOfType<AddInstrumenttoEditor>());
+        Debug.Log(FindObjectOfType<CreateLobby>());
 
         if (isselected == false && InstrumentSelection.AmountOFInstruments < InstrumentSelection.MaxamountofInstruments)
         {
+            Debug.Log("Is selected");
             isselected = true;
             if (FindObjectOfType<CreateLobby>())
             {
