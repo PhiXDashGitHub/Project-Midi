@@ -23,14 +23,28 @@ public class InstrumentButton : MonoBehaviour
         if (isselected == false && InstrumentSelection.AmountOFInstruments < InstrumentSelection.MaxamountofInstruments)
         {
             isselected = true;
-            FindObjectOfType<CreateLobby>().Instruments.Add(name + ";");
+            if (FindObjectOfType<CreateLobby>())
+            {
+                FindObjectOfType<CreateLobby>().Instruments.Add(name + ";");
+            }
+            else if (FindObjectOfType<AddInstrumenttoEditor>())
+            {
+                FindObjectOfType<AddInstrumenttoEditor>().Instruments.Add(name + ";");
+            }
             this.GetComponent<Image>().color = SelectedColor;
             InstrumentSelection.AmountOFInstruments++;
         }
         else if(isselected == true && InstrumentSelection.AmountOFInstruments > InstrumentSelection.minamountofInstruments)
         {
             isselected = false;
-            FindObjectOfType<CreateLobby>().Instruments.Remove(name + ";");
+            if (FindObjectOfType<CreateLobby>())
+            {
+                FindObjectOfType<CreateLobby>().Instruments.Remove(name + ";");
+            }
+            else if (FindObjectOfType<AddInstrumenttoEditor>())
+            {
+                FindObjectOfType<AddInstrumenttoEditor>().Instruments.Remove(name + ";");
+            }
             this.GetComponent<Image>().color = DeSelectColor;
             InstrumentSelection.AmountOFInstruments--;
         }
