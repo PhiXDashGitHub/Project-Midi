@@ -10,7 +10,6 @@ public class JoinLobby : MonoBehaviour
     [Header("Networking")]
     public RequestManager requestManager;
     NetworkManager networkManager;
-
     public GameObject WaitingRoom;
 
     string LobbyKey;
@@ -21,6 +20,11 @@ public class JoinLobby : MonoBehaviour
     public TMP_InputField LobbyKeyInput;
     public TMP_InputField PlayerName;
     public TextMeshProUGUI ErrorText;
+    public GameObject ContentObj;
+    public GameObject SelectionLobbyPrefab;
+
+    [Header("Values")]
+    public int MaxamountofLobbysToDisplay;
 
     public void Start()
     {
@@ -159,6 +163,72 @@ public class JoinLobby : MonoBehaviour
         }
     }
 
+
+    public void DisplayAllOpenLobbys()
+    {
+        StartCoroutine(DisplayAllOpenLobbyInner());
+    }
+
+    public IEnumerator DisplayAllOpenLobbyInner()
+    {
+        this.GetComponent<RequestAnswer>().Message = "";
+        yield return new WaitForSeconds(Time.deltaTime);
+        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/GetAllLobbys.php", "PassWD=" + "1MRf!s13", this.gameObject);
+
+        float time = 0;
+        while (this.GetComponent<RequestAnswer>().Message.Length < 1)
+        {
+            if (time > networkManager.Timeout)
+            {
+                break;
+            }
+            time += Time.deltaTime;
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
+
+        if (this.GetComponent<RequestAnswer>().Message.Length > 1)
+        {
+            //Get Lobby Data
+
+            string josn = "{\"Items\":" + this.GetComponent<RequestAnswer>().Message + "}";
+            LobbyInfo[] LobbyInfo = JsonHelper.FromJson<LobbyInfo>(josn);
+            GenerateListOfLobbys(LobbyInfo);
+        }
+        else
+        {
+            ErrorText.text = "Something went wrong :(";
+        }
+    }
+
+    public void GenerateListOfLobbys(LobbyInfo[] LobbyInfo)
+    {
+        int conter = 0;
+
+        for (int i = 0; i < LobbyInfo.Length; i++)
+        {
+            if (i == MaxamountofLobbysToDisplay)
+            {
+                return;
+            }
+            if (LobbyInfo[i].Ispublic != "True")
+            {
+                continue;
+            }
+            GameObject go = Instantiate(SelectionLobbyPrefab, ContentObj.transform);
+            go.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, (conter * -100) - 50);
+            ContentObj.GetComponent<RectTransform>().sizeDelta = new Vector2(0, conter * 100);
+            go.GetComponent<SelectLobby>().LobbyKey = LobbyInfo[i].LobbyKey;
+            go.GetComponent<SelectLobby>().message = "Max: " + LobbyInfo[i].AmountofPlayer;
+            conter++;
+        }
+    }
+
+    public void SetLobbyKey(string lobbykey)
+    {
+        LobbyKey = lobbykey;
+        LobbyKeyInput.text = lobbykey;
+    }
+
     [System.Serializable]
     public class PlayerInfo
     {
@@ -178,7 +248,7 @@ public class JoinLobby : MonoBehaviour
         public string AmountofPlayer;
         public string LobbyKey;
         public string Timestart;
-
+        public string Ispublic;
         public static LobbyInfo CreateFromJSON(string jsonString)
         {
             return JsonUtility.FromJson<LobbyInfo>(jsonString);
