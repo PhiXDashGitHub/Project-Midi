@@ -11,18 +11,29 @@ public class InstrumentSelection : MonoBehaviour
     public static int AmountOFInstruments;
     public static int minamountofInstruments;
 
+    Instrument[] arry;
+
+
     public void Start()
     {
         MaxamountofInstruments = 6;
         minamountofInstruments = 1;
+        AmountOFInstruments = 0;
 
-        Instrument[] arry = Resources.LoadAll<Instrument>("Instruments/");
+        StartCoroutine(LoadAll());
+    }
+
+    public IEnumerator LoadAll()
+    {
+        arry = Resources.LoadAll<Instrument>("Instruments/");
+
         for (int i = 0; i < arry.Length; i++)
         {
             GameObject go = Instantiate(ListObjectPreset, Content.transform);
             go.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, (i * -100) - 50);
-            Content.GetComponent<RectTransform>().sizeDelta = new Vector2(0,i*100);
+            Content.GetComponent<RectTransform>().sizeDelta = new Vector2(0, i * 100);
             go.GetComponent<InstrumentButton>().name = arry[i].name;
         }
+        yield return new WaitForSeconds(0);
     }
 }

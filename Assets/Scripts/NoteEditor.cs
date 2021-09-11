@@ -580,9 +580,8 @@ public class NoteEditor : MonoBehaviour
         GetComponent<SendSong>().bpm = (int)bpm;
         GetComponent<SendSong>().reverb = ReverbToString();
         GetComponent<SendSong>().volume = VolumeToString();
+        GetComponent<SendSong>().votingscene = votingScene;
         GetComponent<SendSong>().Send(NoteDataToString());
         enabled = false;
-
-        SceneManager.LoadScene(votingScene.name);
     }
 }

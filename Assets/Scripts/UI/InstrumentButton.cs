@@ -10,27 +10,49 @@ public class InstrumentButton : MonoBehaviour
     bool isselected;
     public Color SelectedColor;
     public Color DeSelectColor;
-    
+    CreateLobby createLobby;
+    AddInstrumenttoEditor addInstrumenttoEditor;
+
 
     public void Start()
     {
+        createLobby = FindObjectOfType<CreateLobby>();
+        addInstrumenttoEditor = FindObjectOfType<AddInstrumenttoEditor>();
+        isselected = false;
         this.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = name;
     }
 
     public void SelectInstrument()
     {
+        Debug.Log(addInstrumenttoEditor);
+        Debug.Log(createLobby);
 
         if (isselected == false && InstrumentSelection.AmountOFInstruments < InstrumentSelection.MaxamountofInstruments)
         {
+            Debug.Log("Is selected");
             isselected = true;
-            FindObjectOfType<CreateLobby>().Instruments.Add(name + ";");
+            if (createLobby)
+            {
+                FindObjectOfType<CreateLobby>().Instruments.Add(name + ";");
+            }
+            else if (addInstrumenttoEditor)
+            {
+                addInstrumenttoEditor.Instruments.Add(name + ";");
+            }
             this.GetComponent<Image>().color = SelectedColor;
             InstrumentSelection.AmountOFInstruments++;
         }
         else if(isselected == true && InstrumentSelection.AmountOFInstruments > InstrumentSelection.minamountofInstruments)
         {
             isselected = false;
-            FindObjectOfType<CreateLobby>().Instruments.Remove(name + ";");
+            if (createLobby)
+            {
+                createLobby.Instruments.Remove(name + ";");
+            }
+            else if (addInstrumenttoEditor)
+            {
+                addInstrumenttoEditor.Instruments.Remove(name + ";");
+            }
             this.GetComponent<Image>().color = DeSelectColor;
             InstrumentSelection.AmountOFInstruments--;
         }
