@@ -45,7 +45,10 @@ public class ControlKnob : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     public void OnPointerEnter(PointerEventData data)
     {
-        mouseOver = true;
+        if (!Input.GetMouseButton(0))
+        {
+            mouseOver = true;
+        }
     }
 
     public void OnPointerExit(PointerEventData data)

@@ -22,3 +22,4 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 9876a0a4c08d34c4984bc244cd4c2318, type: 3}
   - {fileID: 8300000, guid: 90a7b93c6ab513b4386154458f8d8deb, type: 3}
   affectedByPitch: 1
+  decay: 16

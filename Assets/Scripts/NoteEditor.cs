@@ -85,7 +85,7 @@ public class NoteEditor : MonoBehaviour
 
         instrumentVolumes = new float[instruments.Length];
         instrumentReverbs = new float[instruments.Length];
-
+        
         for (int i = 0; i < instruments.Length; i++)
         {
             instrumentVolumes[i] = 0.75f;
@@ -393,7 +393,7 @@ public class NoteEditor : MonoBehaviour
         audioSource.volume = instrumentVolumes[instrument];
         audioSource.outputAudioMixerGroup = audioMixerGroups[instrument];
 
-        audioSource.GetComponent<AudioPlayer>().PlayForSeconds(startTime, duration, useRealTime);
+        audioSource.GetComponent<AudioPlayer>().PlayForSeconds(startTime, duration, useRealTime, instruments[instrument].decay);
     }
 
     //Plays a sound via the Keyboard
@@ -464,7 +464,7 @@ public class NoteEditor : MonoBehaviour
     //Handles the Audio Play, Pause and Resume Functions
     public void PlayButtonPressed()
     {
-        EncodeSoundData();
+        //EncodeSoundData();
 
         if (playBack)
         {
