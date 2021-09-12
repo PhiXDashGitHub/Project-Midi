@@ -11234,6 +11234,7 @@ MonoBehaviour:
   bpm: 0
   volume: 0
   reverb: 0
+  votingscene: {fileID: 0}
 --- !u!114 &776571632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15033,7 +15034,7 @@ Canvas:
   m_RenderMode: 0
   m_Camera: {fileID: 519420031}
   m_PlaneDistance: 100
-  m_PixelPerfect: 1
+  m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
