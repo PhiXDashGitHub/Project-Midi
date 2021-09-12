@@ -4015,7 +4015,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 7.5882, y: 5}
+  m_AnchoredPosition: {x: -6.7, y: 5}
   m_SizeDelta: {x: 236.5391, y: 50}
   m_Pivot: {x: 0.03207992, y: 0.5}
 --- !u!1 &296446059
@@ -4556,7 +4556,7 @@ MonoBehaviour:
   m_SubmitButton: Submit
   m_CancelButton: Cancel
   m_InputActionsPerSecond: 10
-  m_RepeatDelay: 0.5
+  m_RepeatDelay: 0
   m_ForceModuleActive: 0
 --- !u!114 &329782074
 MonoBehaviour:
@@ -9058,7 +9058,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 484.02988, y: -2.5006}
+  m_AnchoredPosition: {x: 465, y: -2.5}
   m_SizeDelta: {x: 281.94, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &566329776
@@ -9124,6 +9124,18 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 1774672931}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 776571627}
+        m_TargetAssemblyTypeName: NoteEditor, Assembly-CSharp
+        m_MethodName: StopButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -10304,7 +10316,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 266.53998, y: -30}
+  m_AnchoredPosition: {x: 255, y: -30}
   m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &623735011
@@ -13098,7 +13110,7 @@ MonoBehaviour:
   - {fileID: 7519200358527019576, guid: a3d3984ad14a8784283aaf16c2e1f71a, type: 2}
   songLength: 15.321428
   votingScene: {fileID: 102900000, guid: f679da144760574489baa215e1740824, type: 3}
-  isonline: 0
+  isOnline: 0
 --- !u!114 &776571628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16256,7 +16268,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 150, y: 0}
+  m_AnchoredPosition: {x: 134, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &941367459
@@ -16809,7 +16821,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 950, y: -80}
-  m_SizeDelta: {x: 1800, y: 125}
+  m_SizeDelta: {x: 1812, y: 125}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1029296352
 MonoBehaviour:
@@ -17419,7 +17431,7 @@ Canvas:
   m_RenderMode: 0
   m_Camera: {fileID: 519420031}
   m_PlaneDistance: 100
-  m_PixelPerfect: 1
+  m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
@@ -18205,7 +18217,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 768.6954, y: -2.5006}
+  m_AnchoredPosition: {x: 765, y: -2.5}
   m_SizeDelta: {x: 287.3909, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1174204456
@@ -26006,7 +26018,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 32.5, y: -200}
+  m_AnchoredPosition: {x: 48, y: -200}
   m_SizeDelta: {x: 1800, y: 375}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1723493496
@@ -26923,7 +26935,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 266.54, y: 32.5}
+  m_AnchoredPosition: {x: 255, y: 32.5}
   m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1788037941

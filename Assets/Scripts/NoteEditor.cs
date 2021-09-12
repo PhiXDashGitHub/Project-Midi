@@ -6,6 +6,8 @@ using UnityEngine.Audio;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.IO;
+using System.Text;
 
 public class NoteEditor : MonoBehaviour
 {
@@ -63,9 +65,12 @@ public class NoteEditor : MonoBehaviour
 
     public float songLength;
 
+    string filePath;
+    string fileType;
+
     [Header("Online")]
     public Object votingScene;
-    public bool isonline = true;
+    public bool isOnline = true;
     void Start()
     {
         noteEditor = this;
@@ -78,6 +83,9 @@ public class NoteEditor : MonoBehaviour
 
         gameTimer = 15f;
         lastNoteLength = 1f;
+
+        filePath = Application.persistentDataPath + "/Songs/";
+        fileType = ".ndf";
 
         playBack = false;
         pause = false;
@@ -97,6 +105,8 @@ public class NoteEditor : MonoBehaviour
             volumeKnob.value = instrumentVolumes[selectedInstrument];
             reverbKnob.value = instrumentReverbs[selectedInstrument];
         }
+
+        EncodeSoundData();
     }
 
     void Update()
@@ -116,19 +126,23 @@ public class NoteEditor : MonoBehaviour
         {
             gameTimer -= Time.deltaTime;
         }
-        else if(isonline)
+        else if (isOnline)
         {
             GameEnd();
             return;
         }
 
-        float minutes = ((int)gameTimer / 60);
-        float seconds = (gameTimer % 60);
-
         //UI Update
         if (timerText)
         {
-            timerText.text = timer.ToString("00:00.000").Replace(',', ':');
+            float minutes = (int)gameTimer / 60;
+            float seconds = gameTimer % 60;
+
+            float timerMinutes = (int)timer / 59;
+            float timerSeconds = timer % 59;
+            float timerMilliseconds = Mathf.Repeat(timer, 1.0f);
+
+            timerText.text = timerMinutes.ToString("00") + ":" + timerSeconds.ToString("00") + ":" + timerMilliseconds.ToString(".000").Replace(',', ' ').Trim();
             countdownText.text = minutes.ToString("00") + ":" + seconds.ToString("00");
         }
         
@@ -144,6 +158,15 @@ public class NoteEditor : MonoBehaviour
             {
                 PlayButtonPressed();
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            LoadFromFile("debug");
+        }
+        else if (Input.GetKeyDown(KeyCode.S))
+        {
+            SaveToFile("debug", true);
         }
 
         //Place Notes
@@ -191,6 +214,39 @@ public class NoteEditor : MonoBehaviour
         }
     }
 
+    //Decodes the Soundata into the Notes of the Editor
+    public void DecodeSoundData()
+    {
+        foreach (Transform note in noteParent)
+        {
+            Destroy(note.gameObject);
+        }
+
+        foreach (string input in noteData)
+        {
+            string[] values = input.Replace('[', ' ').Replace(']', ' ').Split(',');
+
+            int instr = int.Parse(values[0]);
+            int note = int.Parse(values[1]);
+            float stTime = float.Parse(values[2], CultureInfo.InvariantCulture);
+            float dur = float.Parse(values[3], CultureInfo.InvariantCulture);
+
+            Note newNote = Instantiate(notePrefab, noteParent).GetComponent<Note>();
+            newNote.transform.localPosition = new Vector2(stTime, note);
+            newNote.instrument = instr;
+            newNote.length = dur;
+
+            if (newNote.transform.localPosition.x < -1)
+            {
+                Destroy(newNote.gameObject);
+            }
+            else
+            {
+                newNote.UpdatePosition();
+            }
+        }
+    }
+
     //Sorts the Sounddata after Playtime to minimize Delay
     public void SortSoundData()
     {
@@ -220,6 +276,155 @@ public class NoteEditor : MonoBehaviour
         }
 
         noteData = newData;
+    }
+
+    //Checks if Song Directory Exists, if not, creates it
+    public void CheckSongDirectory()
+    {
+        if (!Directory.Exists(filePath))
+        {
+            Directory.CreateDirectory(filePath);
+        }
+    }
+
+    //Saves the NoteData to File
+    public bool SaveToFile(string name, bool overrideFile = false)
+    {
+        CheckSongDirectory();
+        EncodeSoundData();
+        SortSoundData();
+
+        string file = filePath + name + fileType;
+        FileStream fileStream;
+
+        if (overrideFile)
+        {
+            if (File.Exists(file))
+            {
+                File.Delete(file);
+            }
+
+            fileStream = File.Create(file);
+        }
+        else
+        {
+            if (File.Exists(file))
+            {
+                Debug.LogError("File already exists.");
+                return false;
+            }
+
+            fileStream = File.Create(file);
+        }
+
+        string content = bpm + "\n" + "\n";
+
+        //Write InstrumentInfo
+        foreach (Instrument instrument in instruments)
+        {
+            content += instrument.name + "\n";
+        }
+
+        content += "\n";
+
+        //Write Instrument Volumes
+        foreach (float value in instrumentVolumes)
+        {
+            content += value + "\n";
+        }
+
+        content += "\n";
+
+        //Write Instrument Reverbs
+        foreach (float value in instrumentReverbs)
+        {
+            content += value + "\n";
+        }
+
+        content += "\n";
+
+        //Write NoteData
+        foreach (string note in noteData)
+        {
+            content += note + "\n";
+        }
+
+        fileStream.Write(Encoding.ASCII.GetBytes(content), 0, Encoding.ASCII.GetByteCount(content));
+        fileStream.Close();
+
+        Debug.Log("File saved successfully.");
+        return true;
+    }
+
+    public bool LoadFromFile(string name)
+    {
+        string file = filePath + name + fileType;
+
+        Instrument[] initInstruments = instruments;
+        float[] initVolumes = instrumentVolumes;
+        float[] initReverbs = instrumentReverbs;
+        List<string> initNoteData = noteData;
+
+        if (!File.Exists(file))
+        {
+            Debug.LogError("File not found.");
+            return false;
+        }
+
+        try
+        {
+            string[] content = File.ReadAllLines(file);
+
+            //Load BPM
+            AddBPM(float.Parse(content[0]) - bpm);
+
+            //Load Instruments
+            string instr = "";
+            for (int i = 2; i < 2 + instruments.Length; i++)
+            {
+                instr += content[i] + ";";
+            }
+            StringToInstruments(instr);
+
+            //Load Instrument Volumes
+            string instrVol = "";
+            for (int i = instruments.Length + 3; i < instruments.Length * 2 + 3; i++)
+            {
+                instrVol += content[i] + ";";
+            }
+            StringToVolume(instrVol);
+
+            //Load Instrument Reverbs
+            string instrRev = "";
+            for (int i = instruments.Length * 2 + 4; i < instruments.Length * 3 + 4; i++)
+            {
+                instrRev += content[i] + ";";
+            }
+            StringToReverb(instrRev);
+
+            //Load NoteData
+            noteData = new List<string>();
+            for (int i = instruments.Length * 3 + 5; i < content.Length; i++)
+            {
+                noteData.Add(content[i]);
+            }
+            SortSoundData();
+            DecodeSoundData();
+
+            Debug.Log("File loaded successfully.");
+            return true;
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError("File corrupted: " + e);
+
+            instruments = initInstruments;
+            instrumentVolumes = initVolumes;
+            instrumentReverbs = initReverbs;
+            noteData = initNoteData;
+
+            return false;
+        }
     }
 
     //Converts the NoteData into a single string
@@ -312,8 +517,15 @@ public class NoteEditor : MonoBehaviour
 
         for (int i = 0; i < stringVolumes.Length; i++)
         {
+            if (stringVolumes[i] == "")
+            {
+                continue;
+            }
+
             instrumentVolumes[i] = float.Parse(stringVolumes[i]);
         }
+
+        volumeKnob.value = instrumentVolumes[selectedInstrument];
     }
 
     //Converts the ReverbData into a single string
@@ -342,8 +554,15 @@ public class NoteEditor : MonoBehaviour
 
         for (int i = 0; i < stringReverbs.Length; i++)
         {
+            if (stringReverbs[i] == "")
+            {
+                continue;
+            }
+
             instrumentReverbs[i] = float.Parse(stringReverbs[i]);
         }
+
+        reverbKnob.value = instrumentReverbs[selectedInstrument];
     }
 
     //Decodes the Sounddata into samples for the AudioSources to play all at once
@@ -464,7 +683,7 @@ public class NoteEditor : MonoBehaviour
     //Handles the Audio Play, Pause and Resume Functions
     public void PlayButtonPressed()
     {
-        //EncodeSoundData();
+        EncodeSoundData();
 
         if (playBack)
         {
@@ -536,7 +755,7 @@ public class NoteEditor : MonoBehaviour
     public void AddBPM(float amount)
     {
         bpm += amount;
-        bpm = Mathf.Clamp(bpm, 10, 250);
+        bpm = Mathf.Clamp(bpm, 80, 220);
         bpmText.text = bpm + " BPM";
 
         s_bpm = bpm;
