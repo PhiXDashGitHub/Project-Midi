@@ -183,7 +183,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Play
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: ae4c32b409d23a04699472d1cf1c2884, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7546da865b0bd4248a18490a643a2c54, type: 2}
   m_sharedMaterial: {fileID: 3991455896184980606, guid: ae4c32b409d23a04699472d1cf1c2884,
     type: 2}
   m_fontSharedMaterials: []
@@ -248,7 +248,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &13013079
@@ -318,7 +318,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Join Game
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: ae4c32b409d23a04699472d1cf1c2884, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7546da865b0bd4248a18490a643a2c54, type: 2}
   m_sharedMaterial: {fileID: 3991455896184980606, guid: ae4c32b409d23a04699472d1cf1c2884,
     type: 2}
   m_fontSharedMaterials: []
@@ -383,7 +383,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &29964590
@@ -4646,7 +4646,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Waiting ...
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: ae4c32b409d23a04699472d1cf1c2884, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7546da865b0bd4248a18490a643a2c54, type: 2}
   m_sharedMaterial: {fileID: 3991455896184980606, guid: ae4c32b409d23a04699472d1cf1c2884,
     type: 2}
   m_fontSharedMaterials: []
@@ -4711,7 +4711,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &975861937
@@ -9235,7 +9235,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Create Game
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: ae4c32b409d23a04699472d1cf1c2884, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7546da865b0bd4248a18490a643a2c54, type: 2}
   m_sharedMaterial: {fileID: 3991455896184980606, guid: ae4c32b409d23a04699472d1cf1c2884,
     type: 2}
   m_fontSharedMaterials: []
@@ -9300,7 +9300,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &1758781529
@@ -11960,8 +11960,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Project Midi
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: ae4c32b409d23a04699472d1cf1c2884, type: 2}
-  m_sharedMaterial: {fileID: 3991455896184980606, guid: ae4c32b409d23a04699472d1cf1c2884,
+  m_fontAsset: {fileID: 11400000, guid: 7546da865b0bd4248a18490a643a2c54, type: 2}
+  m_sharedMaterial: {fileID: 3991455896184980606, guid: 7546da865b0bd4248a18490a643a2c54,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
