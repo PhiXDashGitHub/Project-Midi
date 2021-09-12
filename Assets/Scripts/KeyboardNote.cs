@@ -5,12 +5,21 @@ using UnityEngine.EventSystems;
 
 public class KeyboardNote : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
+    NoteEditor noteEditor;
+
     public int note;
     float startTime;
+
+    void Start()
+    {
+        noteEditor = FindObjectOfType<NoteEditor>();
+    }
 
     public void OnPointerDown(PointerEventData data)
     {
         startTime = NoteEditor.timer;
+
+        noteEditor.PlayKeyboardSound(note);
     }
 
     public void OnPointerUp(PointerEventData data)

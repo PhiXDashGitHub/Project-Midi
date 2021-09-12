@@ -71,6 +71,7 @@ public class NoteEditor : MonoBehaviour
     [Header("Online")]
     public Object votingScene;
     public bool isOnline = true;
+
     void Start()
     {
         noteEditor = this;
@@ -160,13 +161,16 @@ public class NoteEditor : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.L))
+        if (Input.GetKey(KeyCode.LeftControl))
         {
-            LoadFromFile("debug");
-        }
-        else if (Input.GetKeyDown(KeyCode.S))
-        {
-            SaveToFile("debug", true);
+            if (Input.GetKeyDown(KeyCode.L))
+            {
+                LoadFromFile("debug");
+            }
+            else if (Input.GetKeyDown(KeyCode.S))
+            {
+                SaveToFile("debug", true);
+            }
         }
 
         //Place Notes
@@ -524,8 +528,6 @@ public class NoteEditor : MonoBehaviour
 
             instrumentVolumes[i] = float.Parse(stringVolumes[i]);
         }
-
-        volumeKnob.value = instrumentVolumes[selectedInstrument];
     }
 
     //Converts the ReverbData into a single string
@@ -560,9 +562,8 @@ public class NoteEditor : MonoBehaviour
             }
 
             instrumentReverbs[i] = float.Parse(stringReverbs[i]);
+            audioMixerGroups[i].audioMixer.SetFloat(i + "_Reverb", instrumentReverbs[i] * 10f);
         }
-
-        reverbKnob.value = instrumentReverbs[selectedInstrument];
     }
 
     //Decodes the Sounddata into samples for the AudioSources to play all at once
