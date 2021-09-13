@@ -71,6 +71,11 @@ public class DataManager : MonoBehaviour
         selectedFile = name;
     }
 
+    public void DeselectFile()
+    {
+        selectedFile = null;
+    }
+
     public void SaveFile()
     {
         if (fileNameInput.text == null)
