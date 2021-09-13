@@ -221,6 +221,7 @@ public class Rating : MonoBehaviour
             string josn = "{\"Items\":" + this.GetComponent<RequestAnswer>().Message + "}";
             PlayerInfo[] PlayerInfo = JsonHelper.FromJson<PlayerInfo>(josn);
             int[] sortscore = new int[PlayerInfo.Length];
+            List<string> ShownPlayers = new List<string>();
 
             for (int i = 0; i < PlayerInfo.Length; i++)
             {
@@ -236,23 +237,40 @@ public class Rating : MonoBehaviour
                 {
                     if (sortscore[i] == int.Parse(PlayerInfo[j].Score))
                     {
-                        if (i == 0)
+                        bool notdisplayed = true;
+
+                        for (int k = 0; k < ShownPlayers.Count; k++)
                         {
-                            WinnerText.text = "The Winner is: " + PlayerInfo[j].PlayerName +"\n" + "Score: " + PlayerInfo[j].Score;
+                            if (ShownPlayers[k] == PlayerInfo[j].PlayerName)
+                            {
+                                notdisplayed = false;
+                                break;
+                            }
                         }
-                        else if (i == 1)
+                        if (notdisplayed) 
                         {
-                            PlaceText2.text += i+1 + " Place: " + PlayerInfo[j].PlayerName + "Score: " + PlayerInfo[j].Score;
+                            if (i == 0)
+                            {
+                                WinnerText.text = "The Winner is: " + PlayerInfo[j].PlayerName + "\n" + "Score: " + PlayerInfo[j].Score;
+                                ShownPlayers.Add(PlayerInfo[j].PlayerName);
+                            }
+                            else if (i == 1)
+                            {
+                                PlaceText2.text += i + 1 + " Place: " + PlayerInfo[j].PlayerName + " Score: " + PlayerInfo[j].Score;
+                                ShownPlayers.Add(PlayerInfo[j].PlayerName);
+                            }
+                            else if (i == 2)
+                            {
+                                PlaceText3.text += i + 1 + " Place: " + PlayerInfo[j].PlayerName + " Score: " + PlayerInfo[j].Score;
+                                ShownPlayers.Add(PlayerInfo[j].PlayerName);
+                            }
+                            else if (i == 3)
+                            {
+                                PlaceText4.text += i + 1 + " Place: " + PlayerInfo[j].PlayerName + " Score: " + PlayerInfo[j].Score;
+                                ShownPlayers.Add(PlayerInfo[j].PlayerName);
+                            }
+                            break;
                         }
-                        else if (i == 2)
-                        {
-                            PlaceText3.text += i + 1 + " Place: " + PlayerInfo[j].PlayerName + "Score: " + PlayerInfo[j].Score;
-                        }
-                        else if (i == 3)
-                        {
-                            PlaceText4.text += i + 1 + " Place: " + PlayerInfo[j].PlayerName + "Score: " + PlayerInfo[j].Score;
-                        }
-                        break;
                     }
                 }
             }
