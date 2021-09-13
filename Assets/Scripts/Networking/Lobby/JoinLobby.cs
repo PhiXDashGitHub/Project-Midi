@@ -138,23 +138,30 @@ public class JoinLobby : MonoBehaviour
             PlayerInfo[] PlayerInfo = JsonHelper.FromJson<PlayerInfo>(josn);
             bool nameisused = false;
 
-            for (int i = 0; i < PlayerInfo.Length; i++)
+            if (PlayerInfo.Length < AmountofPlayers)
             {
-                Debug.Log("Playername: " + PlayerInfo[i].PlayerName);
-                if (PlayerName.text.ToString().Trim() == PlayerInfo[i].PlayerName)
+                for (int i = 0; i < PlayerInfo.Length; i++)
                 {
-                    ErrorText.text = "Name is Allready Used!";
-                    nameisused = true;
-                }
+                    Debug.Log("Playername: " + PlayerInfo[i].PlayerName);
+                    if (PlayerName.text.ToString().Trim() == PlayerInfo[i].PlayerName)
+                    {
+                        ErrorText.text = "Name is Allready Used!";
+                        nameisused = true;
+                    }
 
-                if (i == PlayerInfo.Length-1 && !nameisused)
+                    if (i == PlayerInfo.Length - 1 && !nameisused)
+                    {
+                        Join();
+                    }
+                }
+                if (PlayerInfo.Length == 0)
                 {
                     Join();
                 }
             }
-            if (PlayerInfo.Length == 0)
+            else
             {
-                Join();
+                ErrorText.text = "Lobby is full :(";
             }
         }
         else
