@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class InstrumentButton : MonoBehaviour
 {
-    public string name;
+    public new string name;
     bool isselected;
     public Color SelectedColor;
     public Color DeSelectColor;
@@ -29,7 +29,6 @@ public class InstrumentButton : MonoBehaviour
 
         if (isselected == false && InstrumentSelection.AmountOFInstruments < InstrumentSelection.MaxamountofInstruments)
         {
-            Debug.Log("Is selected");
             isselected = true;
             if (createLobby)
             {

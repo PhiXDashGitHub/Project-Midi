@@ -85,16 +85,16 @@ public class NoteEditor : MonoBehaviour
         gameTimer = 15f;
         lastNoteLength = 1f;
 
-        filePath = Application.persistentDataPath + "/Songs/";
-        fileType = ".ndf";
-
         playBack = false;
         pause = false;
         recording = false;
 
         instrumentVolumes = new float[instruments.Length];
         instrumentReverbs = new float[instruments.Length];
-        
+
+        filePath = Application.persistentDataPath + "/Songs/";
+        fileType = ".ndf";
+
         for (int i = 0; i < instruments.Length; i++)
         {
             instrumentVolumes[i] = 0.75f;
@@ -158,18 +158,6 @@ public class NoteEditor : MonoBehaviour
             else
             {
                 PlayButtonPressed();
-            }
-        }
-
-        if (Input.GetKey(KeyCode.LeftControl))
-        {
-            if (Input.GetKeyDown(KeyCode.L))
-            {
-                LoadFromFile("debug");
-            }
-            else if (Input.GetKeyDown(KeyCode.S))
-            {
-                SaveToFile("debug", true);
             }
         }
 
@@ -360,6 +348,7 @@ public class NoteEditor : MonoBehaviour
         return true;
     }
 
+    //Loads the NoteData from File
     public bool LoadFromFile(string name)
     {
         string file = filePath + name + fileType;
