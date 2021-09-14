@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 [RequireComponent(typeof(RequestAnswer))]
 public class Rating : MonoBehaviour
@@ -297,7 +298,7 @@ public class Rating : MonoBehaviour
             time += Time.deltaTime;
             yield return new WaitForSeconds(Time.deltaTime);
         }
-        if (this.GetComponent<RequestAnswer>().Message.Length > 1)
+        if (this.GetComponent<RequestAnswer>().Message.Length > 2)
         {
             string josn = "{\"Items\":" + this.GetComponent<RequestAnswer>().Message + "}";
             PlayerInfo[] PlayerInfo = JsonHelper.FromJson<PlayerInfo>(josn);
@@ -320,6 +321,10 @@ public class Rating : MonoBehaviour
             {
                 StartCoroutine(GetAllPlayerStatsInner());
             }
+        }
+        else
+        {
+            SceneManager.LoadScene(0);
         }
     }
 

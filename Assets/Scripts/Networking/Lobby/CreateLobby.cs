@@ -12,7 +12,7 @@ public class CreateLobby : MonoBehaviour
     string Httprequest;
 
 
-    bool isprivate;
+    bool Ispublic;
     string LobbyKey;
     string Playername;
     int AmountofPlayers = 5;
@@ -59,8 +59,8 @@ public class CreateLobby : MonoBehaviour
 
     public void SetLobbyState()
     {
-        isprivate = !isprivate;
-        if (isprivate)
+        Ispublic = !Ispublic;
+        if (!Ispublic)
         {
             PrivateText.text = "Game is private";
         }
@@ -68,6 +68,7 @@ public class CreateLobby : MonoBehaviour
         {
             PrivateText.text = "Game is open";
         }
+        Debug.Log("Bool: " + Ispublic);
     }
 
     public void SetAmountofPlayers(int i) 
@@ -89,7 +90,7 @@ public class CreateLobby : MonoBehaviour
 
     IEnumerator CheckforOpenLobbys()
     {
-        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/CreateLobby.php", "PassWD=" + "1MRf!s13" + "&Id=" + LobbyID + "&AmountofPlayer=" + AmountofPlayers + "&LobbyKey=" + LobbyKey.ToString() + "&Ispublic=" + isprivate + "&Timestart=" + 0 + "&Instruments=" + InstrumentsToString(), this.gameObject);
+        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/CreateLobby.php", "PassWD=" + "1MRf!s13" + "&Id=" + LobbyID + "&AmountofPlayer=" + AmountofPlayers + "&LobbyKey=" + LobbyKey.ToString() + "&Ispublic=" + Ispublic + "&Timestart=" + 0 + "&Instruments=" + InstrumentsToString(), this.gameObject);
 
         float time = 0;
         while (this.GetComponent<RequestAnswer>().Message.Length < 1)
