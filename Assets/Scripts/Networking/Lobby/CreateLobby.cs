@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(RequestAnswer))]
 public class CreateLobby : MonoBehaviour
@@ -27,7 +28,7 @@ public class CreateLobby : MonoBehaviour
     public TextMeshProUGUI PrivateText;
     public GameObject WaitingRoom;
     public TMP_InputField PlayerName;
-
+    public Button CreateGame;
     public TextMeshProUGUI ErrorText;
 
     public void Start()
@@ -42,9 +43,15 @@ public class CreateLobby : MonoBehaviour
         if (PlayerName.text.Length < 1)
         {
             ErrorText.text = "Please enter a Name";
+            CreateGame.interactable = true;
             return;
         }
-
+        if (Instruments.Count < 1)
+        {
+            ErrorText.text = "Please Select a Instrument";
+            CreateGame.interactable = true;
+            return;
+        }
         StartCoroutine(CheckforOpenLobbys());
     }
     
@@ -117,11 +124,12 @@ public class CreateLobby : MonoBehaviour
                     break;
                 }
             }
-            ErrorText.text = "No Open Lobby Found";
+            
         }
         else
         {
             ErrorText.text = "Ups :(";
+            CreateGame.interactable = true;
         }
     }
 
