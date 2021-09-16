@@ -89,17 +89,12 @@ public class Rating : MonoBehaviour
 
     public void Vote(int i)
     {
-        if (songend == false)
-        {
-            return;
-        }
-        
         if (playerindex == players.Count)
         {
             LoadNewPlayer();
             return;
         }
-
+        Debug.Log("Vote before if");
         if (tmpplayerindexvoted != playerindex)
         {
             Debug.Log("Vote before Coroutine Working");
