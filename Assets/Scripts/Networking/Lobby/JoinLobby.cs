@@ -209,7 +209,7 @@ public class JoinLobby : MonoBehaviour
 
     public void GenerateListOfLobbys(LobbyInfo[] LobbyInfo)
     {
-        int conter = 0;
+        int conter = 1;
 
         for (int i = 0; i < LobbyInfo.Length; i++)
         {
@@ -217,12 +217,12 @@ public class JoinLobby : MonoBehaviour
             {
                 return;
             }
-            if (LobbyInfo[i].Ispublic != "True")
+            if (LobbyInfo[i].Ispublic != "True" || int.Parse(LobbyInfo[i].Timestart) > 5)
             {
                 continue;
             }
             GameObject go = Instantiate(SelectionLobbyPrefab, ContentObj.transform);
-            go.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, (conter * -100) - 50);
+           // go.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, (conter * -100) - 50);
             ContentObj.GetComponent<RectTransform>().sizeDelta = new Vector2(0, conter * 100);
             go.GetComponent<SelectLobby>().LobbyKey = LobbyInfo[i].LobbyKey;
             go.GetComponent<SelectLobby>().message = "Max: " + LobbyInfo[i].AmountofPlayer;
