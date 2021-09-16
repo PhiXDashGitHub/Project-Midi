@@ -53,21 +53,13 @@ public class Rating : MonoBehaviour
 
     public void LoadNewPlayer()
     {
-        if (playerindex == players.Count)
+        if (players[playerindex] == networkManager.Name)
         {
-            DisplayWinners();
-            songend = false;
+            playerindex++;
+            LoadNewPlayer();
             return;
         }
-        else
-        {
-            if (players[playerindex] == networkManager.Name)
-            {
-                playerindex++;
-                LoadNewPlayer();
-                return;
-            }
-        }
+
         Debug.Log("Index Playindex: " + playerindex);
         PlayerNameText.text = "Currently Playing: " + players[playerindex];
         getSong.Play(players[playerindex]);
@@ -89,12 +81,8 @@ public class Rating : MonoBehaviour
 
     public void Vote(int i)
     {
-        if (playerindex == players.Count)
-        {
-            LoadNewPlayer();
-            return;
-        }
         Debug.Log("Vote before if");
+        
         if (tmpplayerindexvoted != playerindex)
         {
             Debug.Log("Vote before Coroutine Working");
@@ -107,7 +95,7 @@ public class Rating : MonoBehaviour
 
     public IEnumerator VoteInner(int i)
     {
-        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Game/SendScore.php", "PassWD=" + "1" + "&PlayerName=" + players[playerindex] + "&LobbyId=" + networkManager.LobbyID + "&Score=" + i, this.gameObject);
+        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Game/SendScore.php", "PassWD=" + "1" + "&PlayerName=" + players[playerindex-1] + "&LobbyId=" + networkManager.LobbyID + "&Score=" + i, this.gameObject);
 
         float time = 0;
         while (this.GetComponent<RequestAnswer>().Message.Length < 1)
@@ -122,6 +110,11 @@ public class Rating : MonoBehaviour
         if (this.GetComponent<RequestAnswer>().Message.Length > 1)
         {
             Debug.Log("Vote Worked!");
+            if (playerindex == players.Count)
+            {
+                DisplayWinners();
+                songend = false;
+            }
         }
     }
 
