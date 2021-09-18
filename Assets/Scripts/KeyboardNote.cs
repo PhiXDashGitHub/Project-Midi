@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class KeyboardNote : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     NoteEditor noteEditor;
+    Button button;
 
     public int note;
     float startTime;
@@ -13,13 +15,17 @@ public class KeyboardNote : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     void Start()
     {
         noteEditor = FindObjectOfType<NoteEditor>();
+        button = GetComponent<Button>();
     }
 
     public void OnPointerDown(PointerEventData data)
     {
         startTime = NoteEditor.timer;
 
-        noteEditor.PlayKeyboardSound(note);
+        if (button.interactable)
+        {
+            noteEditor.PlayKeyboardSound(note);
+        }
     }
 
     public void OnPointerUp(PointerEventData data)

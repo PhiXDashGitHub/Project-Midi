@@ -15,4 +15,12 @@ public class Keyboard : MonoBehaviour
         scrollValue = scrollBar.value;
         transform.localPosition = new Vector2(Mathf.Lerp(scrollRangeX.x, scrollRangeX.y, scrollValue), transform.localPosition.y);
     }
+
+    public void SetScrollValue(float value)
+    {
+        value = Mathf.Clamp01(value);
+
+        scrollBar.value = value;
+        scrollValue = value;
+    }
 }

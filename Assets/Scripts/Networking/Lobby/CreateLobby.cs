@@ -36,6 +36,18 @@ public class CreateLobby : MonoBehaviour
         networkManager = FindObjectOfType<NetworkManager>();
         CreateLobbyKey();
         SetLobbyState();
+
+        LoadPlayerName();
+    }
+
+    public void SavePlayerName()
+    {
+        PlayerPrefs.SetString("PlayerName", PlayerName.text);
+    }
+
+    public void LoadPlayerName()
+    {
+        PlayerName.text = PlayerPrefs.GetString("PlayerName");
     }
 
     public void Checkforopen()

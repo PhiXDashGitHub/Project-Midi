@@ -29,6 +29,8 @@ public class JoinLobby : MonoBehaviour
     public void Start()
     {
         networkManager = FindObjectOfType<NetworkManager>();
+
+        LoadPlayerName();
     }
 
     public void Join()
@@ -44,7 +46,15 @@ public class JoinLobby : MonoBehaviour
         requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/AddPlayerToLobby.php", "PassWD=" + "1" + "&PlayerName=" + Playername + "&LobbyId=" + LobbyID, this.gameObject);
     }
 
+    public void SavePlayerName()
+    {
+        PlayerPrefs.SetString("PlayerName", PlayerName.text);
+    }
 
+    public void LoadPlayerName()
+    {
+        PlayerName.text = PlayerPrefs.GetString("PlayerName");
+    }
 
     public void CheckLobby()
     {

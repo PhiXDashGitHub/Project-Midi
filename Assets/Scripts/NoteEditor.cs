@@ -107,6 +107,7 @@ public class NoteEditor : MonoBehaviour
             reverbKnob.value = instrumentReverbs[selectedInstrument];
         }
 
+        UpdateKeyboard();
         EncodeSoundData();
     }
 
@@ -729,6 +730,31 @@ public class NoteEditor : MonoBehaviour
         selectedInstrument = value;
         volumeKnob.value = instrumentVolumes[value];
         reverbKnob.value = instrumentReverbs[value];
+
+        UpdateKeyboard();
+    }
+
+    //Updates the Keyboard Buttons and Scrollbar
+    public void UpdateKeyboard()
+    {
+        KeyboardNote[] keyboards = FindObjectsOfType<KeyboardNote>();
+
+        foreach (KeyboardNote keyboard in keyboards)
+        {
+            if (instruments[selectedInstrument].affectedByPitch)
+            {
+                keyboard.GetComponent<Button>().interactable = true;
+            }
+            else if (keyboard.note >= instruments[selectedInstrument].samples.Length)
+            {
+                keyboard.GetComponent<Button>().interactable = false;
+            }
+        }
+
+        if (!instruments[selectedInstrument].affectedByPitch)
+        {
+            FindObjectOfType<Keyboard>().SetScrollValue(0);
+        }
     }
 
     //Stops all AudioSources from playing
