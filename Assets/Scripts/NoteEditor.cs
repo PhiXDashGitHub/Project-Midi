@@ -109,6 +109,12 @@ public class NoteEditor : MonoBehaviour
             reverbKnob.value = instrumentReverbs[selectedInstrument];
         }
 
+        NoteColors noteColors = Resources.LoadAll<NoteColors>("UI/")[0];
+        for (int i = 0; i < instruments.Length; i++)
+        {
+            instrumentButtons[i].GetComponent<Image>().color = Color.Lerp(noteColors.noteColors[i], Color.white, 0.33f);
+        }
+
         UpdateKeyboard();
         EncodeSoundData();
     }
@@ -622,7 +628,7 @@ public class NoteEditor : MonoBehaviour
     //Plays a sound via the Keyboard
     public void PlayKeyboardSound(int note)
     {
-        PlaySound(selectedInstrument, note, Time.time, 1, true);
+        PlaySound(selectedInstrument, note, Time.time, 0.5f, true);
     }
 
     //Checks if Mouse Cursor is inside the Scrollview

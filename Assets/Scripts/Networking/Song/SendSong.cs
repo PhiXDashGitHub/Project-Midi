@@ -15,6 +15,7 @@ public class SendSong : MonoBehaviour
 
     public Object votingscene;
     int Maxamountoftrys;
+
     void Start()
     {
         networkManager = FindObjectOfType<NetworkManager>();

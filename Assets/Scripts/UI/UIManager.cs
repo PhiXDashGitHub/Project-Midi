@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Audio;
+using TMPro;
 
 public class UIManager : MonoBehaviour
 {
@@ -12,10 +13,20 @@ public class UIManager : MonoBehaviour
     int audiocounter;
     public AudioMixer audiomixer;
     public Image AudioButton;
+    public TextMeshProUGUI[] playerNamePlaceholder;
 
     public void Start()
     {
         audiocounter = 0;
+
+        if (playerNamePlaceholder != null)
+        {
+            foreach (TextMeshProUGUI placeholder in playerNamePlaceholder)
+            {
+                placeholder.text = System.Environment.UserName;
+            }
+        }
+
         if (PlayerPrefs.GetInt("Audiocounter") != audiocounter && SceneManager.GetActiveScene().buildIndex == 0)
         {
             audiocounter = PlayerPrefs.GetInt("Audiocounter");

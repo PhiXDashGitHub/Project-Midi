@@ -8,8 +8,8 @@ public class InstrumentButton : MonoBehaviour
 {
     public new string name;
     bool isselected;
-    public Color SelectedColor;
     public Color DeSelectColor;
+    NoteColors noteColors;
     CreateLobby createLobby;
     AddInstrumenttoEditor addInstrumenttoEditor;
 
@@ -20,6 +20,8 @@ public class InstrumentButton : MonoBehaviour
         addInstrumenttoEditor = FindObjectOfType<AddInstrumenttoEditor>();
         isselected = false;
         this.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = name;
+
+        noteColors = Resources.LoadAll<NoteColors>("UI/")[0];
     }
 
     public void SelectInstrument()
@@ -30,15 +32,34 @@ public class InstrumentButton : MonoBehaviour
         if (isselected == false && InstrumentSelection.AmountOFInstruments < InstrumentSelection.MaxamountofInstruments)
         {
             isselected = true;
+
             if (createLobby)
             {
-                FindObjectOfType<CreateLobby>().Instruments.Add(name + ";");
+                CreateLobby lobby = FindObjectOfType<CreateLobby>();
+
+                for (int i = 0; i < InstrumentSelection.MaxamountofInstruments; i++)
+                {
+                    if (lobby.Instruments[i] == "" || lobby.Instruments[i] == null)
+                    {
+                        GetComponent<Image>().color = noteColors.noteColors[i];
+                        lobby.Instruments[i] = name + ";";
+                        break;
+                    }
+                }
             }
             else if (addInstrumenttoEditor)
             {
-                addInstrumenttoEditor.Instruments.Add(name + ";");
+                for (int i = 0; i < InstrumentSelection.MaxamountofInstruments; i++)
+                {
+                    if (addInstrumenttoEditor.Instruments[i] == "" || addInstrumenttoEditor.Instruments[i] == null)
+                    {
+                        GetComponent<Image>().color = noteColors.noteColors[i];
+                        addInstrumenttoEditor.Instruments[i] = name + ";";
+                        break;
+                    }
+                }
             }
-            this.GetComponent<Image>().color = SelectedColor;
+
             InstrumentSelection.AmountOFInstruments++;
         }
         else if(isselected == true && InstrumentSelection.AmountOFInstruments > InstrumentSelection.minamountofInstruments)
@@ -46,13 +67,28 @@ public class InstrumentButton : MonoBehaviour
             isselected = false;
             if (createLobby)
             {
-                createLobby.Instruments.Remove(name + ";");
+                for (int i = 0; i < InstrumentSelection.MaxamountofInstruments; i++)
+                {
+                    if (createLobby.Instruments[i] == name + ";")
+                    {
+                        createLobby.Instruments[i] = "";
+                        break;
+                    }
+                }
             }
             else if (addInstrumenttoEditor)
             {
-                addInstrumenttoEditor.Instruments.Remove(name + ";");
+                for (int i = 0; i < InstrumentSelection.MaxamountofInstruments; i++)
+                {
+                    if (addInstrumenttoEditor.Instruments[i] == name + ";")
+                    {
+                        addInstrumenttoEditor.Instruments[i] = "";
+                        break;
+                    }
+                }
             }
-            this.GetComponent<Image>().color = DeSelectColor;
+
+            GetComponent<Image>().color = DeSelectColor;
             InstrumentSelection.AmountOFInstruments--;
         }
     }

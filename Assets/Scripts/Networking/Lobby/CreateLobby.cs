@@ -19,7 +19,7 @@ public class CreateLobby : MonoBehaviour
     int AmountofPlayers = 5;
     int LobbyID;
 
-    public List<string> Instruments = new List<string>();
+    public string[] Instruments;
 
     public int LobbyKeyLeght;
 
@@ -34,8 +34,11 @@ public class CreateLobby : MonoBehaviour
     public void Start()
     {
         networkManager = FindObjectOfType<NetworkManager>();
+        requestManager = FindObjectOfType<RequestManager>();
         CreateLobbyKey();
         SetLobbyState();
+
+        Instruments = new string[InstrumentSelection.MaxamountofInstruments];
 
         LoadPlayerName();
     }
@@ -58,7 +61,7 @@ public class CreateLobby : MonoBehaviour
             CreateGame.interactable = true;
             return;
         }
-        if (Instruments.Count < 1)
+        if (Instruments.Length < 1)
         {
             ErrorText.text = "Please Select a Instrument";
             CreateGame.interactable = true;
@@ -99,7 +102,7 @@ public class CreateLobby : MonoBehaviour
     {
         string tmp = "[";
 
-        for (int i = 0; i< Instruments.Count;i++)
+        for (int i = 0; i< Instruments.Length; i++)
         {
             tmp += Instruments[i];
         }

@@ -11,9 +11,14 @@ public class NetworkManager : MonoBehaviour
     public string LobbyKey;
     public List<string> players = new List<string>();
 
-
     public void Awake()
     {
-        DontDestroyOnLoad(this.gameObject);
+        if (FindObjectsOfType<NetworkManager>().Length > 1)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        DontDestroyOnLoad(gameObject);
     }
 }

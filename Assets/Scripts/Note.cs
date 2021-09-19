@@ -22,8 +22,7 @@ public class Note : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public Image baseImage;
     public Image lengthImage;
 
-    public Color[] baseColors;
-    public Color[] lengthColors;
+    NoteColors noteColors;
 
     Scrollbar horizontalScrollbar;
     Scrollbar verticalScrollbar;
@@ -36,8 +35,12 @@ public class Note : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         mouseOver = false;
         resizeing = false;
 
-        baseImage.color = baseColors[instrument];
-        lengthImage.color = lengthColors[instrument];
+        noteColors = Resources.LoadAll<NoteColors>("UI/")[0];
+        Color baseColor = noteColors.noteColors[instrument];
+        baseColor = Color.Lerp(baseColor, Color.white, 0.33f);
+
+        baseImage.color = baseColor;
+        lengthImage.color = noteColors.noteColors[instrument];
 
         UpdateTransform(length);
 

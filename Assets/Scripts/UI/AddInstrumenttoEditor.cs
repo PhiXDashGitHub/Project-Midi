@@ -4,16 +4,19 @@ using UnityEngine;
 
 public class AddInstrumenttoEditor : MonoBehaviour
 {
-    public List<string> Instruments = new List<string>();
+    public string[] Instruments;
     public NoteEditor Editor;
 
-
+    void Start()
+    {
+        Instruments = new string[InstrumentSelection.MaxamountofInstruments];
+    }
 
     public string InstrumentsToString()
     {
         string tmp = "[";
 
-        for (int i = 0; i < Instruments.Count; i++)
+        for (int i = 0; i < Instruments.Length; i++)
         {
             tmp += Instruments[i];
         }

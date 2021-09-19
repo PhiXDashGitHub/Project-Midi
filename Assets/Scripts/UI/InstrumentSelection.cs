@@ -7,17 +7,15 @@ public class InstrumentSelection : MonoBehaviour
     //Instrument Code: [Piano;...]
     public GameObject ListObjectPreset;
     public GameObject Content;
-    public static int MaxamountofInstruments;
-    public static int AmountOFInstruments;
-    public static int minamountofInstruments;
+    public static int MaxamountofInstruments = 6;
+    public static int AmountOFInstruments = 0;
+    public static int minamountofInstruments = 1;
 
     Instrument[] arry;
 
 
     public void Start()
     {
-        MaxamountofInstruments = 6;
-        minamountofInstruments = 1;
         AmountOFInstruments = 0;
 
         StartCoroutine(LoadAll());
