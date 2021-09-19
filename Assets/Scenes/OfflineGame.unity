@@ -12758,6 +12758,8 @@ MonoBehaviour:
   - {fileID: 2146209571}
   - {fileID: 1355474454}
   - {fileID: 932934784}
+  verticalScrollbar: {fileID: 1209359884}
+  horizontalScrollbar: {fileID: 1506745373}
   keyRange: 71
   bpm: 140
   gridSize: 1

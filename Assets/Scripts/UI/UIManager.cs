@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Audio;
 
-
 public class UIManager : MonoBehaviour
 {
     public Animation FadeIn;
@@ -13,6 +12,7 @@ public class UIManager : MonoBehaviour
     int audiocounter;
     public AudioMixer audiomixer;
     public Image AudioButton;
+
     public void Start()
     {
         audiocounter = 0;
@@ -25,14 +25,17 @@ public class UIManager : MonoBehaviour
             audiomixer.SetFloat("Volume", Volume);
         }
     }
+
     public void BackToMainMenu()
     {
         SceneManager.LoadScene(0);
     }
+
     public void LoadSceneWithAnim(int i)
     {
         StartCoroutine(LoadInner(i));
     }
+
     public IEnumerator LoadInner(int i)
     {
         FadeIn.Play();
@@ -44,20 +47,24 @@ public class UIManager : MonoBehaviour
     {
         Application.Quit();
     }
+
     public void ActivateFade(GameObject g)
     {
         StartCoroutine(FadeInner(g));
     }
+
     public void DeActivateDelay(GameObject g)
     {
         StartCoroutine(DeActivateInner(g));
     }
+
     public IEnumerator FadeInner(GameObject g)
     {
         FadeIn.Play();
         yield return new WaitForSeconds(0.5f);
         g.SetActive(true);
     }
+
     public IEnumerator DeActivateInner(GameObject g)
     {
         yield return new WaitForSeconds(0.5f);
@@ -77,7 +84,6 @@ public class UIManager : MonoBehaviour
         audiomixer.SetFloat("Volume", Volume);
         PlayerPrefs.SetInt("Audiocounter", audiocounter);
     }
-
 
     public void OpenURL(string URL)
     {

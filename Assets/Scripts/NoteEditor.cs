@@ -33,6 +33,8 @@ public class NoteEditor : MonoBehaviour
     public ControlKnob volumeKnob;
     public ControlKnob reverbKnob;
     public Button[] instrumentButtons;
+    public Scrollbar verticalScrollbar;
+    public Scrollbar horizontalScrollbar;
 
     [Header("Settings")]
     public int keyRange = 72;
@@ -160,6 +162,17 @@ public class NoteEditor : MonoBehaviour
             {
                 PlayButtonPressed();
             }
+        }
+
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            horizontalScrollbar.value -= Input.mouseScrollDelta.y * Time.deltaTime;
+            horizontalScrollbar.value = Mathf.Clamp01(horizontalScrollbar.value);
+        }
+        else
+        {
+            verticalScrollbar.value += Input.mouseScrollDelta.y * Time.deltaTime;
+            verticalScrollbar.value = Mathf.Clamp01(verticalScrollbar.value);
         }
 
         //Place Notes
