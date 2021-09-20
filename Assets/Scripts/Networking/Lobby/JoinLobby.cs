@@ -221,6 +221,11 @@ public class JoinLobby : MonoBehaviour
     {
         int conter = 1;
 
+        foreach (Transform child in ContentObj.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
         for (int i = 0; i < LobbyInfo.Length; i++)
         {
             if (i == MaxamountofLobbysToDisplay)

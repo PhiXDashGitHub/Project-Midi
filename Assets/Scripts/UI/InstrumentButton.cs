@@ -9,7 +9,7 @@ public class InstrumentButton : MonoBehaviour
     public new string name;
     bool isselected;
     public Color DeSelectColor;
-    NoteColors noteColors;
+    UIColors uiColors;
     CreateLobby createLobby;
     AddInstrumenttoEditor addInstrumenttoEditor;
 
@@ -21,7 +21,7 @@ public class InstrumentButton : MonoBehaviour
         isselected = false;
         this.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = name;
 
-        noteColors = Resources.LoadAll<NoteColors>("UI/")[0];
+        uiColors = Resources.LoadAll<UIColors>("UI/")[0];
     }
 
     public void SelectInstrument()
@@ -41,7 +41,7 @@ public class InstrumentButton : MonoBehaviour
                 {
                     if (lobby.Instruments[i] == "" || lobby.Instruments[i] == null)
                     {
-                        GetComponent<Image>().color = noteColors.noteColors[i];
+                        GetComponent<Image>().color = uiColors.noteColors[i];
                         lobby.Instruments[i] = name + ";";
                         break;
                     }
@@ -53,7 +53,7 @@ public class InstrumentButton : MonoBehaviour
                 {
                     if (addInstrumenttoEditor.Instruments[i] == "" || addInstrumenttoEditor.Instruments[i] == null)
                     {
-                        GetComponent<Image>().color = noteColors.noteColors[i];
+                        GetComponent<Image>().color = uiColors.noteColors[i];
                         addInstrumenttoEditor.Instruments[i] = name + ";";
                         break;
                     }

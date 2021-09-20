@@ -60,6 +60,7 @@ public class NoteEditor : MonoBehaviour
     public static float bpmOffset;
     public static float timer;
     float gameTimer;
+    float pausedTime;
     bool playBack, pause;
 
     public static bool recording;
@@ -84,7 +85,8 @@ public class NoteEditor : MonoBehaviour
         s_gridSize = gridSize;
         bpmOffset = 15 / bpm;
 
-        gameTimer = 900f;
+        gameTimer = 60f;
+        pausedTime = 0f;
         lastNoteLength = 1f;
 
         playBack = false;
@@ -109,10 +111,13 @@ public class NoteEditor : MonoBehaviour
             reverbKnob.value = instrumentReverbs[selectedInstrument];
         }
 
-        NoteColors noteColors = Resources.LoadAll<NoteColors>("UI/")[0];
+        UIColors uiColors = Resources.LoadAll<UIColors>("UI/")[0];
         for (int i = 0; i < instruments.Length; i++)
         {
-            instrumentButtons[i].GetComponent<Image>().color = Color.Lerp(noteColors.noteColors[i], Color.white, 0.33f);
+            if (instrumentButtons[i])
+            {
+                instrumentButtons[i].GetComponent<Image>().color = Color.Lerp(uiColors.noteColors[i], Color.white, 0.33f);
+            }
         }
 
         UpdateKeyboard();
@@ -211,6 +216,29 @@ public class NoteEditor : MonoBehaviour
         instrumentVolumes[selectedInstrument] = volumeKnob.value;
         instrumentReverbs[selectedInstrument] = reverbKnob.value;
         audioMixerGroups[selectedInstrument].audioMixer.SetFloat(selectedInstrument + "_Reverb", instrumentReverbs[selectedInstrument] * 10f);
+    }
+
+    public void OnApplicationPause(bool pause)
+    {
+        if (!isOnline)
+        {
+            return;
+        }
+
+        if (pause)
+        {
+            pausedTime = Time.realtimeSinceStartup;
+        }
+        else
+        {
+            gameTimer -= (Time.realtimeSinceStartup - pausedTime);
+            gameTimer = Mathf.Clamp(gameTimer, 1, gameTimer);
+
+            if (gameTimer <= 1)
+            {
+                GameEnd();
+            }
+        }
     }
 
     //Encodes the Notes of the Editor into the Sounddata
@@ -626,9 +654,48 @@ public class NoteEditor : MonoBehaviour
     }
 
     //Plays a sound via the Keyboard
-    public void PlayKeyboardSound(int note)
+    public void PlayKeyboardSound(int note, string id)
     {
-        PlaySound(selectedInstrument, note, Time.time, 0.5f, true);
+        AudioSource audioSource = Instantiate(audioSourcePrefab).GetComponent<AudioSource>();
+        audioSource.name = id;
+
+        AudioClip sample = instruments[selectedInstrument].samples[0];
+        float pitch = 1;
+
+        if (instruments[selectedInstrument].affectedByPitch)
+        {
+            int index = Mathf.RoundToInt((float)note / 12);                 //Calculate correct Sample Index
+            index = Mathf.Clamp(index, 0, keyRange / 12);                   //Clamps the Sample Index to prevent OutOfBounds-Error                    
+            int octave = 12 * index;                                        //Calculates the current octave the note is in
+            sample = instruments[selectedInstrument].samples[index];                //Selects the correct Audio Sample
+            pitch = Mathf.Pow(pitchOffset, note - octave);                  //Calculates the correct pitch
+        }
+        else
+        {
+            sample = note < instruments[selectedInstrument].samples.Length ? instruments[selectedInstrument].samples[note] : null;
+        }
+
+        audioSource.clip = sample;
+        audioSource.pitch = pitch;
+        audioSource.volume = instrumentVolumes[selectedInstrument];
+        audioSource.outputAudioMixerGroup = audioMixerGroups[selectedInstrument];
+
+        audioSource.GetComponent<AudioPlayer>().PlayForSeconds(Time.time, 3f, true, instruments[selectedInstrument].decay);
+    }
+
+    //Stops a Sound played by the Keyboard
+    public void StopKeyboardSound(string id)
+    {
+        AudioPlayer[] audioPlayers = FindObjectsOfType<AudioPlayer>();
+
+        foreach (AudioPlayer audioPlayer in audioPlayers)
+        {
+            if (audioPlayer.name == id)
+            {
+                audioPlayer.StopPlayback();
+                break;
+            }
+        }
     }
 
     //Checks if Mouse Cursor is inside the Scrollview
@@ -762,11 +829,11 @@ public class NoteEditor : MonoBehaviour
         {
             if (instruments[selectedInstrument].affectedByPitch)
             {
-                keyboard.GetComponent<Button>().interactable = true;
+                keyboard.SetInteractable();
             }
             else if (keyboard.note >= instruments[selectedInstrument].samples.Length)
             {
-                keyboard.GetComponent<Button>().interactable = false;
+                keyboard.interactable = false;
             }
         }
 
