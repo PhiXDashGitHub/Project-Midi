@@ -7282,6 +7282,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1745340282}
   - component: {fileID: 1745340283}
+  - component: {fileID: 1745340285}
+  - component: {fileID: 1745340284}
   m_Layer: 0
   m_Name: Editor
   m_TagString: Untagged
@@ -7358,6 +7360,31 @@ MonoBehaviour:
   votingScene: 2
   isOnline: 1
   isRating: 1
+--- !u!114 &1745340284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1745340281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea037eceaedaf3d41bfdf96e26da9976, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1745340285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1745340281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1c99300e6237814db6800d574012762, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Message: 
 --- !u!1 &1777141037
 GameObject:
   m_ObjectHideFlags: 0
