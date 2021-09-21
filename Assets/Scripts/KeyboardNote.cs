@@ -82,6 +82,11 @@ public class KeyboardNote : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void OnPointerDown(PointerEventData data)
     {
+        if (SystemInfo.deviceType == DeviceType.Handheld)
+        {
+            return;
+        }
+
         if (!interactable)
         {
             return;

@@ -669,7 +669,7 @@ public class NoteEditor : MonoBehaviour
     public void PlayKeyboard(int note, string id)
     {
         AudioSource audioSource = Instantiate(audioSourcePrefab).GetComponent<AudioSource>();
-        audioSource.name = id;
+        audioSource.gameObject.name = id;
 
         AudioClip sample = instruments[selectedInstrument].samples[0];
         float pitch = 1;
@@ -698,16 +698,14 @@ public class NoteEditor : MonoBehaviour
     //Stops a Sound played by the Keyboard
     public void StopKeyboardSound(string id)
     {
-        AudioSource[] audioPlayers = FindObjectsOfType<AudioSource>();
+        GameObject tmp = GameObject.Find(id);
 
-        foreach (AudioSource audioPlayer in audioPlayers)
+        if (tmp == null)
         {
-            if (audioPlayer.name == id)
-            {
-                audioPlayer.GetComponent<AudioPlayer>().StopPlayback();
-                break;
-            }
+            return;
         }
+
+        tmp.GetComponent<AudioPlayer>().StopPlayback();
     }
 
     //Checks if Mouse Cursor is inside the Scrollview
