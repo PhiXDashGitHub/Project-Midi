@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class KeyboardNote : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
+public class KeyboardNote : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler//, IPointerUpHandler
 {
     NoteEditor noteEditor;
     UIColors uiColors;
@@ -42,6 +42,7 @@ public class KeyboardNote : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         if (Input.GetMouseButtonUp(0))
         {
             pressed = false;
+            StopSound();
         }
 
         if (pressed)
@@ -110,7 +111,7 @@ public class KeyboardNote : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         }
     }
 
-    public void OnPointerUp(PointerEventData data)
+    /*public void OnPointerUp(PointerEventData data)
     {
         if (!interactable)
         {
@@ -130,7 +131,7 @@ public class KeyboardNote : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         {
             NoteEditor.SendRecordData(note, startTime, NoteEditor.timer - startTime);
         }
-    }
+    }*/
 
     void PlaySound()
     {
