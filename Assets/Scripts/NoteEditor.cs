@@ -654,7 +654,13 @@ public class NoteEditor : MonoBehaviour
     }
 
     //Plays a sound via the Keyboard
-    public void PlayKeyboardSound(int note, string id)
+    public void PlayKeyboardSound(int note)
+    {
+        PlaySound(selectedInstrument, note, Time.time, 0.25f, true);
+    }
+
+    //Plays a sound via the Keyboard (Advanced)
+    public void PlayKeyboard(int note, string id)
     {
         AudioSource audioSource = Instantiate(audioSourcePrefab).GetComponent<AudioSource>();
         audioSource.name = id;
@@ -667,7 +673,7 @@ public class NoteEditor : MonoBehaviour
             int index = Mathf.RoundToInt((float)note / 12);                 //Calculate correct Sample Index
             index = Mathf.Clamp(index, 0, keyRange / 12);                   //Clamps the Sample Index to prevent OutOfBounds-Error                    
             int octave = 12 * index;                                        //Calculates the current octave the note is in
-            sample = instruments[selectedInstrument].samples[index];                //Selects the correct Audio Sample
+            sample = instruments[selectedInstrument].samples[index];        //Selects the correct Audio Sample
             pitch = Mathf.Pow(pitchOffset, note - octave);                  //Calculates the correct pitch
         }
         else

@@ -139,7 +139,7 @@ public class KeyboardNote : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         if (interactable)
         {
             id = RandomString(10);
-            noteEditor.PlayKeyboardSound(note, id);
+            noteEditor.PlayKeyboard(note, id);
         }
     }
 
