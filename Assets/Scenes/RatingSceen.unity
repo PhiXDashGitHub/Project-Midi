@@ -7330,6 +7330,9 @@ MonoBehaviour:
   countdownText: {fileID: 0}
   volumeKnob: {fileID: 0}
   reverbKnob: {fileID: 0}
+  instrumentButtons: []
+  verticalScrollbar: {fileID: 0}
+  horizontalScrollbar: {fileID: 0}
   keyRange: 72
   bpm: 140
   gridSize: 1
@@ -7352,8 +7355,9 @@ MonoBehaviour:
   - {fileID: 6347802426608785579, guid: a3d3984ad14a8784283aaf16c2e1f71a, type: 2}
   - {fileID: 7519200358527019576, guid: a3d3984ad14a8784283aaf16c2e1f71a, type: 2}
   songLength: 0
-  votingScene: {fileID: 102900000, guid: f679da144760574489baa215e1740824, type: 3}
-  isonline: 1
+  votingScene: 0
+  isOnline: 1
+  isRating: 1
 --- !u!1 &1777141037
 GameObject:
   m_ObjectHideFlags: 0
@@ -13707,6 +13711,8 @@ MonoBehaviour:
   FadeIn: {fileID: 624566278}
   AudioIcons: []
   audiomixer: {fileID: 0}
+  AudioButton: {fileID: 0}
+  playerNamePlaceholder: []
 --- !u!114 &8351270132317243281
 MonoBehaviour:
   m_ObjectHideFlags: 0

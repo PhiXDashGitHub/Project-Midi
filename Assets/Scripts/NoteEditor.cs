@@ -74,6 +74,7 @@ public class NoteEditor : MonoBehaviour
     [Header("Online")]
     public int votingScene;
     public bool isOnline = true;
+    public bool isRating = false;
 
     void Start()
     {
@@ -135,6 +136,11 @@ public class NoteEditor : MonoBehaviour
         if (playBack && !pause)
         {
             timer += Time.deltaTime;
+        }
+
+        if (isRating)
+        {
+            return;
         }
 
         if (gameTimer > 0)

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ControlKnob : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class ControlKnob : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     [Range(0, 1)] public float value = 0.25f;
 
@@ -43,15 +43,12 @@ public class ControlKnob : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         }
     }
 
-    public void OnPointerEnter(PointerEventData data)
+    public void OnPointerDown(PointerEventData data)
     {
-        if (!Input.GetMouseButton(0))
-        {
-            mouseOver = true;
-        }
+        mouseOver = true;
     }
 
-    public void OnPointerExit(PointerEventData data)
+    public void OnPointerUp(PointerEventData data)
     {
         if (!dragging)
         {
