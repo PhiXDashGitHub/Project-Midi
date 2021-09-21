@@ -24,7 +24,7 @@ public class AudioPlayer : MonoBehaviour
 
     IEnumerator PlayDelayed(float delay)
     {
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForSecondsRealtime(delay);
         GetComponent<AudioSource>().Play();
     }
 
@@ -32,7 +32,7 @@ public class AudioPlayer : MonoBehaviour
     {
         if ((useRealTime ? Time.time : NoteEditor.timer) < startTime + dur)
         {
-            yield return new WaitForSeconds((startTime + dur) - (useRealTime ? Time.time : NoteEditor.timer));
+            yield return new WaitForSecondsRealtime((startTime + dur) - (useRealTime ? Time.time : NoteEditor.timer));
             //Debug.Log("EndTimer: " + NoteEditor.timer);
             coroutine = StartCoroutine(IPlayForSeconds(startTime, useRealTime, decay));
         }
@@ -40,7 +40,7 @@ public class AudioPlayer : MonoBehaviour
         {
             GetComponent<AudioSource>().volume -= decay * Time.deltaTime;
 
-            yield return new WaitForSeconds(Time.deltaTime);
+            yield return new WaitForSecondsRealtime(Time.deltaTime);
             coroutine = StartCoroutine(IPlayForSeconds(startTime, useRealTime, decay));
         }
         else
