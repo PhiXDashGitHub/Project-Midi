@@ -112,12 +112,15 @@ public class NoteEditor : MonoBehaviour
             reverbKnob.value = instrumentReverbs[selectedInstrument];
         }
 
-        UIColors uiColors = Resources.LoadAll<UIColors>("UI/")[0];
-        for (int i = 0; i < instruments.Length; i++)
+        if (!isRating)
         {
-            if (instrumentButtons[i])
+            UIColors uiColors = Resources.LoadAll<UIColors>("UI/")[0];
+            for (int i = 0; i < instruments.Length; i++)
             {
-                instrumentButtons[i].GetComponent<Image>().color = Color.Lerp(uiColors.noteColors[i], Color.white, 0.33f);
+                if (instrumentButtons[i])
+                {
+                    instrumentButtons[i].GetComponent<Image>().color = Color.Lerp(uiColors.noteColors[i], Color.white, 0.33f);
+                }
             }
         }
 
