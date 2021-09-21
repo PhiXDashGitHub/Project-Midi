@@ -530,7 +530,11 @@ public class NoteEditor : MonoBehaviour
                 if (allInstruments[r].name == splitInput[i] && splitInput[i].Length >1)
                 {
                     instruments[i] = allInstruments[r];
-                    instrumentButtons[i].gameObject.SetActive(true);
+
+                    if (!isRating)
+                    {
+                        instrumentButtons[i].gameObject.SetActive(true);
+                    }
                 }
             }
         }
