@@ -26,6 +26,7 @@ public class WaitingRoom : MonoBehaviour
     public void Start()
     {
         networkManager = FindObjectOfType<NetworkManager>();
+        requestManager = FindObjectOfType<RequestManager>();
         GetPlayers();
     }
 
