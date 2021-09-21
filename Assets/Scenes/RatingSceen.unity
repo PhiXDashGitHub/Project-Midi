@@ -7350,12 +7350,12 @@ MonoBehaviour:
   audioMixerGroups:
   - {fileID: -8612402505827083554, guid: a3d3984ad14a8784283aaf16c2e1f71a, type: 2}
   - {fileID: -8117452663786242499, guid: a3d3984ad14a8784283aaf16c2e1f71a, type: 2}
-  - {fileID: 4225886227724958693, guid: a3d3984ad14a8784283aaf16c2e1f71a, type: 2}
   - {fileID: 4810742145419618820, guid: a3d3984ad14a8784283aaf16c2e1f71a, type: 2}
   - {fileID: 6347802426608785579, guid: a3d3984ad14a8784283aaf16c2e1f71a, type: 2}
+  - {fileID: 4225886227724958693, guid: a3d3984ad14a8784283aaf16c2e1f71a, type: 2}
   - {fileID: 7519200358527019576, guid: a3d3984ad14a8784283aaf16c2e1f71a, type: 2}
   songLength: 0
-  votingScene: 0
+  votingScene: 2
   isOnline: 1
   isRating: 1
 --- !u!1 &1777141037
