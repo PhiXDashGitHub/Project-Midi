@@ -692,7 +692,7 @@ public class NoteEditor : MonoBehaviour
         audioSource.volume = instrumentVolumes[selectedInstrument];
         audioSource.outputAudioMixerGroup = audioMixerGroups[selectedInstrument];
 
-        audioSource.GetComponent<AudioPlayer>().PlayForSeconds(Time.time, 3f, true, instruments[selectedInstrument].decay);
+        audioSource.GetComponent<AudioPlayer>().PlayForSeconds(Time.realtimeSinceStartup, 3f, true, instruments[selectedInstrument].decay);
     }
 
     //Stops a Sound played by the Keyboard
