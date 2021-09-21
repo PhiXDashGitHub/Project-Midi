@@ -698,13 +698,13 @@ public class NoteEditor : MonoBehaviour
     //Stops a Sound played by the Keyboard
     public void StopKeyboardSound(string id)
     {
-        AudioPlayer[] audioPlayers = FindObjectsOfType<AudioPlayer>();
+        AudioSource[] audioPlayers = FindObjectsOfType<AudioSource>();
 
-        foreach (AudioPlayer audioPlayer in audioPlayers)
+        foreach (AudioSource audioPlayer in audioPlayers)
         {
             if (audioPlayer.name == id)
             {
-                audioPlayer.StopPlayback();
+                audioPlayer.GetComponent<AudioPlayer>().StopPlayback();
                 break;
             }
         }
