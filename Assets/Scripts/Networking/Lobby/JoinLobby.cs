@@ -29,7 +29,7 @@ public class JoinLobby : MonoBehaviour
     public void Start()
     {
         networkManager = FindObjectOfType<NetworkManager>();
-
+        requestManager = FindObjectOfType<RequestManager>();
         LoadPlayerName();
     }
 
