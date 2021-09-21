@@ -53,7 +53,7 @@ public class WaitingRoom : MonoBehaviour
                 break;
             }
             time += Time.deltaTime;
-            yield return new WaitForSeconds(Time.deltaTime);
+            yield return new WaitForSecondsRealtime(Time.deltaTime);
         }
         if (this.GetComponent<RequestAnswer>().Message.Length > 1)
         {
@@ -78,7 +78,7 @@ public class WaitingRoom : MonoBehaviour
         {
             DebugText.text = "Timeout :(";
         }
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSecondsRealtime(3);
         StartCoroutine(UpdatePlayers());
     }
 

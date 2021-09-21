@@ -19,7 +19,7 @@ public class RequestManager : MonoBehaviour
     {
         while (go.GetComponent<Getrequest>().Message == null)
         {
-            yield return new WaitForSeconds(0.01f);
+            yield return new WaitForSecondsRealtime(0.01f);
         }
 
         try

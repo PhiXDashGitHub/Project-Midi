@@ -40,7 +40,7 @@ public class SendSong : MonoBehaviour
                 break;
             }
             time += Time.deltaTime;
-            yield return new WaitForSeconds(Time.deltaTime);
+            yield return new WaitForSecondsRealtime(Time.deltaTime);
         }
         if (this.GetComponent<RequestAnswer>().Message.Length > 1)
         {
@@ -50,7 +50,7 @@ public class SendSong : MonoBehaviour
         {
             if (Maxamountoftrys < 3)
             {
-                yield return new WaitForSeconds(Time.deltaTime);
+                yield return new WaitForSecondsRealtime(Time.deltaTime);
                 StartCoroutine(SendInner(song));
                 Maxamountoftrys++;
             }

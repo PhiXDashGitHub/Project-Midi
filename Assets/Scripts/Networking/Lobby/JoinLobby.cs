@@ -95,7 +95,7 @@ public class JoinLobby : MonoBehaviour
                 break;
             }
             time += Time.deltaTime;
-            yield return new WaitForSeconds(Time.deltaTime);
+            yield return new WaitForSecondsRealtime(Time.deltaTime);
         }
 
         if (this.GetComponent<RequestAnswer>().Message.Length > 1)
@@ -139,7 +139,7 @@ public class JoinLobby : MonoBehaviour
                 break;
             }
             time += Time.deltaTime;
-            yield return new WaitForSeconds(Time.deltaTime);
+            yield return new WaitForSecondsRealtime(Time.deltaTime);
         }
         Debug.Log("M: " + this.GetComponent<RequestAnswer>().Message);
         if (this.GetComponent<RequestAnswer>().Message.Length > 1)
@@ -189,7 +189,7 @@ public class JoinLobby : MonoBehaviour
     public IEnumerator DisplayAllOpenLobbyInner()
     {
         this.GetComponent<RequestAnswer>().Message = "";
-        yield return new WaitForSeconds(Time.deltaTime);
+        yield return new WaitForSecondsRealtime(Time.deltaTime);
         requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/GetAllLobbys.php", "PassWD=" + "1MRf!s13", this.gameObject);
 
         float time = 0;
@@ -200,7 +200,7 @@ public class JoinLobby : MonoBehaviour
                 break;
             }
             time += Time.deltaTime;
-            yield return new WaitForSeconds(Time.deltaTime);
+            yield return new WaitForSecondsRealtime(Time.deltaTime);
         }
 
         if (this.GetComponent<RequestAnswer>().Message.Length > 1)

@@ -50,7 +50,7 @@ public class UIManager : MonoBehaviour
     public IEnumerator LoadInner(int i)
     {
         FadeIn.Play();
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSecondsRealtime(0.5f);
         SceneManager.LoadScene(i);
     }
 
@@ -72,13 +72,13 @@ public class UIManager : MonoBehaviour
     public IEnumerator FadeInner(GameObject g)
     {
         FadeIn.Play();
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSecondsRealtime(0.5f);
         g.SetActive(true);
     }
 
     public IEnumerator DeActivateInner(GameObject g)
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSecondsRealtime(0.5f);
         g.SetActive(false);
     }
 

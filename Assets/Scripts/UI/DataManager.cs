@@ -127,13 +127,13 @@ public class DataManager : MonoBehaviour
 
     IEnumerator LoadDelayed(string name)
     {
-        yield return new WaitForSeconds(0.45f);
+        yield return new WaitForSecondsRealtime(0.45f);
         noteEditor.LoadFromFile(name);
     }
 
     IEnumerator SaveDelayed(string name)
     {
-        yield return new WaitForSeconds(0.45f);
+        yield return new WaitForSecondsRealtime(0.45f);
         noteEditor.SaveToFile(name);
     }
 }

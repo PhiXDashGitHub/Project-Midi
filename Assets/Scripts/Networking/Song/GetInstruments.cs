@@ -29,7 +29,7 @@ public class GetInstruments : MonoBehaviour
                 break;
             }
             time += Time.deltaTime;
-            yield return new WaitForSeconds(Time.deltaTime);
+            yield return new WaitForSecondsRealtime(Time.deltaTime);
         }
 
         if (this.GetComponent<RequestAnswer>().Message.Length > 1)

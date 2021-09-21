@@ -47,7 +47,7 @@ public class GetSong : MonoBehaviour
                     break;
                 }
                 time += Time.deltaTime;
-                yield return new WaitForSeconds(Time.deltaTime);
+                yield return new WaitForSecondsRealtime(Time.deltaTime);
             }
 
             if (this.GetComponent<RequestAnswer>().Message.Length > 1)
@@ -76,7 +76,7 @@ public class GetSong : MonoBehaviour
 
     public IEnumerator WaitforSongEnd()
     {
-        yield return new WaitForSeconds(noteEditor.songLength + 5);
+        yield return new WaitForSecondsRealtime(noteEditor.songLength + 5);
 
         Debug.Log("Setting Songend true");
         rating.songend = true;

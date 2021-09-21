@@ -22,13 +22,13 @@ public class ControlKnob : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         angle.z = Mathf.Lerp(angleLimits.x, angleLimits.y, value);
         transform.eulerAngles = angle;
 
-        if (InputUI.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
             dragStart = Input.mousePosition;
             dragValue = value;
         }
 
-        if (InputUI.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0))
         {
             mouseOver = false;
             dragging = false;

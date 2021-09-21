@@ -32,6 +32,7 @@ public class InstrumentSelection : MonoBehaviour
             Content.GetComponent<RectTransform>().sizeDelta = new Vector2(0, i * 100);
             go.GetComponent<InstrumentButton>().name = arry[i].name;
         }
-        yield return new WaitForSeconds(0);
+
+        yield return null;
     }
 }

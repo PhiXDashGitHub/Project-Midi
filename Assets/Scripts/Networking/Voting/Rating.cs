@@ -105,7 +105,7 @@ public class Rating : MonoBehaviour
                 break;
             }
             time += Time.deltaTime;
-            yield return new WaitForSeconds(Time.deltaTime);
+            yield return new WaitForSecondsRealtime(Time.deltaTime);
         }
         if (this.GetComponent<RequestAnswer>().Message.Length > 1)
         {
@@ -125,7 +125,7 @@ public class Rating : MonoBehaviour
 
     public IEnumerator GetAllVotings()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSecondsRealtime(0.5f);
         this.GetComponent<RequestAnswer>().Message = "";
         requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/GetPlayerData.php", "PassWD=" + "1MRf!s13" + "&LobbyId=" + networkManager.LobbyID, this.gameObject);
 
@@ -137,7 +137,7 @@ public class Rating : MonoBehaviour
                 break;
             }
             time += Time.deltaTime;
-            yield return new WaitForSeconds(Time.deltaTime);
+            yield return new WaitForSecondsRealtime(Time.deltaTime);
         }
 
         if (this.GetComponent<RequestAnswer>().Message.Length > 1)
@@ -180,7 +180,7 @@ public class Rating : MonoBehaviour
                 break;
             }
             time += Time.deltaTime;
-            yield return new WaitForSeconds(Time.deltaTime);
+            yield return new WaitForSecondsRealtime(Time.deltaTime);
         }
         if (this.GetComponent<RequestAnswer>().Message.Length > 1)
         {
@@ -203,7 +203,7 @@ public class Rating : MonoBehaviour
                 break;
             }
             time += Time.deltaTime;
-            yield return new WaitForSeconds(Time.deltaTime);
+            yield return new WaitForSecondsRealtime(Time.deltaTime);
         }
         if (this.GetComponent<RequestAnswer>().Message.Length > 1)
         {
@@ -273,7 +273,7 @@ public class Rating : MonoBehaviour
 
     public IEnumerator GetAllPlayerStatsInner()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSecondsRealtime(3);
         requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/GetPlayerData.php", "PassWD=" + "1MRf!s13" + "&LobbyId=" + networkManager.LobbyID, this.gameObject);
 
         float time = 0;
@@ -284,7 +284,7 @@ public class Rating : MonoBehaviour
                 break;
             }
             time += Time.deltaTime;
-            yield return new WaitForSeconds(Time.deltaTime);
+            yield return new WaitForSecondsRealtime(Time.deltaTime);
         }
         if (this.GetComponent<RequestAnswer>().Message.Length > 2)
         {
