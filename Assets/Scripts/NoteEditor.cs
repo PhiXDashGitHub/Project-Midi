@@ -519,8 +519,8 @@ public class NoteEditor : MonoBehaviour
             return false;
         }
 
-        instruments = new Instrument[6];
         string[] splitInput = input.Replace('[', ' ').Replace(']', ' ').Trim().Split(';');
+        instruments = new Instrument[splitInput.Length - 1];
         Instrument[] allInstruments = Resources.LoadAll<Instrument>("Instruments/");
 
         for (int i = 0; i < splitInput.Length; i++)
