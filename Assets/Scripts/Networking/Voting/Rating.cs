@@ -95,6 +95,7 @@ public class Rating : MonoBehaviour
 
     public IEnumerator VoteInner(int i)
     {
+        this.GetComponent<RequestAnswer>().Message = "";
         requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Game/SendScore.php", "PassWD=" + "1" + "&PlayerName=" + players[playerindex-1] + "&LobbyId=" + networkManager.LobbyID + "&Score=" + i, this.gameObject);
 
         float time = 0;
