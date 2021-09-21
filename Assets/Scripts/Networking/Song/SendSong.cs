@@ -13,7 +13,7 @@ public class SendSong : MonoBehaviour
     public string volume;
     public string reverb;
 
-    public Object votingscene;
+    public int votingsceneindex;
     int Maxamountoftrys;
 
     void Start()
@@ -44,7 +44,7 @@ public class SendSong : MonoBehaviour
         }
         if (this.GetComponent<RequestAnswer>().Message.Length > 1)
         {
-            SceneManager.LoadScene(votingscene.name);
+            SceneManager.LoadScene(votingsceneindex);
         }
         else
         {

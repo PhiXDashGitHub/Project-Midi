@@ -72,7 +72,7 @@ public class NoteEditor : MonoBehaviour
     string fileType;
 
     [Header("Online")]
-    public Object votingScene;
+    public int votingScene;
     public bool isOnline = true;
 
     void Start()
@@ -890,7 +890,7 @@ public class NoteEditor : MonoBehaviour
     //When the Gametimer reached zero
     public void GameEnd()
     {
-        if (SceneManager.GetActiveScene().name == votingScene.name)
+        if (SceneManager.GetActiveScene().buildIndex == votingScene)
         {
             return;
         }
@@ -901,7 +901,7 @@ public class NoteEditor : MonoBehaviour
         GetComponent<SendSong>().bpm = (int)bpm;
         GetComponent<SendSong>().reverb = ReverbToString();
         GetComponent<SendSong>().volume = VolumeToString();
-        GetComponent<SendSong>().votingscene = votingScene;
+        GetComponent<SendSong>().votingsceneindex = votingScene;
         GetComponent<SendSong>().Send(NoteDataToString());
         enabled = false;
     }
