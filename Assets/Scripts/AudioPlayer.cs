@@ -12,14 +12,14 @@ public class AudioPlayer : MonoBehaviour
         dur = duration;
 
         coroutine = StartCoroutine(IPlayForSeconds(startTime, useRealTime, decay));
-        StartCoroutine(PlayDelayed(startTime - (useRealTime ? Time.time : NoteEditor.timer)));
+        StartCoroutine(PlayDelayed(startTime - (useRealTime ? Time.realtimeSinceStartup : NoteEditor.timer)));
     }
 
     public void StopPlayback()
     {
         StopCoroutine(coroutine);
         dur = 0.1f;
-        coroutine = StartCoroutine(IPlayForSeconds(Time.time, true));
+        coroutine = StartCoroutine(IPlayForSeconds(Time.realtimeSinceStartup, true));
     }
 
     IEnumerator PlayDelayed(float delay)
@@ -30,13 +30,13 @@ public class AudioPlayer : MonoBehaviour
 
     IEnumerator IPlayForSeconds(float startTime, bool useRealTime = false, float decay = 4)
     {
-        if ((useRealTime ? Time.time : NoteEditor.timer) < startTime + dur)
+        if ((useRealTime ? Time.realtimeSinceStartup : NoteEditor.timer) < startTime + dur)
         {
-            yield return new WaitForSecondsRealtime((startTime + dur) - (useRealTime ? Time.time : NoteEditor.timer));
+            yield return new WaitForSecondsRealtime((startTime + dur) - (useRealTime ? Time.realtimeSinceStartup : NoteEditor.timer));
             //Debug.Log("EndTimer: " + NoteEditor.timer);
             coroutine = StartCoroutine(IPlayForSeconds(startTime, useRealTime, decay));
         }
-        else if ((useRealTime ? Time.time : NoteEditor.timer) > startTime + dur && GetComponent<AudioSource>().volume > 0)
+        else if ((useRealTime ? Time.realtimeSinceStartup : NoteEditor.timer) > startTime + dur && GetComponent<AudioSource>().volume > 0)
         {
             GetComponent<AudioSource>().volume -= decay * Time.deltaTime;
 
