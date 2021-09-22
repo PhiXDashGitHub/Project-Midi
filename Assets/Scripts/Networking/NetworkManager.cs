@@ -11,6 +11,10 @@ public class NetworkManager : MonoBehaviour
     public string LobbyKey;
     public List<string> players = new List<string>();
 
+    [Header("Scenes")]
+    public int noteEditorScene;
+    public int ratingScene;
+
     public void Awake()
     {
         if (FindObjectsOfType<NetworkManager>().Length > 1)

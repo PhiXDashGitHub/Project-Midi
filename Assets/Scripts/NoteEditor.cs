@@ -907,6 +907,11 @@ public class NoteEditor : MonoBehaviour
     //When the Gametimer reached zero
     public void GameEnd()
     {
+        if (Application.internetReachability == NetworkReachability.NotReachable)
+        {
+            SceneManager.LoadScene(0);
+        }
+
         if (SceneManager.GetActiveScene().buildIndex == votingScene)
         {
             return;
