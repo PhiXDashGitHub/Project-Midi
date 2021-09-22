@@ -105,15 +105,18 @@ public class KeyboardNote : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             return;
         }
 
+        if (pressed)
+        {
+            if (NoteEditor.timer - startTime > 0 && NoteEditor.recording)
+            {
+                NoteEditor.SendRecordData(note, startTime, NoteEditor.timer - startTime);
+            }
+        }
+
         targetColor = initColor;
         pressed = false;
 
         StopSound();
-
-        if (NoteEditor.timer - startTime > 0 && NoteEditor.recording)
-        {
-            NoteEditor.SendRecordData(note, startTime, NoteEditor.timer - startTime);
-        }
     }
 
     public void OnPointerUp(PointerEventData data)
