@@ -35,6 +35,10 @@ public class NoteEditor : MonoBehaviour
     public Button[] instrumentButtons;
     public Scrollbar verticalScrollbar;
     public Scrollbar horizontalScrollbar;
+    public Sprite buttonNormal;
+    public Sprite buttonInverted;
+    public Button placeButton;
+    public Button eraseButton;
 
     [Header("Settings")]
     public int keyRange = 72;
@@ -86,7 +90,7 @@ public class NoteEditor : MonoBehaviour
         s_gridSize = gridSize;
         bpmOffset = 15 / bpm;
 
-        gameTimer = 60f;
+        gameTimer = 900f;
         pausedTime = 0f;
         lastNoteLength = 1f;
 
@@ -761,11 +765,14 @@ public class NoteEditor : MonoBehaviour
         {
             editMode = EditMode.None;
             Cursor.SetCursor(null, cursorOffsetPlace, CursorMode.ForceSoftware);
+            placeButton.GetComponent<Image>().color = Color.white;
         }
         else
         {
             editMode = EditMode.Place;
             Cursor.SetCursor(cursorTexPlace, cursorOffsetPlace, CursorMode.ForceSoftware);
+            placeButton.GetComponent<Image>().color = placeButton.colors.pressedColor;
+            eraseButton.GetComponent<Image>().color = Color.white;
         }
     }
 
@@ -776,11 +783,14 @@ public class NoteEditor : MonoBehaviour
         {
             editMode = EditMode.None;
             Cursor.SetCursor(null, cursorOffsetErase, CursorMode.ForceSoftware);
+            eraseButton.GetComponent<Image>().color = Color.white;
         }
         else
         {
             editMode = EditMode.Erase;
             Cursor.SetCursor(cursorTexErase, cursorOffsetErase, CursorMode.ForceSoftware);
+            eraseButton.GetComponent<Image>().color = eraseButton.colors.pressedColor;
+            placeButton.GetComponent<Image>().color = Color.white;
         }
     }
 
@@ -843,6 +853,18 @@ public class NoteEditor : MonoBehaviour
         selectedInstrument = value;
         volumeKnob.value = instrumentVolumes[value];
         reverbKnob.value = instrumentReverbs[value];
+
+        foreach (Button button in instrumentButtons)
+        {
+            if (button == instrumentButtons[selectedInstrument])
+            {
+                button.GetComponent<Image>().sprite = buttonInverted;
+            }
+            else
+            {
+                button.GetComponent<Image>().sprite = buttonNormal;
+            }
+        }
 
         UpdateKeyboard();
     }
