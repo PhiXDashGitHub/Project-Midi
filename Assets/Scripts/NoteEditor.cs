@@ -139,6 +139,11 @@ public class NoteEditor : MonoBehaviour
         if (playBack && !pause)
         {
             timer += Time.deltaTime;
+
+            if (timer >= (songLength + Time.deltaTime) + 16 * bpmOffset)
+            {
+                StopButtonPressed();
+            }
         }
 
         if (isRating)

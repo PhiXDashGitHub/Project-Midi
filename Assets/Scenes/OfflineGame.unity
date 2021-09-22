@@ -12939,7 +12939,7 @@ MonoBehaviour:
   - {fileID: 6347802426608785579, guid: a3d3984ad14a8784283aaf16c2e1f71a, type: 2}
   - {fileID: 4225886227724958693, guid: a3d3984ad14a8784283aaf16c2e1f71a, type: 2}
   - {fileID: 7519200358527019576, guid: a3d3984ad14a8784283aaf16c2e1f71a, type: 2}
-  songLength: 15.321428
+  songLength: 0
   votingScene: 0
   isOnline: 0
   isRating: 0
