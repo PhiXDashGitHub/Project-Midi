@@ -14,6 +14,7 @@ public class Rating : MonoBehaviour
 
     int playerindex;
     int tmpplayerindexvoted = -2;
+    int amountoftrys;
     [HideInInspector]
     public bool songend = false;
 
@@ -162,7 +163,15 @@ public class Rating : MonoBehaviour
             }
             else
             {
-                StartCoroutine(GetAllVotings());
+                if (amountoftrys < 10)
+                {
+                    amountoftrys++;
+                    StartCoroutine(GetAllVotings());
+                }
+                else
+                {
+                    SceneManager.LoadScene(0);
+                }
             }
         }
     }
@@ -239,26 +248,30 @@ public class Rating : MonoBehaviour
                         }
                         if (notdisplayed) 
                         {
-                            if (i == 0)
+                            if (WinnerText.text.Length < 2 && PlaceText2.text.Length < 2)
                             {
-                                WinnerText.text = "The Winner is: " + PlayerInfo[j].PlayerName + "\n" + "Score: " + PlayerInfo[j].Score;
-                                ShownPlayers.Add(PlayerInfo[j].PlayerName);
+                                if (i == 0)
+                                {
+                                    WinnerText.text = "The Winner is: " + PlayerInfo[j].PlayerName + "\n" + "Score: " + PlayerInfo[j].Score;
+                                    ShownPlayers.Add(PlayerInfo[j].PlayerName);
+                                }
+                                else if (i == 1)
+                                {
+                                    PlaceText2.text += i + 1 + " Place: " + PlayerInfo[j].PlayerName + " Score: " + PlayerInfo[j].Score;
+                                    ShownPlayers.Add(PlayerInfo[j].PlayerName);
+                                }
+                                else if (i == 2)
+                                {
+                                    PlaceText3.text += i + 1 + " Place: " + PlayerInfo[j].PlayerName + " Score: " + PlayerInfo[j].Score;
+                                    ShownPlayers.Add(PlayerInfo[j].PlayerName);
+                                }
+                                else if (i == 3)
+                                {
+                                    PlaceText4.text += i + 1 + " Place: " + PlayerInfo[j].PlayerName + " Score: " + PlayerInfo[j].Score;
+                                    ShownPlayers.Add(PlayerInfo[j].PlayerName);
+                                }
                             }
-                            else if (i == 1)
-                            {
-                                PlaceText2.text += i + 1 + " Place: " + PlayerInfo[j].PlayerName + " Score: " + PlayerInfo[j].Score;
-                                ShownPlayers.Add(PlayerInfo[j].PlayerName);
-                            }
-                            else if (i == 2)
-                            {
-                                PlaceText3.text += i + 1 + " Place: " + PlayerInfo[j].PlayerName + " Score: " + PlayerInfo[j].Score;
-                                ShownPlayers.Add(PlayerInfo[j].PlayerName);
-                            }
-                            else if (i == 3)
-                            {
-                                PlaceText4.text += i + 1 + " Place: " + PlayerInfo[j].PlayerName + " Score: " + PlayerInfo[j].Score;
-                                ShownPlayers.Add(PlayerInfo[j].PlayerName);
-                            }
+                            
                             break;
                         }
                     }
