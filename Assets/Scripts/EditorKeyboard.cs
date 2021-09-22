@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EditorKeyboard : MonoBehaviour
 {
+    public bool fixY = false;
     Vector3 position;
 
     void Start()
@@ -14,7 +15,8 @@ public class EditorKeyboard : MonoBehaviour
     void Update()
     {
         Vector3 pos = transform.position;
-        pos.x = position.x;
+        pos.x = !fixY ? position.x : pos.x;
+        pos.y = fixY ? position.y : pos.y;
         transform.position = pos;
     }
 }
