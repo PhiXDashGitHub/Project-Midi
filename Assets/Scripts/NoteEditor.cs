@@ -435,8 +435,13 @@ public class NoteEditor : MonoBehaviour
 
             //Load Instruments
             string instr = "";
-            for (int i = 2; i < 2 + instruments.Length; i++)
+            for (int i = 2; i < 2 + 6; i++)
             {
+                if (content[i] == "" || content[i] == null)
+                {
+                    break;
+                }
+
                 instr += content[i] + ";";
             }
             StringToInstruments(instr);
@@ -909,12 +914,19 @@ public class NoteEditor : MonoBehaviour
         newNote.length = duration / bpmOffset;
     }
 
+    //Resets the Cursor
+    public void ResetCursor()
+    {
+        Cursor.SetCursor(null, Vector2.zero, CursorMode.ForceSoftware);
+    }
+
     //When the Gametimer reached zero
     public void GameEnd()
     {
         if (Application.internetReachability == NetworkReachability.NotReachable)
         {
             SceneManager.LoadScene(0);
+            ResetCursor();
         }
 
         if (SceneManager.GetActiveScene().buildIndex == votingScene)
