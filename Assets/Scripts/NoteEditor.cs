@@ -75,6 +75,10 @@ public class NoteEditor : MonoBehaviour
     string filePath;
     string fileType;
 
+    AndroidJavaClass unityPlayer;
+    AndroidJavaObject currentActivity;
+    AndroidJavaObject vibrator;
+
     [Header("Online")]
     public int votingScene;
     public bool isOnline = true;
@@ -130,6 +134,10 @@ public class NoteEditor : MonoBehaviour
 
         UpdateKeyboard();
         EncodeSoundData();
+
+        unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+        currentActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
+        vibrator = currentActivity.Call<AndroidJavaObject>("getSystemService", "vibrator");
     }
 
     void Update()
@@ -684,6 +692,8 @@ public class NoteEditor : MonoBehaviour
     public void PlayKeyboardSound(int note)
     {
         PlaySound(selectedInstrument, note, Time.time, 0.25f, true);
+
+        Vibrate(25);
     }
 
     //Plays a sound via the Keyboard (Advanced)
@@ -714,6 +724,8 @@ public class NoteEditor : MonoBehaviour
         audioSource.outputAudioMixerGroup = audioMixerGroups[selectedInstrument];
 
         audioSource.GetComponent<AudioPlayer>().PlayForSeconds(Time.realtimeSinceStartup, 3f, true, instruments[selectedInstrument].decay);
+
+        Vibrate(25);
     }
 
     //Stops a Sound played by the Keyboard
@@ -942,10 +954,29 @@ public class NoteEditor : MonoBehaviour
         Cursor.SetCursor(null, Vector2.zero, CursorMode.ForceSoftware);
     }
 
+    //Vibrates the Device for set milliseconds
+    public void Vibrate(int milliseconds)
+    {
+        if (SystemInfo.deviceType == DeviceType.Handheld)
+        {
+            vibrator.Call("vibrate", milliseconds);
+        }
+        else
+        {
+            Handheld.Vibrate();
+        }
+    }
+
+    //Returns the state of the current Internet Connection
+    public bool ConnectedToInternet()
+    {
+        return Application.internetReachability != NetworkReachability.NotReachable;
+    }
+
     //When the Gametimer reached zero
     public void GameEnd()
     {
-        if (Application.internetReachability == NetworkReachability.NotReachable)
+        if (ConnectedToInternet())
         {
             SceneManager.LoadScene(0);
             ResetCursor();

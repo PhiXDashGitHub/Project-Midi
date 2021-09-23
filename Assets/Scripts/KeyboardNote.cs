@@ -143,8 +143,6 @@ public class KeyboardNote : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     void PlaySound()
     {
-        Handheld.Vibrate();
-
         startTime = NoteEditor.timer;
 
         if (interactable)
