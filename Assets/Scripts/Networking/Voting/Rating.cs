@@ -82,11 +82,8 @@ public class Rating : MonoBehaviour
 
     public void Vote(int i)
     {
-        Debug.Log("Vote before if");
-        
         if (tmpplayerindexvoted != playerindex)
         {
-            Debug.Log("Vote before Coroutine Working");
             StartCoroutine(VoteInner(i));
             
             tmpplayerindexvoted = playerindex;
@@ -96,6 +93,7 @@ public class Rating : MonoBehaviour
 
     public IEnumerator VoteInner(int i)
     {
+        tmpplayerindexvoted = playerindex;
         this.GetComponent<RequestAnswer>().Message = "";
         requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Game/SendScore.php", "PassWD=" + "1" + "&PlayerName=" + players[playerindex-1] + "&LobbyId=" + networkManager.LobbyID + "&Score=" + i, this.gameObject);
 
@@ -112,7 +110,7 @@ public class Rating : MonoBehaviour
         if (this.GetComponent<RequestAnswer>().Message.Length > 1)
         {
             Debug.Log("Vote Worked!");
-            if (playerindex == players.Count)
+            if (tmpplayerindexvoted == players.Count)
             {
                 DisplayWinners();
                 songend = false;
@@ -170,7 +168,7 @@ public class Rating : MonoBehaviour
                 }
                 else
                 {
-                    SceneManager.LoadScene(0);
+                    StartCoroutine(DisplayWinnersInner());
                 }
             }
         }
