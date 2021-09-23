@@ -105,10 +105,6 @@ public class NoteEditor : MonoBehaviour
         instrumentVolumes = new float[instruments.Length];
         instrumentReverbs = new float[instruments.Length];
 
-        unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
-        currentActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
-        vibrator = currentActivity.Call<AndroidJavaObject>("getSystemService", "vibrator");
-
         filePath = Application.persistentDataPath + "/Songs/";
         fileType = ".ndf";
 
@@ -138,6 +134,13 @@ public class NoteEditor : MonoBehaviour
 
         UpdateKeyboard();
         EncodeSoundData();
+
+        if (IsMobile())
+        {
+            unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+            currentActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
+            vibrator = currentActivity.Call<AndroidJavaObject>("getSystemService", "vibrator");
+        }
     }
 
     void Update()
@@ -956,7 +959,7 @@ public class NoteEditor : MonoBehaviour
     //Vibrates the Device for set milliseconds
     public void Vibrate(long milliseconds)
     {
-        if (SystemInfo.deviceType == DeviceType.Handheld)
+        if (IsMobile())
         {
             vibrator.Call("vibrate", milliseconds);
         }
@@ -964,6 +967,12 @@ public class NoteEditor : MonoBehaviour
         {
             Handheld.Vibrate();
         }
+    }
+
+    //If the current Device is Mobile
+    public bool IsMobile()
+    {
+        return SystemInfo.deviceType == DeviceType.Handheld;
     }
 
     //Returns the state of the current Internet Connection
