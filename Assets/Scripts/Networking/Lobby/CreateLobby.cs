@@ -16,7 +16,7 @@ public class CreateLobby : MonoBehaviour
     bool Ispublic;
     string LobbyKey;
     string Playername;
-    int AmountofPlayers = 5;
+    int AmountofPlayers = 4;
     int LobbyID;
 
     public string[] Instruments;
