@@ -11299,10 +11299,10 @@ MonoBehaviour:
   - {fileID: 932934784}
   verticalScrollbar: {fileID: 1209359884}
   horizontalScrollbar: {fileID: 1506745373}
-  buttonNormal: {fileID: 0}
-  buttonInverted: {fileID: 0}
-  placeButton: {fileID: 0}
-  eraseButton: {fileID: 0}
+  buttonNormal: {fileID: 21300000, guid: 38f638a41d3b06c4d863daa2b600591c, type: 3}
+  buttonInverted: {fileID: 21300000, guid: 4d80771f6f383df48890e4dbbb6b6f1f, type: 3}
+  placeButton: {fileID: 439825095}
+  eraseButton: {fileID: 941367459}
   keyRange: 71
   bpm: 140
   gridSize: 1
