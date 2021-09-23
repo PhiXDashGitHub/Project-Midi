@@ -105,6 +105,10 @@ public class NoteEditor : MonoBehaviour
         instrumentVolumes = new float[instruments.Length];
         instrumentReverbs = new float[instruments.Length];
 
+        unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+        currentActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
+        vibrator = currentActivity.Call<AndroidJavaObject>("getSystemService", "vibrator");
+
         filePath = Application.persistentDataPath + "/Songs/";
         fileType = ".ndf";
 
@@ -134,10 +138,6 @@ public class NoteEditor : MonoBehaviour
 
         UpdateKeyboard();
         EncodeSoundData();
-
-        unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
-        currentActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
-        vibrator = currentActivity.Call<AndroidJavaObject>("getSystemService", "vibrator");
     }
 
     void Update()
@@ -179,15 +179,14 @@ public class NoteEditor : MonoBehaviour
             float minutes = (int)gameTimer / 60;
             float seconds = gameTimer % 60;
 
-            float timerMinutes = (int)timer / 59;
-            float timerSeconds = timer % 59;
+            float timerMinutes = (int)timer / 60;
+            float timerSeconds = timer % 60;
             float timerMilliseconds = Mathf.Repeat(timer, 1.0f);
 
             timerText.text = timerMinutes.ToString("00") + ":" + timerSeconds.ToString("00") + ":" + timerMilliseconds.ToString(".000").Replace(',', ' ').Trim();
             countdownText.text = minutes.ToString("00") + ":" + seconds.ToString("00");
         }
         
-
         //Debug Input
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -691,14 +690,16 @@ public class NoteEditor : MonoBehaviour
     //Plays a sound via the Keyboard
     public void PlayKeyboardSound(int note)
     {
-        PlaySound(selectedInstrument, note, Time.time, 0.25f, true);
+        Vibrate(50);
 
-        Vibrate(25);
+        PlaySound(selectedInstrument, note, Time.time, 0.25f, true);
     }
 
     //Plays a sound via the Keyboard (Advanced)
     public void PlayKeyboard(int note, string id)
     {
+        Vibrate(50);
+
         AudioSource audioSource = Instantiate(audioSourcePrefab).GetComponent<AudioSource>();
         audioSource.gameObject.name = id;
 
@@ -724,8 +725,6 @@ public class NoteEditor : MonoBehaviour
         audioSource.outputAudioMixerGroup = audioMixerGroups[selectedInstrument];
 
         audioSource.GetComponent<AudioPlayer>().PlayForSeconds(Time.realtimeSinceStartup, 3f, true, instruments[selectedInstrument].decay);
-
-        Vibrate(25);
     }
 
     //Stops a Sound played by the Keyboard
@@ -955,7 +954,7 @@ public class NoteEditor : MonoBehaviour
     }
 
     //Vibrates the Device for set milliseconds
-    public void Vibrate(int milliseconds)
+    public void Vibrate(long milliseconds)
     {
         if (SystemInfo.deviceType == DeviceType.Handheld)
         {
