@@ -152,7 +152,7 @@ public class NoteEditor : MonoBehaviour
         {
             timer += Time.deltaTime;
 
-            if (timer >= (songLength + Time.deltaTime) + 16 * bpmOffset)
+            if (timer >= (songLength + Time.deltaTime) + 16 * bpmOffset && !recording)
             {
                 StopButtonPressed();
             }
