@@ -163,7 +163,7 @@ public class Rating : MonoBehaviour
             }
             else
             {
-                if (amountoftrys < 10)
+                if (amountoftrys < 80)
                 {
                     amountoftrys++;
                     StartCoroutine(GetAllVotings());
