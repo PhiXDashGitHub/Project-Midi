@@ -42,8 +42,6 @@ public class WaitingRoom : MonoBehaviour
 
     public IEnumerator UpdatePlayers()
     {
-        DebugText.text = players.Count + "/" + amoutofplayers + "Players Joined ...";
-
         requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/GetPlayerData.php", "PassWD=" + "1MRf!s13" + "&LobbyId=" + LobbyID, this.gameObject);
 
         float time = 0;
@@ -66,6 +64,7 @@ public class WaitingRoom : MonoBehaviour
                 {
                     players.Add(PlayerInfo[i].PlayerName);
                     PlayerListText.text += i+1 + " " + PlayerInfo[i].PlayerName + "\n";
+                    DebugText.text = players.Count + "/" + amoutofplayers + "Players Joined ...";
                 }
             }
 
@@ -79,7 +78,7 @@ public class WaitingRoom : MonoBehaviour
         {
             DebugText.text = "Timeout :(";
         }
-        yield return new WaitForSecondsRealtime(3);
+        yield return new WaitForSecondsRealtime(2);
         StartCoroutine(UpdatePlayers());
     }
 

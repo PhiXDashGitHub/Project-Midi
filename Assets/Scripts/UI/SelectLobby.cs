@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class SelectLobby : MonoBehaviour
 {
-    public TextMeshProUGUI InfoText;
+    public TextMeshProUGUI InfoText, LobbyKeyText;
     JoinLobby joinLobby;
     public string LobbyKey;
     public string message;
@@ -18,6 +18,7 @@ public class SelectLobby : MonoBehaviour
     {
         joinLobby = FindObjectOfType<JoinLobby>();
         InfoText.text = message;
+        LobbyKeyText.text = "Lobby: " + LobbyKey;
     }
 
     // Update is called once per frame
