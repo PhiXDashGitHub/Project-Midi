@@ -7,19 +7,16 @@ using TMPro;
 [RequireComponent(typeof(RequestAnswer))]
 public class Rating : MonoBehaviour
 {
-
     RequestManager requestManager;
     NetworkManager networkManager;
+    RequestAnswer requestAnswer;
 
-
-    int playerindex;
-    int tmpplayerindexvoted = -2;
-    int amountoftrys;
-    [HideInInspector]
-    public bool songend = false;
+    int playerIndex;
+    int playerIndexVoted = -2;
+    int amountOfTrys;
+    [HideInInspector] public bool songEnd = false;
 
     List<string> players = new List<string>();
-
 
     [Header("RatingScreen UI")]
     public GameObject VoteScreen;
@@ -33,17 +30,19 @@ public class Rating : MonoBehaviour
     public TextMeshProUGUI PlaceText3;
     public TextMeshProUGUI PlaceText4;
     public GameObject Buttons;
-
     public TextMeshProUGUI DebugText;
+
     void Start()
     {
         networkManager = FindObjectOfType<NetworkManager>();
         requestManager = FindObjectOfType<RequestManager>();
+        requestAnswer = GetComponent<RequestAnswer>();
 
         if (networkManager)
         {
             players = networkManager.players;
-            playerindex = 0;
+            playerIndex = 0;
+
             GetAllPlayerStats();
         }
         else
@@ -52,25 +51,9 @@ public class Rating : MonoBehaviour
         }
     }
 
-    public void LoadNewPlayer()
-    {
-        if (players[playerindex] == networkManager.name)
-        {
-            playerindex++;
-            LoadNewPlayer();
-            return;
-        }
-
-        Debug.Log("Index Playindex: " + playerindex);
-        PlayerNameText.text = "Currently Playing: " + players[playerindex];
-        getSong.Play(players[playerindex]);
-        songend = false;
-        playerindex++;
-    }
-
     public void Update()
     {
-        if (songend)
+        if (songEnd)
         {
             Buttons.SetActive(true);
         }
@@ -80,80 +63,117 @@ public class Rating : MonoBehaviour
         }
     }
 
+    //Loads a new Player
+    public void LoadNewPlayer()
+    {
+        if (players[playerIndex] == networkManager.name)
+        {
+            playerIndex++;
+            LoadNewPlayer();
+            return;
+        }
+
+        Debug.Log("Index Playindex: " + playerIndex);
+        PlayerNameText.text = "Currently Playing: " + players[playerIndex];
+        getSong.Play(players[playerIndex]);
+        songEnd = false;
+        playerIndex++;
+    }
+
+    //Vote a Players Song
     public void Vote(int i)
     {
-        if (tmpplayerindexvoted != playerindex)
+        if (playerIndexVoted != playerIndex)
         {
             StartCoroutine(VoteInner(i));
-            
-            tmpplayerindexvoted = playerindex;
+
+            playerIndexVoted = playerIndex;
             LoadNewPlayer();
         }
     }
 
-    public IEnumerator VoteInner(int i)
-    {
-        tmpplayerindexvoted = playerindex;
-        this.GetComponent<RequestAnswer>().Message = "";
-        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Game/SendScore.php", "PassWD=" + "1" + "&PlayerName=" + players[playerindex-1] + "&LobbyId=" + networkManager.lobbyID + "&Score=" + i, gameObject);
-
-        float time = 0;
-        while (this.GetComponent<RequestAnswer>().Message.Length < 1)
-        {
-            if (time > networkManager.timeOut)
-            {
-                break;
-            }
-            time += Time.deltaTime;
-            yield return new WaitForSecondsRealtime(Time.deltaTime);
-        }
-        if (this.GetComponent<RequestAnswer>().Message.Length > 1)
-        {
-            Debug.Log("Vote Worked!");
-            if (tmpplayerindexvoted == players.Count)
-            {
-                DisplayWinners();
-                songend = false;
-            }
-        }
-    }
-
+    //Display Win Screen
     public void DisplayWinners()
     {
-        StartCoroutine(SendReadyInner());   
+        StartCoroutine(SendReadyInner());
     }
 
-    public IEnumerator GetAllVotings()
+    //Gets all Players Stats
+    public void GetAllPlayerStats()
     {
-        yield return new WaitForSecondsRealtime(0.5f);
-        this.GetComponent<RequestAnswer>().Message = "";
-        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/GetPlayerData.php", "PassWD=" + "1MRf!s13" + "&LobbyId=" + networkManager.lobbyID, gameObject);
+        StartCoroutine(GetAllPlayerStatsInner());
+    }
 
+    //Vote a Players Song via Post Request
+    IEnumerator VoteInner(int i)
+    {
+        playerIndexVoted = playerIndex;
+        requestAnswer.Message = "";
+        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Game/SendScore.php", "PassWD=" + "1" + "&PlayerName=" + players[playerIndex - 1] + "&LobbyId=" + networkManager.lobbyID + "&Score=" + i, gameObject);
+
+        //Wait for Message
         float time = 0;
-        while (this.GetComponent<RequestAnswer>().Message.Length < 1)
+        while (requestAnswer.Message.Length < 1)
         {
             if (time > networkManager.timeOut)
             {
                 break;
             }
+
             time += Time.deltaTime;
             yield return new WaitForSecondsRealtime(Time.deltaTime);
         }
 
-        if (this.GetComponent<RequestAnswer>().Message.Length > 1)
+        //If Message received
+        if (requestAnswer.Message.Length > 1)
         {
-            string josn = "{\"Items\":" + this.GetComponent<RequestAnswer>().Message + "}";
-            PlayerInfo[] PlayerInfo = JsonHelper.FromJson<PlayerInfo>(josn);
-            int playersready = 0;
+            Debug.Log("Vote Worked!");
+            if (playerIndexVoted == players.Count)
+            {
+                DisplayWinners();
+                songEnd = false;
+            }
+        }
+    }
+
+    //Gets all Votings via Post Request
+    IEnumerator GetAllVotings()
+    {
+        yield return new WaitForSecondsRealtime(0.5f);
+
+        requestAnswer.Message = "";
+        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/GetPlayerData.php", "PassWD=" + "1MRf!s13" + "&LobbyId=" + networkManager.lobbyID, gameObject);
+
+        //Wait for Message
+        float time = 0;
+        while (requestAnswer.Message.Length < 1)
+        {
+            if (time > networkManager.timeOut)
+            {
+                break;
+            }
+
+            time += Time.deltaTime;
+            yield return new WaitForSecondsRealtime(Time.deltaTime);
+        }
+
+        //If Message received
+        if (requestAnswer.Message.Length > 1)
+        {
+            string json = "{\"Items\":" + requestAnswer.Message + "}";
+            PlayerInfo[] PlayerInfo = JsonHelper.FromJson<PlayerInfo>(json);
+
+            //Get PlayerReady Infos
+            int playersReady = 0;
             for (int i = 0; i < PlayerInfo.Length; i++)
             {
                 if (PlayerInfo[i].VotingReady == "true")
                 {
-                    playersready++;
+                    playersReady++;
                 }
             }
 
-            if (playersready == PlayerInfo.Length)
+            if (playersReady == PlayerInfo.Length)
             {
                 //All Players are Ready
                 Debug.Log("All Players Voting Ready");
@@ -161,9 +181,10 @@ public class Rating : MonoBehaviour
             }
             else
             {
-                if (amountoftrys < 80)
+                //Try again 80 times - else display all Winners
+                if (amountOfTrys < 80)
                 {
-                    amountoftrys++;
+                    amountOfTrys++;
                     StartCoroutine(GetAllVotings());
                 }
                 else
@@ -174,65 +195,75 @@ public class Rating : MonoBehaviour
         }
     }
 
-    public IEnumerator SendReadyInner()
+    //Sets voting results via Post Request
+    IEnumerator SendReadyInner()
     {
         Debug.Log("Send Inner");
 
         requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Game/SendReady.php", "PassWD=" + "1" + "&PlayerName=" + networkManager.name + "&LobbyId=" + networkManager.lobbyID + "&VotingReady=true", gameObject);
 
+        //Wait for Message
         float time = 0;
-        while (this.GetComponent<RequestAnswer>().Message.Length < 1)
+        while (requestAnswer.Message.Length < 1)
         {
             if (time > networkManager.timeOut)
             {
                 break;
             }
+
             time += Time.deltaTime;
             yield return new WaitForSecondsRealtime(Time.deltaTime);
         }
-        if (this.GetComponent<RequestAnswer>().Message.Length > 1)
+
+        //If Message received
+        if (requestAnswer.Message.Length > 1)
         {
             StartCoroutine(GetAllVotings());
         }
     }
 
-    public IEnumerator DisplayWinnersInner()
+    //Displays all Players via Post Request
+    IEnumerator DisplayWinnersInner()
     {
         WinScreen.SetActive(true);
         VoteScreen.SetActive(false);
 
         requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/GetPlayerData.php", "PassWD=" + "1MRf!s13" + "&LobbyId=" + networkManager.lobbyID, gameObject);
 
+        //Wait for Message
         float time = 0;
-        while (this.GetComponent<RequestAnswer>().Message.Length < 1)
+        while (requestAnswer.Message.Length < 1)
         {
             if (time > networkManager.timeOut)
             {
                 break;
             }
+
             time += Time.deltaTime;
             yield return new WaitForSecondsRealtime(Time.deltaTime);
         }
-        if (this.GetComponent<RequestAnswer>().Message.Length > 1)
+
+        //If Message received
+        if (requestAnswer.Message.Length > 1)
         {
-            string josn = "{\"Items\":" + this.GetComponent<RequestAnswer>().Message + "}";
-            PlayerInfo[] PlayerInfo = JsonHelper.FromJson<PlayerInfo>(josn);
-            int[] sortscore = new int[PlayerInfo.Length];
+            string json = "{\"Items\":" + requestAnswer.Message + "}";
+            PlayerInfo[] PlayerInfo = JsonHelper.FromJson<PlayerInfo>(json);
+            int[] sortedScore = new int[PlayerInfo.Length];
             List<string> ShownPlayers = new List<string>();
 
             for (int i = 0; i < PlayerInfo.Length; i++)
             {
-                sortscore[i] = int.Parse(PlayerInfo[i].Score);
+                sortedScore[i] = int.Parse(PlayerInfo[i].Score);
             }
 
-            Array.Sort(sortscore);
-            Array.Reverse(sortscore);
+            Array.Sort(sortedScore);
+            Array.Reverse(sortedScore);
 
-            for (int i = 0; i< sortscore.Length; i++)
+            for (int i = 0; i< sortedScore.Length; i++)
             {
                 for (int j = 0; j < PlayerInfo.Length; j++)
                 {
-                    if (sortscore[i] == int.Parse(PlayerInfo[j].Score))
+                    if (sortedScore[i] == int.Parse(PlayerInfo[j].Score))
                     {
                         bool notdisplayed = true;
 
@@ -244,6 +275,8 @@ public class Rating : MonoBehaviour
                                 break;
                             }
                         }
+
+                        //UI Text for all Players and their Scores
                         if (notdisplayed) 
                         {
                             if (i == 0 && WinnerText.text.Length < 2)
@@ -266,6 +299,7 @@ public class Rating : MonoBehaviour
                                 PlaceText4.text += i + 1 + " Place: " + PlayerInfo[j].PlayerName + " Score: " + PlayerInfo[j].Score;
                                 ShownPlayers.Add(PlayerInfo[j].PlayerName);
                             }
+
                             break;
                         }
                     }
@@ -274,40 +308,43 @@ public class Rating : MonoBehaviour
         }
     }
 
-    public void GetAllPlayerStats()
-    {
-        StartCoroutine(GetAllPlayerStatsInner());
-    }
-
-    public IEnumerator GetAllPlayerStatsInner()
+    //Gets all Players Stats via Post Request
+    IEnumerator GetAllPlayerStatsInner()
     {
         yield return new WaitForSecondsRealtime(3);
         requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/GetPlayerData.php", "PassWD=" + "1MRf!s13" + "&LobbyId=" + networkManager.lobbyID, gameObject);
 
+        //Wait for Message
         float time = 0;
-        while (this.GetComponent<RequestAnswer>().Message.Length < 1)
+        while (requestAnswer.Message.Length < 1)
         {
             if (time > networkManager.timeOut)
             {
                 break;
             }
+
             time += Time.deltaTime;
             yield return new WaitForSecondsRealtime(Time.deltaTime);
         }
-        if (this.GetComponent<RequestAnswer>().Message.Length > 2)
+
+        //If Message received
+        if (requestAnswer.Message.Length > 2)
         {
-            string josn = "{\"Items\":" + this.GetComponent<RequestAnswer>().Message + "}";
-            PlayerInfo[] PlayerInfo = JsonHelper.FromJson<PlayerInfo>(josn);
-            int playersready = 0;
+            string json = "{\"Items\":" + requestAnswer.Message + "}";
+            PlayerInfo[] PlayerInfo = JsonHelper.FromJson<PlayerInfo>(json);
+            
+            //Get PlayerReady Infos
+            int playersReady = 0;
             for (int i = 0; i < PlayerInfo.Length; i ++)
             {
                 if (PlayerInfo[i].Ready == "true")
                 {
-                    playersready++;
+                    playersReady++;
                 }
             }
 
-            if (playersready == PlayerInfo.Length)
+            //If all Players are ready
+            if (playersReady == PlayerInfo.Length)
             {
                 //All Players are Ready
                 Debug.Log("All Players Ready");
@@ -321,20 +358,6 @@ public class Rating : MonoBehaviour
         else
         {
             SceneManager.LoadScene(0);
-        }
-    }
-
-    [System.Serializable]
-    public class PlayerInfo
-    {
-        public string PlayerName;
-        public string Score;
-        public string Ready;
-        public string VotingReady;
-
-        public static PlayerInfo CreateFromJSON(string jsonString)
-        {
-            return JsonUtility.FromJson<PlayerInfo>(jsonString);
         }
     }
 }

@@ -1001,7 +1001,7 @@ public class NoteEditor : MonoBehaviour
         GetComponent<SendSong>().bpm = (int)bpm;
         GetComponent<SendSong>().reverb = ReverbToString();
         GetComponent<SendSong>().volume = VolumeToString();
-        GetComponent<SendSong>().votingsceneindex = votingScene;
+        GetComponent<SendSong>().votingSceneIndex = votingScene;
         GetComponent<SendSong>().Send(NoteDataToString());
         enabled = false;
     }

@@ -8,70 +8,67 @@ public class SendSong : MonoBehaviour
 {
     RequestManager requestManager;
     NetworkManager networkManager;
+    RequestAnswer requestAnswer;
 
     public int bpm;
     public string volume;
     public string reverb;
 
-    public int votingsceneindex;
-    int Maxamountoftrys;
+    public int votingSceneIndex = 2;
+    int maxAmountOfTrys;
 
     void Start()
     {
         networkManager = FindObjectOfType<NetworkManager>();
         requestManager = FindObjectOfType<RequestManager>();
-        Maxamountoftrys = 3;
+        requestAnswer = GetComponent<RequestAnswer>();
+
+        maxAmountOfTrys = 3;
     }
 
+    //Sends the Song
     public void Send(string song)
     {
         StartCoroutine(SendInner(song));
     }
 
+    //Sends the Song via Post Request
     public IEnumerator SendInner(string song)
     {
         requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Game/SendSong.php", "PassWD=" + "1" + "&PlayerName=" + networkManager.name + "&Song=" + song + "&LobbyId=" + networkManager.lobbyID + "&BPM=" + bpm + "&Ready=true" + "&Reverb=" + reverb + "&Volume=" + volume, gameObject);
 
+        //Wait for Message
         float time = 0;
-        while (this.GetComponent<RequestAnswer>().Message.Length < 1)
+        while (requestAnswer.Message.Length < 1)
         {
             if (time > networkManager.timeOut)
             {
                 break;
             }
+
             time += Time.deltaTime;
             yield return new WaitForSecondsRealtime(Time.deltaTime);
         }
-        if (this.GetComponent<RequestAnswer>().Message.Length > 1)
+
+        //If Message received
+        if (requestAnswer.Message.Length > 1)
         {
-            SceneManager.LoadScene(votingsceneindex);
+            SceneManager.LoadScene(votingSceneIndex);
         }
         else
         {
-            if (Maxamountoftrys < 3)
+            //Try again 3 times or else return to main Menu
+            if (maxAmountOfTrys < 3)
             {
                 yield return new WaitForSecondsRealtime(Time.deltaTime);
+
                 StartCoroutine(SendInner(song));
-                Maxamountoftrys++;
+                maxAmountOfTrys++;
             }
             else
             {
                 SceneManager.LoadScene(0);
             }
-        }
-    }
-
-
-    [System.Serializable]
-    public class PlayerInfo
-    {
-        public string PlayerName;
-        public string Score;
-        public string Song;
-
-        public static PlayerInfo CreateFromJSON(string jsonString)
-        {
-            return JsonUtility.FromJson<PlayerInfo>(jsonString);
         }
     }
 }

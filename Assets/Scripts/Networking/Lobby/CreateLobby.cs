@@ -160,9 +160,9 @@ public class CreateLobby : MonoBehaviour
             //Add Lobbys to UI Element
             for (int i = 0; i< LobbyInfo.Length; i++)
             {
-                if (LobbyInfo[i].lobbyKey == LobbyKey)
+                if (LobbyInfo[i].LobbyKey == LobbyKey)
                 {
-                    LobbyID = LobbyInfo[i].id;
+                    LobbyID = LobbyInfo[i].Id;
                     networkManager.lobbyKey = LobbyKey;
                     Open();
                     break;

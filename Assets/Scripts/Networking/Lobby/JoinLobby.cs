@@ -126,13 +126,13 @@ public class JoinLobby : MonoBehaviour
             for (int i = 0; i < LobbyInfo.Length; i++)
             {
                 Debug.Log(int.Parse(LobbyKeyInput.text));
-                Debug.Log(int.Parse(LobbyInfo[i].lobbyKey));
+                Debug.Log(int.Parse(LobbyInfo[i].LobbyKey));
 
-                if (int.Parse(LobbyInfo[i].lobbyKey) == int.Parse(LobbyKeyInput.text))
+                if (int.Parse(LobbyInfo[i].LobbyKey) == int.Parse(LobbyKeyInput.text))
                 {
-                    lobbyID = LobbyInfo[i].id;
+                    lobbyID = LobbyInfo[i].Id;
                     networkManager.lobbyKey = lobbyKey;
-                    amountOfPlayers = int.Parse(LobbyInfo[i].amountOfPlayers);
+                    amountOfPlayers = int.Parse(LobbyInfo[i].AmountofPlayer);
                     StartCoroutine(UpdatePlayers());
                     break;
                 }
@@ -254,23 +254,27 @@ public class JoinLobby : MonoBehaviour
         }
 
         //Adds Lobbys to List
-        for (int i = 0; i < LobbyInfo.Length; i++)
+        try
         {
-            if (i == maxAmountOfLobbysToDisplay)
+            for (int i = 0; i < LobbyInfo.Length; i++)
             {
-                return;
-            }
-            else if (LobbyInfo[i].isPublic != "True" || int.Parse(LobbyInfo[i].startTime) > networkManager.timeOut)
-            {
-                continue;
-            }
+                if (i == maxAmountOfLobbysToDisplay)
+                {
+                    return;
+                }
+                else if (LobbyInfo[i].Ispublic != "True" || LobbyInfo[i].Timestart > networkManager.timeOut)
+                {
+                    continue;
+                }
 
-            GameObject go = Instantiate(SelectionLobbyPrefab, ContentObj.transform);
-            ContentObj.GetComponent<RectTransform>().sizeDelta = new Vector2(0, counter * 100);
-            go.GetComponent<SelectLobby>().LobbyKey = LobbyInfo[i].lobbyKey;
-            go.GetComponent<SelectLobby>().message = "Max: " + LobbyInfo[i].amountOfPlayers;
-            counter++;
+                GameObject go = Instantiate(SelectionLobbyPrefab, ContentObj.transform);
+                ContentObj.GetComponent<RectTransform>().sizeDelta = new Vector2(0, counter * 100);
+                go.GetComponent<SelectLobby>().LobbyKey = LobbyInfo[i].LobbyKey;
+                go.GetComponent<SelectLobby>().message = "Max: " + LobbyInfo[i].AmountofPlayer;
+                counter++;
+            }
         }
+        catch (Exception) { }
     }
 
     //Sets the Lobbykey
