@@ -10855,7 +10855,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   requestManager: {fileID: 1920917127}
   instruments: []
-  lobbykeyLength: 5
+  lobbyKeyLength: 5
   LobbyKeyText: {fileID: 1680949925}
   PrivateText: {fileID: 1429985419}
   WaitingRoom: {fileID: 1880761373}
@@ -11306,15 +11306,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3adbb7856c48dd4d8fb6078aad95d0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  requestManager: {fileID: 1920917127}
   WaitingRoom: {fileID: 1880761373}
+  requestManager: {fileID: 1920917127}
   LobbyKeyInput: {fileID: 999182753}
   PlayerName: {fileID: 1837174807}
   ErrorText: {fileID: 973164351}
   ContentObj: {fileID: 246651173}
   SelectionLobbyPrefab: {fileID: 3653609561530162348, guid: f1ca067a7e0e50749b0af43fc2878eb3,
     type: 3}
-  MaxamountofLobbysToDisplay: 10
+  maxAmountOfLobbysToDisplay: 10
 --- !u!1 &1228185895
 GameObject:
   m_ObjectHideFlags: 0
@@ -15759,7 +15759,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46a2f4b6c10910344960a6c6a3b04343, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Getrequest: {fileID: 2113755933370449223, guid: 862965f77590b1041a3f41a9329a2fc8,
+  getRequestPrefab: {fileID: 2113755933370449223, guid: 862965f77590b1041a3f41a9329a2fc8,
     type: 3}
 --- !u!114 &1920917128
 MonoBehaviour:
@@ -15773,10 +15773,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d990139f79606744958198c3c2b5313, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: 
-  Timeout: 5
-  LobbyID: 0
-  LobbyKey: 
+  name: 
+  timeOut: 5
+  lobbyID: 0
+  lobbyKey: 
   players: []
   noteEditorScene: 0
   ratingScene: 0

@@ -4,27 +4,28 @@ using UnityEngine;
 
 public class RequestManager : MonoBehaviour
 {
-    //Prefab for Getrquest Object
-    public GameObject Getrequest;
+    //Prefab for GetRequest Object
+    public GameObject getRequestPrefab;
     
-
-    public void Post(string URL,string data,GameObject sender)
+    //Post Request
+    public void Post(string URL, string data, GameObject sender)
     {
-        GameObject go = Instantiate(Getrequest,this.transform);
-        go.GetComponent<Getrequest>().Post(URL,data);
+        GameObject go = Instantiate(getRequestPrefab, transform);
+        go.GetComponent<Request>().Post(URL,data);
         StartCoroutine(Wait(go,sender));
     }
 
+    //Wait for Message
     public IEnumerator Wait(GameObject go, GameObject sender)
     {
-        while (go.GetComponent<Getrequest>().Message == null)
+        while (go.GetComponent<Request>().Message == null)
         {
-            yield return new WaitForSecondsRealtime(0.01f);
+            yield return new WaitForSecondsRealtime(Time.deltaTime);
         }
 
         try
         {
-            sender.GetComponent<RequestAnswer>().Message = go.GetComponent<Getrequest>().Message;
+            sender.GetComponent<RequestAnswer>().Message = go.GetComponent<Request>().Message;
 
             Destroy(go);
         }
