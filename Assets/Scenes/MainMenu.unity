@@ -407,7 +407,7 @@ GameObject:
   - component: {fileID: 71132415}
   - component: {fileID: 71132414}
   m_Layer: 5
-  m_Name: Scroll View
+  m_Name: Instruments
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5891,7 +5891,7 @@ RectTransform:
   m_Children:
   - {fileID: 91065066}
   m_Father: {fileID: 2071984156}
-  m_RootOrder: 7
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -6542,7 +6542,7 @@ GameObject:
   - component: {fileID: 312723384}
   - component: {fileID: 312723383}
   m_Layer: 5
-  m_Name: Header (5)
+  m_Name: MaxAmountText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6587,7 +6587,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Max Amount is 6
+  m_text: select up to 6 instruments
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ae4c32b409d23a04699472d1cf1c2884, type: 2}
   m_sharedMaterial: {fileID: 3991455896184980606, guid: ae4c32b409d23a04699472d1cf1c2884,
@@ -6827,7 +6827,7 @@ GameObject:
   - component: {fileID: 402183695}
   - component: {fileID: 402183694}
   m_Layer: 5
-  m_Name: Header (4)
+  m_Name: InstrumentSelectionHeader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7662,7 +7662,7 @@ GameObject:
   - component: {fileID: 588221026}
   - component: {fileID: 588221025}
   m_Layer: 5
-  m_Name: Header (4)
+  m_Name: GameStateText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8496,12 +8496,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1758618154}
-  m_Father: {fileID: 2071984156}
-  m_RootOrder: 5
+  m_Father: {fileID: 1267419863}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 300, y: -273.5}
+  m_AnchoredPosition: {x: 300, y: -140.00006}
   m_SizeDelta: {x: 270, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &763240501
@@ -8550,7 +8550,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1128372407}
         m_TargetAssemblyTypeName: CreateLobby, Assembly-CSharp
-        m_MethodName: SetAmountofPlayers
+        m_MethodName: SetAmountOfPlayers
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8610,7 +8610,7 @@ GameObject:
   - component: {fileID: 767243089}
   - component: {fileID: 767243088}
   m_Layer: 5
-  m_Name: ErrorText (1)
+  m_Name: ErrorText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10195,12 +10195,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2099789330}
-  m_Father: {fileID: 2071984156}
-  m_RootOrder: 3
+  m_Father: {fileID: 1267419863}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -300, y: -273.5}
+  m_AnchoredPosition: {x: -300, y: -140.00006}
   m_SizeDelta: {x: 270, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1063839282
@@ -10249,7 +10249,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1128372407}
         m_TargetAssemblyTypeName: CreateLobby, Assembly-CSharp
-        m_MethodName: SetAmountofPlayers
+        m_MethodName: SetAmountOfPlayers
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10328,12 +10328,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1898003211}
-  m_Father: {fileID: 2071984156}
-  m_RootOrder: 4
+  m_Father: {fileID: 1267419863}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -273.5}
+  m_AnchoredPosition: {x: 0, y: -140.00006}
   m_SizeDelta: {x: 270, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1097774259
@@ -10382,7 +10382,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1128372407}
         m_TargetAssemblyTypeName: CreateLobby, Assembly-CSharp
-        m_MethodName: SetAmountofPlayers
+        m_MethodName: SetAmountOfPlayers
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10442,7 +10442,7 @@ GameObject:
   - component: {fileID: 1110661203}
   - component: {fileID: 1110661202}
   m_Layer: 5
-  m_Name: Header (1)
+  m_Name: GameKeyText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10777,10 +10777,10 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 1758781527}
   - {fileID: 1994410813}
   - {fileID: 2071984156}
   - {fileID: 1680683692}
-  - {fileID: 1758781527}
   - {fileID: 767243087}
   m_Father: {fileID: 8351270132317243266}
   m_RootOrder: 5
@@ -10854,8 +10854,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   requestManager: {fileID: 1920917127}
-  Instruments: []
-  LobbyKeyLeght: 5
+  instruments: []
+  lobbykeyLength: 5
   LobbyKeyText: {fileID: 1680949925}
   PrivateText: {fileID: 1429985419}
   WaitingRoom: {fileID: 1880761373}
@@ -11328,7 +11328,7 @@ GameObject:
   - component: {fileID: 1228185898}
   - component: {fileID: 1228185897}
   m_Layer: 5
-  m_Name: Next (1)
+  m_Name: Next
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11347,7 +11347,7 @@ RectTransform:
   m_Children:
   - {fileID: 1779290108}
   m_Father: {fileID: 2071984156}
-  m_RootOrder: 6
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -11607,7 +11607,7 @@ GameObject:
   - component: {fileID: 1267419865}
   - component: {fileID: 1267419864}
   m_Layer: 5
-  m_Name: Header (5)
+  m_Name: GameModeText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11623,7 +11623,10 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1063839281}
+  - {fileID: 1097774258}
+  - {fileID: 763240500}
   m_Father: {fileID: 2071984156}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -12137,7 +12140,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1128372407}
         m_TargetAssemblyTypeName: CreateLobby, Assembly-CSharp
-        m_MethodName: Checkforopen
+        m_MethodName: CheckForOpen
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -13575,7 +13578,7 @@ RectTransform:
   - {fileID: 71132413}
   - {fileID: 312723382}
   m_Father: {fileID: 1128372403}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -13752,7 +13755,7 @@ GameObject:
   - component: {fileID: 1712993852}
   - component: {fileID: 1712993851}
   m_Layer: 5
-  m_Name: Header (2)
+  m_Name: PlayerNameText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14427,7 +14430,7 @@ GameObject:
   - component: {fileID: 1758781529}
   - component: {fileID: 1758781528}
   m_Layer: 5
-  m_Name: Header
+  m_Name: CreateGameHeader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14445,7 +14448,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1128372403}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -14539,7 +14542,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &1758781529
@@ -15434,9 +15437,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   requestManager: {fileID: 1920917127}
+  gameSceneBuildIndex: 1
   LobbyID: 0
-  amoutofplayers: 0
-  GameSceneBuildIndex: 1
+  amountOfPlayers: 0
   LobbyKey: 
   players: []
   PlayerListText: {fileID: 987535042}
@@ -15887,7 +15890,7 @@ RectTransform:
   - {fileID: 971684738}
   - {fileID: 1118408303}
   m_Father: {fileID: 1128372403}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -15913,7 +15916,7 @@ GameObject:
   - component: {fileID: 2071984156}
   - component: {fileID: 2071984157}
   m_Layer: 5
-  m_Name: MiddelMenu
+  m_Name: MiddleMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15933,13 +15936,10 @@ RectTransform:
   - {fileID: 588221024}
   - {fileID: 1442131450}
   - {fileID: 1267419863}
-  - {fileID: 1063839281}
-  - {fileID: 1097774258}
-  - {fileID: 763240500}
   - {fileID: 1228185896}
   - {fileID: 134230063}
   m_Father: {fileID: 1128372403}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}

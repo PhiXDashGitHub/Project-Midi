@@ -5,10 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class NetworkManager : MonoBehaviour
 {
-    public string Name;
-    public float Timeout;
-    public int LobbyID;
-    public string LobbyKey;
+    public new string name;
+    public float timeOut = 5;
+    public int lobbyID;
+    public string lobbyKey;
     public List<string> players = new List<string>();
 
     [Header("Scenes")]

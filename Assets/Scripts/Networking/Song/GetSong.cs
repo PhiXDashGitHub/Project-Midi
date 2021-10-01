@@ -37,12 +37,12 @@ public class GetSong : MonoBehaviour
         {
             networkManager = FindObjectOfType<NetworkManager>();
             requestManager = FindObjectOfType<RequestManager>();
-            requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/GetPlayerData.php", "PassWD=" + "1MRf!s13" + "&LobbyId=" + networkManager.LobbyID, this.gameObject);
+            requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/GetPlayerData.php", "PassWD=" + "1MRf!s13" + "&LobbyId=" + networkManager.lobbyID, gameObject);
 
             float time = 0;
             while (this.GetComponent<RequestAnswer>().Message.Length < 1)
             {
-                if (time > networkManager.Timeout)
+                if (time > networkManager.timeOut)
                 {
                     break;
                 }

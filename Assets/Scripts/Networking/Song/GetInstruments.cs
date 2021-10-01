@@ -24,7 +24,7 @@ public class GetInstruments : MonoBehaviour
         float time = 0;
         while (this.GetComponent<RequestAnswer>().Message.Length < 1)
         {
-            if (time > networkManager.Timeout)
+            if (time > networkManager.timeOut)
             {
                 break;
             }
@@ -38,7 +38,7 @@ public class GetInstruments : MonoBehaviour
             LobbyInfo[] LobbyInfo = JsonHelper.FromJson<LobbyInfo>(josn);
             for (int i = 0; i < LobbyInfo.Length; i++)
             {
-                if (LobbyInfo[i].LobbyKey == networkManager.LobbyKey)
+                if (LobbyInfo[i].LobbyKey == networkManager.lobbyKey)
                 {
                     this.GetComponent<NoteEditor>().StringToInstruments(LobbyInfo[i].Instruments);
                     break;

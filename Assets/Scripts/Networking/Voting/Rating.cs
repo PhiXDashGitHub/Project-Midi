@@ -54,7 +54,7 @@ public class Rating : MonoBehaviour
 
     public void LoadNewPlayer()
     {
-        if (players[playerindex] == networkManager.Name)
+        if (players[playerindex] == networkManager.name)
         {
             playerindex++;
             LoadNewPlayer();
@@ -95,12 +95,12 @@ public class Rating : MonoBehaviour
     {
         tmpplayerindexvoted = playerindex;
         this.GetComponent<RequestAnswer>().Message = "";
-        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Game/SendScore.php", "PassWD=" + "1" + "&PlayerName=" + players[playerindex-1] + "&LobbyId=" + networkManager.LobbyID + "&Score=" + i, this.gameObject);
+        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Game/SendScore.php", "PassWD=" + "1" + "&PlayerName=" + players[playerindex-1] + "&LobbyId=" + networkManager.lobbyID + "&Score=" + i, gameObject);
 
         float time = 0;
         while (this.GetComponent<RequestAnswer>().Message.Length < 1)
         {
-            if (time > networkManager.Timeout)
+            if (time > networkManager.timeOut)
             {
                 break;
             }
@@ -127,12 +127,12 @@ public class Rating : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(0.5f);
         this.GetComponent<RequestAnswer>().Message = "";
-        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/GetPlayerData.php", "PassWD=" + "1MRf!s13" + "&LobbyId=" + networkManager.LobbyID, this.gameObject);
+        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/GetPlayerData.php", "PassWD=" + "1MRf!s13" + "&LobbyId=" + networkManager.lobbyID, gameObject);
 
         float time = 0;
         while (this.GetComponent<RequestAnswer>().Message.Length < 1)
         {
-            if (time > networkManager.Timeout)
+            if (time > networkManager.timeOut)
             {
                 break;
             }
@@ -178,12 +178,12 @@ public class Rating : MonoBehaviour
     {
         Debug.Log("Send Inner");
 
-        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Game/SendReady.php", "PassWD=" + "1" + "&PlayerName=" + networkManager.Name + "&LobbyId=" + networkManager.LobbyID + "&VotingReady=true", this.gameObject);
+        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Game/SendReady.php", "PassWD=" + "1" + "&PlayerName=" + networkManager.name + "&LobbyId=" + networkManager.lobbyID + "&VotingReady=true", gameObject);
 
         float time = 0;
         while (this.GetComponent<RequestAnswer>().Message.Length < 1)
         {
-            if (time > networkManager.Timeout)
+            if (time > networkManager.timeOut)
             {
                 break;
             }
@@ -201,12 +201,12 @@ public class Rating : MonoBehaviour
         WinScreen.SetActive(true);
         VoteScreen.SetActive(false);
 
-        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/GetPlayerData.php", "PassWD=" + "1MRf!s13" + "&LobbyId=" + networkManager.LobbyID, this.gameObject);
+        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/GetPlayerData.php", "PassWD=" + "1MRf!s13" + "&LobbyId=" + networkManager.lobbyID, gameObject);
 
         float time = 0;
         while (this.GetComponent<RequestAnswer>().Message.Length < 1)
         {
-            if (time > networkManager.Timeout)
+            if (time > networkManager.timeOut)
             {
                 break;
             }
@@ -282,12 +282,12 @@ public class Rating : MonoBehaviour
     public IEnumerator GetAllPlayerStatsInner()
     {
         yield return new WaitForSecondsRealtime(3);
-        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/GetPlayerData.php", "PassWD=" + "1MRf!s13" + "&LobbyId=" + networkManager.LobbyID, this.gameObject);
+        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/GetPlayerData.php", "PassWD=" + "1MRf!s13" + "&LobbyId=" + networkManager.lobbyID, gameObject);
 
         float time = 0;
         while (this.GetComponent<RequestAnswer>().Message.Length < 1)
         {
-            if (time > networkManager.Timeout)
+            if (time > networkManager.timeOut)
             {
                 break;
             }

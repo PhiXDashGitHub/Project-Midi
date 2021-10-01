@@ -30,12 +30,12 @@ public class SendSong : MonoBehaviour
 
     public IEnumerator SendInner(string song)
     {
-        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Game/SendSong.php", "PassWD=" + "1" + "&PlayerName=" + networkManager.Name + "&Song=" + song + "&LobbyId=" + networkManager.LobbyID + "&BPM=" + bpm + "&Ready=true" + "&Reverb=" + reverb + "&Volume=" + volume, this.gameObject);
+        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Game/SendSong.php", "PassWD=" + "1" + "&PlayerName=" + networkManager.name + "&Song=" + song + "&LobbyId=" + networkManager.lobbyID + "&BPM=" + bpm + "&Ready=true" + "&Reverb=" + reverb + "&Volume=" + volume, gameObject);
 
         float time = 0;
         while (this.GetComponent<RequestAnswer>().Message.Length < 1)
         {
-            if (time > networkManager.Timeout)
+            if (time > networkManager.timeOut)
             {
                 break;
             }

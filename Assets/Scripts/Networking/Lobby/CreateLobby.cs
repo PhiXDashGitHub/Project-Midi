@@ -7,21 +7,19 @@ using UnityEngine.UI;
 [RequireComponent(typeof(RequestAnswer))]
 public class CreateLobby : MonoBehaviour
 {
-    [Header("Networking")]
+    [Header("References")]
     public RequestManager requestManager;
     NetworkManager networkManager;
-    string Httprequest;
 
-
-    bool Ispublic;
+    bool isPublic;
     string LobbyKey;
-    string Playername;
-    int AmountofPlayers = 4;
     int LobbyID;
 
-    public string[] Instruments;
+    string playerName;
+    int amountOfPlayers = 4;
+    public string[] instruments;
 
-    public int LobbyKeyLeght;
+    public int lobbyKeyLength = 5;
 
     [Header("UI")]
     public TextMeshProUGUI LobbyKeyText;
@@ -38,27 +36,30 @@ public class CreateLobby : MonoBehaviour
         CreateLobbyKey();
         SetLobbyState();
 
-        Instruments = new string[InstrumentSelection.maxAmountOfInstruments];
+        instruments = new string[InstrumentSelection.maxAmountOfInstruments];
 
-        for (int i = 0; i < Instruments.Length; i++)
+        for (int i = 0; i < instruments.Length; i++)
         {
-            Instruments[i] = "";
+            instruments[i] = "";
         }
 
         LoadPlayerName();
     }
 
+    //Saves the Playername
     public void SavePlayerName()
     {
         PlayerPrefs.SetString("PlayerName", PlayerName.text);
     }
 
+    //Loads the saved Playername
     public void LoadPlayerName()
     {
         PlayerName.text = PlayerPrefs.GetString("PlayerName");
     }
 
-    public void Checkforopen()
+    //Checks joining conditions
+    public void CheckForOpen()
     {
         if (PlayerName.text.Length < 1)
         {
@@ -66,28 +67,33 @@ public class CreateLobby : MonoBehaviour
             CreateGame.interactable = true;
             return;
         }
-        if (Instruments.Length < 1)
+        else if (instruments.Length < 1)
         {
-            ErrorText.text = "Please Select a Instrument";
+            ErrorText.text = "Please select an Instrument";
             CreateGame.interactable = true;
             return;
         }
+
         StartCoroutine(CheckforOpenLobbys());
     }
     
+    //Creates a new Lobbykey
     public void CreateLobbyKey()
     {
-        for (int i = 0; i< LobbyKeyLeght; i++)
+        for (int i = 0; i< lobbyKeyLength; i++)
         {
             LobbyKey += Random.Range(0, 9).ToString();
         }
+
         LobbyKeyText.text = LobbyKey;
     }
 
+    //Sets the Lobbystate (private/open)
     public void SetLobbyState()
     {
-        Ispublic = !Ispublic;
-        if (!Ispublic)
+        isPublic = !isPublic;
+
+        if (!isPublic)
         {
             PrivateText.text = "Game is private";
         }
@@ -95,100 +101,103 @@ public class CreateLobby : MonoBehaviour
         {
             PrivateText.text = "Game is open";
         }
-        Debug.Log("Bool: " + Ispublic);
+
+        Debug.Log("Bool: " + isPublic);
     }
 
-    public void SetAmountofPlayers(int i) 
+    //Sets the amount of Players which can join the lobby
+    public void SetAmountOfPlayers(int i) 
     {
-        AmountofPlayers = i;
+        amountOfPlayers = i;
     }
 
+    //Converts the selected Instruments into a single string
     public string InstrumentsToString()
     {
         string tmp = "[";
 
-        for (int i = 0; i< Instruments.Length; i++)
+        for (int i = 0; i< instruments.Length; i++)
         {
-            tmp += Instruments[i];
+            tmp += instruments[i];
         }
-        tmp += "]";
-        return tmp;
+
+        return tmp + "]";
     }
 
+    //Creates the Lobby
+    void Open()
+    {
+        playerName = PlayerName.text;
+
+        StartCoroutine(OpenRequest());
+    }
+
+    //Checks if open Lobbys can be found
     IEnumerator CheckforOpenLobbys()
     {
-        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/CreateLobby.php", "PassWD=" + "1MRf!s13" + "&Id=" + LobbyID + "&AmountofPlayer=" + AmountofPlayers + "&LobbyKey=" + LobbyKey.ToString() + "&Ispublic=" + Ispublic + "&Timestart=" + 0 + "&Instruments=" + InstrumentsToString(), this.gameObject);
+        RequestAnswer requestAnswer = GetComponent<RequestAnswer>();
+        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/CreateLobby.php", "PassWD=" + "1MRf!s13" + "&Id=" + LobbyID + "&AmountofPlayer=" + amountOfPlayers + "&LobbyKey=" + LobbyKey.ToString() + "&Ispublic=" + isPublic + "&Timestart=" + 0 + "&Instruments=" + InstrumentsToString(), gameObject);
 
+        //Wait for Message
         float time = 0;
-        while (this.GetComponent<RequestAnswer>().Message.Length < 1)
+        while (requestAnswer.Message.Length < 1)
         {
-            if (time > networkManager.Timeout)
+            if (time > networkManager.timeOut)
             {
                 break;
             }
+
             time += Time.deltaTime;
             yield return new WaitForSecondsRealtime(Time.deltaTime);
         }
-        if (this.GetComponent<RequestAnswer>().Message.Length > 1)
-        {
 
-            string josn = "{\"Items\":" + this.GetComponent<RequestAnswer>().Message + "}";
-            LobbyInfo[] LobbyInfo = JsonHelper.FromJson<LobbyInfo>(josn);
+        //If Message received
+        if (requestAnswer.Message.Length > 1)
+        {
+            string json = "{\"Items\":" + requestAnswer.Message + "}";
+            LobbyInfo[] LobbyInfo = JsonHelper.FromJson<LobbyInfo>(json);
+
+            //Add Lobbys to UI Element
             for (int i = 0; i< LobbyInfo.Length; i++)
             {
-                if (LobbyInfo[i].LobbyKey == LobbyKey)
+                if (LobbyInfo[i].lobbyKey == LobbyKey)
                 {
-                    LobbyID = LobbyInfo[i].Id;
-                    networkManager.LobbyKey = LobbyKey;
+                    LobbyID = LobbyInfo[i].id;
+                    networkManager.lobbyKey = LobbyKey;
                     Open();
                     break;
                 }
-            }
-            
+            }    
         }
         else
         {
-            ErrorText.text = "Ups :(";
+            ErrorText.text = "Timeout :(";
             CreateGame.interactable = true;
         }
     }
 
-
-    void Open()
+    //Creates the Lobby via Post Request
+    IEnumerator OpenRequest()
     {
-        Playername = PlayerName.text;
-
-        StartCoroutine(Openrequestdelay());
-    }
-    public IEnumerator Openrequestdelay()
-    {
+        //Creates initial Lobby
         Debug.Log("LK" + LobbyKey);
-        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/CreateLobbyTabel.php", "PassWD=" + "1" + "&LobbyId=" + LobbyID, this.gameObject);
+        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/CreateLobbyTabel.php", "PassWD=" + "1" + "&LobbyId=" + LobbyID, gameObject);
         yield return new WaitForSecondsRealtime(1);
+
+        //Adds Players to created Lobby
         Debug.Log("Post to AddPlayers");
-        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/AddPlayerToLobby.php", "PassWD=" + "1" + "&PlayerName=" + Playername + "&LobbyId=" + LobbyID , this.gameObject);
+        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/AddPlayerToLobby.php", "PassWD=" + "1" + "&PlayerName=" + playerName + "&LobbyId=" + LobbyID , gameObject);
+
+        gameObject.SetActive(false);
         WaitingRoom.SetActive(true);
-        this.gameObject.SetActive(false);
-        WaitingRoom.GetComponent<WaitingRoom>().LobbyID = LobbyID;
-        WaitingRoom.GetComponent<WaitingRoom>().amoutofplayers = AmountofPlayers;
-        WaitingRoom.GetComponent<WaitingRoom>().LobbyKey = LobbyKey;
 
-        networkManager.Name = Playername;
-        networkManager.LobbyID = LobbyID;
-    }
-   
-    [System.Serializable]
-    public class LobbyInfo
-    {
-        public int Id;
-        public string Name;
-        public string LobbyKey;
-        public string AmountofPlayer;
-        public string Timestart;
+        //Sets Variables for WaitingRoom
+        WaitingRoom waitingRoom = WaitingRoom.GetComponent<WaitingRoom>();
+        waitingRoom.LobbyID = LobbyID;
+        waitingRoom.amountOfPlayers = amountOfPlayers;
+        waitingRoom.LobbyKey = LobbyKey;
 
-        public static LobbyInfo CreateFromJSON(string jsonString)
-        {
-            return JsonUtility.FromJson<LobbyInfo>(jsonString);
-        }
+        networkManager.name = playerName;
+        networkManager.lobbyID = LobbyID;
     }
 }

@@ -48,14 +48,14 @@ public class InstrumentButton : MonoBehaviour
         {
             if (lobby)
             {
-                if (createLobby.Instruments[i] == (select ? "" : name + ";"))
+                if (createLobby.instruments[i] == (select ? "" : name + ";"))
                 {
                     if (select)
                     {
                         GetComponent<Image>().color = uiColors.noteColors[i];
                     }
 
-                    createLobby.Instruments[i] = select ? name + ";" : "";
+                    createLobby.instruments[i] = select ? name + ";" : "";
                     break;
                 }
             }

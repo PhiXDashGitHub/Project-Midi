@@ -2,73 +2,77 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(RequestAnswer))]
 public class WaitingRoom : MonoBehaviour
 {
-    [Header("UI")]
+    [Header("References")]
     public RequestManager requestManager;
     NetworkManager networkManager;
-    
-    [HideInInspector]
-    public int LobbyID, amoutofplayers, GameSceneBuildIndex = 1;
-    [HideInInspector]
-    public string LobbyKey;
-    [HideInInspector]
-    public List<string> players = new List<string>();
+    RequestAnswer requestAnswer;
+    UIManager uiManager;
+
+    public int gameSceneBuildIndex = 1;
+    [HideInInspector] public int LobbyID, amountOfPlayers;
+    [HideInInspector] public string LobbyKey;
+    [HideInInspector] public List<string> players = new List<string>();
+
     [Header("UI")]
     public TextMeshProUGUI PlayerListText;
     public TextMeshProUGUI LobbyKeyText;
     public TextMeshProUGUI DebugText;
 
-
-    public void Start()
+    void Start()
     {
         networkManager = FindObjectOfType<NetworkManager>();
         requestManager = FindObjectOfType<RequestManager>();
+        requestAnswer = GetComponent<RequestAnswer>();
+        uiManager = FindObjectOfType<UIManager>();
+
         GetPlayers();
     }
 
-    public void Update()
+    void Update()
     {
         LobbyKeyText.text = "Game Key: " + LobbyKey;
     }
 
-    public void GetPlayers()
-    {
-        StartCoroutine(UpdatePlayers());
-    }
-
     public IEnumerator UpdatePlayers()
     {
-        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/GetPlayerData.php", "PassWD=" + "1MRf!s13" + "&LobbyId=" + LobbyID, this.gameObject);
+        requestManager.Post("https://www.linuslepschies.de/ProjectMidi/Lobby/GetPlayerData.php", "PassWD=" + "1MRf!s13" + "&LobbyId=" + LobbyID, gameObject);
 
+        //Wait For Message
         float time = 0;
-        while (this.GetComponent<RequestAnswer>().Message.Length < 1)
+        while (requestAnswer.Message.Length < 1)
         {
-            if (time > networkManager.Timeout)
+            if (time > networkManager.timeOut)
             {
                 break;
             }
+
             time += Time.deltaTime;
             yield return new WaitForSecondsRealtime(Time.deltaTime);
         }
-        if (this.GetComponent<RequestAnswer>().Message.Length > 1)
+
+        //If Message received
+        if (requestAnswer.Message.Length > 1)
         {
-            string josn = "{\"Items\":" + this.GetComponent<RequestAnswer>().Message + "}";
-            PlayerInfo[] PlayerInfo = JsonHelper.FromJson<PlayerInfo>(josn);
+            string json = "{\"Items\":" + requestAnswer.Message + "}";
+            PlayerInfo[] PlayerInfo = JsonHelper.FromJson<PlayerInfo>(json);
+
+            //Add Players to UI List
             for (int i = 0; i< PlayerInfo.Length; i++)
             {
                 if (!players.Contains(PlayerInfo[i].PlayerName))
                 {
                     players.Add(PlayerInfo[i].PlayerName);
-                    PlayerListText.text += i+1 + " " + PlayerInfo[i].PlayerName + "\n";
-                    DebugText.text = players.Count + "/" + amoutofplayers + "Players Joined ...";
+                    PlayerListText.text += i + 1 + " " + PlayerInfo[i].PlayerName + "\n";
+                    DebugText.text = players.Count + "/" + amountOfPlayers + "Players Joined ...";
                 }
             }
 
-            if (PlayerInfo.Length >= amoutofplayers)
+            //If all players joined, start the game
+            if (PlayerInfo.Length >= amountOfPlayers)
             {
                 networkManager.players = players;
                 StartGame();
@@ -78,23 +82,18 @@ public class WaitingRoom : MonoBehaviour
         {
             DebugText.text = "Timeout :(";
         }
+
         yield return new WaitForSecondsRealtime(2);
+        GetPlayers();
+    }
+
+    public void GetPlayers()
+    {
         StartCoroutine(UpdatePlayers());
     }
 
     public void StartGame()
     {
-        FindObjectOfType<UIManager>().LoadSceneWithAnim(1);
-    }
-
-    [System.Serializable]
-    public class PlayerInfo
-    {
-        public string PlayerName;
-
-        public static PlayerInfo CreateFromJSON(string jsonString)
-        {
-            return JsonUtility.FromJson<PlayerInfo>(jsonString);
-        }
+        uiManager.LoadSceneWithAnim(gameSceneBuildIndex);
     }
 }
