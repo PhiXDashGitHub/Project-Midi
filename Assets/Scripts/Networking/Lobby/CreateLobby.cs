@@ -38,7 +38,12 @@ public class CreateLobby : MonoBehaviour
         CreateLobbyKey();
         SetLobbyState();
 
-        Instruments = new string[InstrumentSelection.MaxamountofInstruments];
+        Instruments = new string[InstrumentSelection.maxAmountOfInstruments];
+
+        for (int i = 0; i < Instruments.Length; i++)
+        {
+            Instruments[i] = "";
+        }
 
         LoadPlayerName();
     }

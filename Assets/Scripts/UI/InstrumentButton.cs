@@ -7,89 +7,81 @@ using UnityEngine.UI;
 public class InstrumentButton : MonoBehaviour
 {
     public new string name;
-    bool isselected;
     public Color DeSelectColor;
+
+    bool isSelected;
+    bool lobby;
     UIColors uiColors;
     CreateLobby createLobby;
-    AddInstrumenttoEditor addInstrumenttoEditor;
+    AddInstrumenttoEditor addInstrumentToEditor;
 
 
     public void Start()
     {
-        createLobby = FindObjectOfType<CreateLobby>();
-        addInstrumenttoEditor = FindObjectOfType<AddInstrumenttoEditor>();
-        isselected = false;
-        this.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = name;
+        isSelected = false;
 
+        createLobby = FindObjectOfType<CreateLobby>();
+        lobby = createLobby;
+        addInstrumentToEditor = FindObjectOfType<AddInstrumenttoEditor>();
+
+        GetComponentInChildren<TextMeshProUGUI>().text = name;
         uiColors = Resources.LoadAll<UIColors>("UI/")[0];
     }
 
     public void SelectInstrument()
     {
-        Debug.Log(addInstrumenttoEditor);
-        Debug.Log(createLobby);
-
-        if (isselected == false && InstrumentSelection.AmountOFInstruments < InstrumentSelection.MaxamountofInstruments)
+        if (!isSelected && InstrumentSelection.amountOfInstruments < InstrumentSelection.maxAmountOfInstruments)
         {
-            isselected = true;
-
-            if (createLobby)
-            {
-                CreateLobby lobby = FindObjectOfType<CreateLobby>();
-
-                for (int i = 0; i < InstrumentSelection.MaxamountofInstruments; i++)
-                {
-                    if (lobby.Instruments[i] == "" || lobby.Instruments[i] == null)
-                    {
-                        GetComponent<Image>().color = uiColors.noteColors[i];
-                        lobby.Instruments[i] = name + ";";
-                        break;
-                    }
-                }
-            }
-            else if (addInstrumenttoEditor)
-            {
-                for (int i = 0; i < InstrumentSelection.MaxamountofInstruments; i++)
-                {
-                    if (addInstrumenttoEditor.Instruments[i] == "" || addInstrumenttoEditor.Instruments[i] == null)
-                    {
-                        GetComponent<Image>().color = uiColors.noteColors[i];
-                        addInstrumenttoEditor.Instruments[i] = name + ";";
-                        break;
-                    }
-                }
-            }
-
-            InstrumentSelection.AmountOFInstruments++;
+            SetInstruments(true);
         }
-        else if(isselected == true && InstrumentSelection.AmountOFInstruments > InstrumentSelection.minamountofInstruments)
+        else if (isSelected && InstrumentSelection.amountOfInstruments > InstrumentSelection.minAmountOfInstruments)
         {
-            isselected = false;
-            if (createLobby)
-            {
-                for (int i = 0; i < InstrumentSelection.MaxamountofInstruments; i++)
-                {
-                    if (createLobby.Instruments[i] == name + ";")
-                    {
-                        createLobby.Instruments[i] = "";
-                        break;
-                    }
-                }
-            }
-            else if (addInstrumenttoEditor)
-            {
-                for (int i = 0; i < InstrumentSelection.MaxamountofInstruments; i++)
-                {
-                    if (addInstrumenttoEditor.Instruments[i] == name + ";")
-                    {
-                        addInstrumenttoEditor.Instruments[i] = "";
-                        break;
-                    }
-                }
-            }
+            SetInstruments(false);
+        }
+    }
 
+    void SetInstruments(bool select)
+    {
+        isSelected = select;
+
+        for (int i = 0; i < InstrumentSelection.maxAmountOfInstruments; i++)
+        {
+            if (lobby)
+            {
+                if (createLobby.Instruments[i] == (select ? "" : name + ";"))
+                {
+                    if (select)
+                    {
+                        GetComponent<Image>().color = uiColors.noteColors[i];
+                    }
+
+                    createLobby.Instruments[i] = select ? name + ";" : "";
+                    break;
+                }
+            }
+            else
+            {
+                if (addInstrumentToEditor.Instruments[i] == (select ? "" : name + ";"))
+                {
+                    if (select)
+                    {
+                        GetComponent<Image>().color = uiColors.noteColors[i];
+                    }
+
+                    addInstrumentToEditor.Instruments[i] = select ? name + ";" : "";
+                    break;
+                }
+            }
+        }
+
+        if (!select)
+        {
             GetComponent<Image>().color = DeSelectColor;
-            InstrumentSelection.AmountOFInstruments--;
+            InstrumentSelection.amountOfInstruments--;
+        }
+        else
+        {
+            InstrumentSelection.amountOfInstruments++;
         }
     }
 }

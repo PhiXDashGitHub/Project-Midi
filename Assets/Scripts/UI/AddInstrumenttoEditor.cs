@@ -9,7 +9,12 @@ public class AddInstrumenttoEditor : MonoBehaviour
 
     void Start()
     {
-        Instruments = new string[InstrumentSelection.MaxamountofInstruments];
+        Instruments = new string[InstrumentSelection.maxAmountOfInstruments];
+
+        for (int i = 0; i < Instruments.Length; i++)
+        {
+            Instruments[i] = "";
+        }
     }
 
     public string InstrumentsToString()
@@ -20,6 +25,7 @@ public class AddInstrumenttoEditor : MonoBehaviour
         {
             tmp += Instruments[i];
         }
+
         tmp += "]";
         return tmp;
     }

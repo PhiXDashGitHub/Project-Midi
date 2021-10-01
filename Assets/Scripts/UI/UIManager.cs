@@ -10,14 +10,15 @@ public class UIManager : MonoBehaviour
 {
     public Animation FadeIn;
     public Sprite[] AudioIcons;
-    int audiocounter;
     public AudioMixer audiomixer;
     public Image AudioButton;
     public TextMeshProUGUI[] playerNamePlaceholder;
 
+    int audioCounter;
+
     public void Start()
     {
-        audiocounter = 0;
+        audioCounter = 0;
 
         if (playerNamePlaceholder != null)
         {
@@ -27,14 +28,67 @@ public class UIManager : MonoBehaviour
             }
         }
 
-        if (PlayerPrefs.GetInt("Audiocounter") != audiocounter && SceneManager.GetActiveScene().buildIndex == 0)
+        if (SceneManager.GetActiveScene().buildIndex == 0)
         {
-            audiocounter = PlayerPrefs.GetInt("Audiocounter");
-            AudioButton.sprite = AudioIcons[audiocounter];
-            float Volume = -50 * ((float)audiocounter / 3);
-            Volume = Volume == -50 ? -80 : Volume;
-            audiomixer.SetFloat("Volume", Volume);
+            UpdateVolume();
         }
+    }
+
+    public void LoadSceneWithAnim(int i)
+    {
+        StartCoroutine(FadeAndLoad(true, i));
+    }
+
+    public void ActivateFade(GameObject g)
+    {
+        StartCoroutine(FadeAndLoad(true, -1, g, true));
+    }
+
+    public void DeActivateDelay(GameObject g)
+    {
+        StartCoroutine(FadeAndLoad(false, -1, g, false));
+    }
+
+    IEnumerator FadeAndLoad(bool playFade = true, int sceneIndex = -1, GameObject g = null, bool active = false)
+    {
+        if (playFade)
+        {
+            FadeIn.Play();
+        }
+
+        yield return new WaitForSecondsRealtime(0.5f);
+
+        if (sceneIndex >= 0)
+        {
+            SceneManager.LoadScene(sceneIndex);
+        }
+
+        if (g)
+        {
+            g.SetActive(active);
+        }
+    }
+
+    public void SetAudio()
+    {
+        audioCounter++;
+
+        if (audioCounter == AudioIcons.Length)
+        {
+            audioCounter = 0;
+        }
+
+        UpdateVolume();
+    }
+
+    void UpdateVolume()
+    {
+        AudioButton.sprite = AudioIcons[audioCounter];
+
+        float Volume = -50 * ((float)audioCounter / 3);
+        Volume = Volume == -50 ? -80 : Volume;
+        audiomixer.SetFloat("Volume", Volume);
+        PlayerPrefs.SetInt("Audiocounter", audioCounter);
     }
 
     public void BackToMainMenu()
@@ -42,62 +96,13 @@ public class UIManager : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    public void LoadSceneWithAnim(int i)
+    public void OpenURL(string URL)
     {
-        StartCoroutine(LoadInner(i));
-    }
-
-    public IEnumerator LoadInner(int i)
-    {
-        FadeIn.Play();
-        yield return new WaitForSecondsRealtime(0.5f);
-        SceneManager.LoadScene(i);
+        Application.OpenURL(URL);
     }
 
     public void QuitGame()
     {
         Application.Quit();
-    }
-
-    public void ActivateFade(GameObject g)
-    {
-        StartCoroutine(FadeInner(g));
-    }
-
-    public void DeActivateDelay(GameObject g)
-    {
-        StartCoroutine(DeActivateInner(g));
-    }
-
-    public IEnumerator FadeInner(GameObject g)
-    {
-        FadeIn.Play();
-        yield return new WaitForSecondsRealtime(0.5f);
-        g.SetActive(true);
-    }
-
-    public IEnumerator DeActivateInner(GameObject g)
-    {
-        yield return new WaitForSecondsRealtime(0.5f);
-        g.SetActive(false);
-    }
-
-    public void SetAudio(Image Audiobutton)
-    {
-        audiocounter++;
-        if (audiocounter == AudioIcons.Length)
-        {
-            audiocounter = 0;
-        }
-        Audiobutton.sprite = AudioIcons[audiocounter];
-        float Volume = -50 * ((float)audiocounter / 3);
-        Volume = Volume == -50 ? -80 : Volume;
-        audiomixer.SetFloat("Volume", Volume);
-        PlayerPrefs.SetInt("Audiocounter", audiocounter);
-    }
-
-    public void OpenURL(string URL)
-    {
-        Application.OpenURL(URL);
     }
 }

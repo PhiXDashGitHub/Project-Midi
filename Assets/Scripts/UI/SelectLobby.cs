@@ -6,10 +6,13 @@ using UnityEngine.UI;
 
 public class SelectLobby : MonoBehaviour
 {
-    public TextMeshProUGUI InfoText, LobbyKeyText;
+    [Header("Settings")]
     JoinLobby joinLobby;
     public string LobbyKey;
     public string message;
+
+    [Header("UI")]
+    public TextMeshProUGUI InfoText, LobbyKeyText;
     public Color SelectedColor;
     public Color DeSelectColor;
     public Image Background;
@@ -21,7 +24,6 @@ public class SelectLobby : MonoBehaviour
         LobbyKeyText.text = "Lobby: " + LobbyKey;
     }
 
-    // Update is called once per frame
     public void Select()
     {
         Debug.Log("Select + " + LobbyKey);
