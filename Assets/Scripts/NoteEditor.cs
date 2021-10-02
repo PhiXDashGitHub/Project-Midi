@@ -75,6 +75,8 @@ public class NoteEditor : MonoBehaviour
     string filePath;
     string fileType;
 
+    List<RecordData> recordingData;
+
     AndroidJavaClass unityPlayer;
     AndroidJavaObject currentActivity;
     AndroidJavaObject vibrator;
@@ -107,6 +109,8 @@ public class NoteEditor : MonoBehaviour
 
         filePath = Application.persistentDataPath + "/Songs/";
         fileType = ".ndf";
+
+        recordingData = new List<RecordData>();
 
         for (int i = 0; i < instruments.Length; i++)
         {
@@ -190,28 +194,39 @@ public class NoteEditor : MonoBehaviour
             countdownText.text = minutes.ToString("00") + ":" + seconds.ToString("00");
         }
         
-        //Debug Input
-        if (Input.GetKeyDown(KeyCode.Space))
+        //PC Input
+        if (!IsMobile())
         {
-            if (playBack)
+            if (Input.GetKeyDown(KeyCode.Space))
             {
-                StopButtonPressed();
+                if (playBack)
+                {
+                    StopButtonPressed();
+                }
+                else
+                {
+                    PlayButtonPressed();
+                }
             }
-            else
-            {
-                PlayButtonPressed();
-            }
-        }
 
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            horizontalScrollbar.value -= Input.mouseScrollDelta.y * Time.deltaTime;
-            horizontalScrollbar.value = Mathf.Clamp01(horizontalScrollbar.value);
+            Vector2 scrollDirection = new Vector2(0, Input.mouseScrollDelta.y);
+
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                scrollDirection.x = -Input.mouseScrollDelta.y;
+                scrollDirection.y = 0;
+            }
+
+            MoveEditorScrollbars(scrollDirection);
         }
         else
         {
-            verticalScrollbar.value += Input.mouseScrollDelta.y * Time.deltaTime;
-            verticalScrollbar.value = Mathf.Clamp01(verticalScrollbar.value);
+            if (Input.touchCount == 2)
+            {
+                Vector2 dir = Input.GetTouch(0).deltaPosition + Input.GetTouch(1).deltaPosition;
+
+                MoveEditorScrollbars(dir);
+            }
         }
 
         //Place Notes
@@ -859,6 +874,7 @@ public class NoteEditor : MonoBehaviour
         playButton.sprite = playButtonSprites[0];
 
         StopAllAudioPlayback();
+        ProcessRecordData();
     }
 
     //Changes the selected Instrument
@@ -936,18 +952,30 @@ public class NoteEditor : MonoBehaviour
     //Gets the recorded Keyboard Notedata
     public static void SendRecordData(int note, float time, float duration)
     {
-        noteEditor.ProcessRecordData(note, time, duration);
+        RecordData recordData = new RecordData()
+        {
+            note = note,
+            time = time,
+            duration = duration
+        };
+
+        noteEditor.recordingData.Add(recordData);
     }
 
     //Processes the recorded Keyboard Notedata
-    public void ProcessRecordData(int note, float time, float duration)
+    public void ProcessRecordData()
     {
-        Note newNote = Instantiate(notePrefab, noteParent).GetComponent<Note>();
-        newNote.transform.localPosition = new Vector3(time / bpmOffset, note, 0);
-        newNote.instrument = selectedInstrument;
-        newNote.value = note;
-        newNote.pos = time / bpmOffset;
-        newNote.length = duration / bpmOffset;
+        foreach (RecordData recordData in recordingData)
+        {
+            Note newNote = Instantiate(notePrefab, noteParent).GetComponent<Note>();
+            newNote.transform.localPosition = new Vector3(recordData.time / bpmOffset, recordData.note, 0);
+            newNote.instrument = selectedInstrument;
+            newNote.value = recordData.note;
+            newNote.pos = recordData.time / bpmOffset;
+            newNote.length = recordData.duration / bpmOffset;
+        }
+
+        recordingData.Clear();
     }
 
     //Resets the Cursor
@@ -967,6 +995,16 @@ public class NoteEditor : MonoBehaviour
         {
             Handheld.Vibrate();
         }
+    }
+
+    //Moves the Editor Scrollbars in Direction
+    public void MoveEditorScrollbars(Vector2 direction)
+    {
+        horizontalScrollbar.value += direction.x * Time.deltaTime;
+        verticalScrollbar.value += direction.y * Time.deltaTime;
+
+        horizontalScrollbar.value = Mathf.Clamp01(horizontalScrollbar.value);
+        verticalScrollbar.value = Mathf.Clamp01(verticalScrollbar.value);
     }
 
     //If the current Device is Mobile
@@ -1005,4 +1043,11 @@ public class NoteEditor : MonoBehaviour
         GetComponent<SendSong>().Send(NoteDataToString());
         enabled = false;
     }
+}
+
+struct RecordData
+{
+    public int note;
+    public float time;
+    public float duration;
 }

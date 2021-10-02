@@ -107,10 +107,7 @@ public class KeyboardNote : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
         if (pressed)
         {
-            if (NoteEditor.timer - startTime > 0 && NoteEditor.recording)
-            {
-                NoteEditor.SendRecordData(note, startTime, NoteEditor.timer - startTime);
-            }
+            SendData();
         }
 
         targetColor = initColor;
@@ -134,11 +131,7 @@ public class KeyboardNote : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         pressed = false;
 
         StopSound();
-
-        if (NoteEditor.timer - startTime > 0 && NoteEditor.recording)
-        {
-            NoteEditor.SendRecordData(note, startTime, NoteEditor.timer - startTime);
-        }
+        SendData();
     }
 
     void PlaySound()
@@ -155,6 +148,14 @@ public class KeyboardNote : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     void StopSound()
     {
         noteEditor.StopKeyboardSound(id);
+    }
+
+    void SendData()
+    {
+        if (NoteEditor.timer - startTime > 0 && NoteEditor.recording)
+        {
+            NoteEditor.SendRecordData(note, startTime, NoteEditor.timer - startTime);
+        }
     }
 
     public string RandomString(int length)
