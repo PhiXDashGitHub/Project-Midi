@@ -29,7 +29,7 @@ public class InstrumentSelection : MonoBehaviour
         {
             GameObject go = Instantiate(ListObjectPreset, Content.transform);
             go.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, (i * -100) - 50);
-            Content.GetComponent<RectTransform>().sizeDelta = new Vector2(0, i * 100);
+            Content.GetComponent<RectTransform>().sizeDelta = new Vector2(0, (i + 1) * 100);
             go.GetComponent<InstrumentButton>().name = instruments[i].name;
         }
 
