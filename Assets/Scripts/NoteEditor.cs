@@ -24,6 +24,7 @@ public class NoteEditor : MonoBehaviour
     public GameObject notePrefab;
     public Transform noteParent;
     public RectTransform scrollView;
+    public RectTransform scrollViewContent;
     public Image playButton;
     public Image recordButton;
     public Sprite[] playButtonSprites;
@@ -222,8 +223,10 @@ public class NoteEditor : MonoBehaviour
         else if (Input.touchCount == 2 && InsideScrollviewBounds())
         {
             Vector2 dir = Input.GetTouch(0).deltaPosition + Input.GetTouch(1).deltaPosition;
+            dir.x /= scrollViewContent.sizeDelta.x;
+            dir.y /= scrollViewContent.sizeDelta.y;
 
-            MoveEditorScrollbars(-dir / 10);
+            MoveEditorScrollbars(-dir);
         }
 
         //Place Notes

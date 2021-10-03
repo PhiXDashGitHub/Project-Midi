@@ -12280,6 +12280,7 @@ MonoBehaviour:
     type: 3}
   noteParent: {fileID: 1241347787}
   scrollView: {fileID: 1129841647}
+  scrollViewContent: {fileID: 914657748}
   playButton: {fileID: 452632612}
   recordButton: {fileID: 1362365396}
   playButtonSprites:
