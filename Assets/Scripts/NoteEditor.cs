@@ -223,7 +223,7 @@ public class NoteEditor : MonoBehaviour
         {
             Vector2 dir = Input.GetTouch(0).deltaPosition + Input.GetTouch(1).deltaPosition;
 
-            MoveEditorScrollbars(dir / 10);
+            MoveEditorScrollbars(-dir / 10);
         }
 
         //Place Notes
