@@ -219,14 +219,11 @@ public class NoteEditor : MonoBehaviour
 
             MoveEditorScrollbars(scrollDirection);
         }
-        else
+        else if (Input.touchCount == 2 && InsideScrollviewBounds())
         {
-            if (Input.touchCount == 2 && InsideScrollviewBounds())
-            {
-                Vector2 dir = Input.GetTouch(0).deltaPosition + Input.GetTouch(1).deltaPosition;
+            Vector2 dir = Input.GetTouch(0).deltaPosition + Input.GetTouch(1).deltaPosition;
 
-                MoveEditorScrollbars(dir);
-            }
+            MoveEditorScrollbars(dir);
         }
 
         //Place Notes
