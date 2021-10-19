@@ -21,6 +21,7 @@ public class NoteEditor : MonoBehaviour
     public Vector2 cursorOffsetPlace, cursorOffsetErase;
 
     [Header("UI")]
+    public ScaleEditor scaleEditor;
     public GameObject notePrefab;
     public Transform noteParent;
     public RectTransform scrollView;
@@ -222,15 +223,22 @@ public class NoteEditor : MonoBehaviour
         }
         else if (Input.touchCount == 2 && InsideScrollviewBounds())
         {
-            Vector2 dir = Input.GetTouch(0).deltaPosition + Input.GetTouch(1).deltaPosition;
+            Vector2 deltaPos1 = Input.GetTouch(0).deltaPosition;
+            //Vector2 deltaPos2 = Input.GetTouch(1).deltaPosition;
+
+            Vector2 dir = deltaPos1;
             dir.x /= scrollViewContent.sizeDelta.x;
             dir.y /= scrollViewContent.sizeDelta.y;
+
+            /*Vector2 deltaPos = deltaPos2 - deltaPos1;
+            float zoomAmount = Vector2.Dot(deltaPos.normalized, deltaPos2.normalized);
+            scaleEditor.Zoom(zoomAmount);*/
 
             MoveEditorScrollbars(-dir);
         }
 
         //Place Notes
-        if (editMode == EditMode.Place && Input.GetMouseButtonDown(0) && InsideScrollviewBounds() && !OverAnyNote())
+        if (editMode == EditMode.Place && Input.GetMouseButtonDown(0) && InsideScrollviewBounds() && !OverAnyNote() && Input.touchCount < 2)
         {
             Note newNote = Instantiate(notePrefab, noteParent).GetComponent<Note>();
             newNote.transform.localPosition = newNote.transform.InverseTransformPoint(Input.mousePosition) + Vector3Int.up;
@@ -403,9 +411,16 @@ public class NoteEditor : MonoBehaviour
         string content = bpm + "\n" + "\n";
 
         //Write InstrumentInfo
-        foreach (Instrument instrument in instruments)
+        for (int i = 0; i < 6; i++)
         {
-            content += instrument.name + "\n";
+            if (i < instruments.Length)
+            {
+                content += instruments[i].name + "\n";
+            }
+            else
+            {
+                content += "Null\n";
+            }
         }
 
         content += "\n";
@@ -464,20 +479,22 @@ public class NoteEditor : MonoBehaviour
 
             //Load Instruments
             string instr = "";
-            for (int i = 2; i < 2 + 6; i++)
+            for (int i = 2; i < 8; i++)
             {
-                if (content[i] == "" || content[i] == null)
+                if (content[i] == "Null" || content[i] == "Null\n")
                 {
-                    break;
+                    continue;
                 }
-
-                instr += content[i] + ";";
+                else
+                {
+                    instr += content[i] + ";";
+                }
             }
             StringToInstruments(instr);
 
             //Load Instrument Volumes
             string instrVol = "";
-            for (int i = instruments.Length + 3; i < instruments.Length * 2 + 3; i++)
+            for (int i = 9; i < 15; i++)
             {
                 instrVol += content[i] + ";";
             }
@@ -485,7 +502,7 @@ public class NoteEditor : MonoBehaviour
 
             //Load Instrument Reverbs
             string instrRev = "";
-            for (int i = instruments.Length * 2 + 4; i < instruments.Length * 3 + 4; i++)
+            for (int i = 16; i < 22; i++)
             {
                 instrRev += content[i] + ";";
             }
@@ -493,7 +510,7 @@ public class NoteEditor : MonoBehaviour
 
             //Load NoteData
             noteData = new List<string>();
-            for (int i = instruments.Length * 3 + 5; i < content.Length; i++)
+            for (int i = 23; i < content.Length; i++)
             {
                 noteData.Add(content[i]);
             }
@@ -561,18 +578,18 @@ public class NoteEditor : MonoBehaviour
             return false;
         }
 
-        string[] splitInput = input.Replace('[', ' ').Replace(']', ' ').Trim().Split(';');
-        instruments = new Instrument[splitInput.Length - 1];
+        string[] splitInput = input.Replace('[', ' ').Replace(']', ' ').Trim().Split(new char[] { ';' }, System.StringSplitOptions.RemoveEmptyEntries);
+        instruments = new Instrument[splitInput.Length];
         Instrument[] allInstruments = Resources.LoadAll<Instrument>("Instruments/");
 
         for (int i = 0; i < splitInput.Length; i++)
         {
             for (int r = 0; r < allInstruments.Length; r++)
             {
-                if (allInstruments[r].name == splitInput[i] && splitInput[i].Length >1)
+                if (allInstruments[r].name == splitInput[i] && splitInput[i].Length > 1)
                 {
                     instruments[i] = allInstruments[r];
-
+                    
                     if (!isRating)
                     {
                         instrumentButtons[i].gameObject.SetActive(true);

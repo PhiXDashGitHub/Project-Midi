@@ -99,4 +99,13 @@ public class ScaleEditor : MonoBehaviour
         scrollbarHorizontal.value = Mathf.Clamp01(scrollbarHorizontal.value);
         scrollbarVertical.value = Mathf.Clamp01(scrollbarVertical.value);
     }
+
+    public void Zoom(float amount)
+    {
+        viewPortContent.localScale += Vector3.one * amount * Time.deltaTime;
+        counter.localScale -= Vector3.one * amount * Time.deltaTime;
+
+        scrollbarHorizontal.value = Mathf.Clamp01(scrollbarHorizontal.value);
+        scrollbarVertical.value = Mathf.Clamp01(scrollbarVertical.value);
+    }
 }

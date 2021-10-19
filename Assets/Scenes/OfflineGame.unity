@@ -12276,6 +12276,7 @@ MonoBehaviour:
   cursorTexErase: {fileID: 2800000, guid: a6a59e9b78b837b49ab893782534ce1d, type: 3}
   cursorOffsetPlace: {x: 16, y: 100}
   cursorOffsetErase: {x: 50, y: 75}
+  scaleEditor: {fileID: 1723493496}
   notePrefab: {fileID: 7971849855621707775, guid: 1a5f9657db461f84ca27fd0b7516b0a4,
     type: 3}
   noteParent: {fileID: 1241347787}

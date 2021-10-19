@@ -133,6 +133,11 @@ public class Note : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerEnter(PointerEventData data)
     {
+        if (Input.touchCount > 1)
+        {
+            return;
+        }
+
         if (NoteEditor.editMode == NoteEditor.EditMode.Place)
         {
             mouseOver = true;
