@@ -10,6 +10,7 @@ public class KeyboardNote : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     UIColors uiColors;
     Image image;
 
+    public KeyCode key, optionalKey;
     public bool interactable;
     public int note;
     float startTime;
@@ -52,6 +53,30 @@ public class KeyboardNote : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         else if (targetColor != initColor)
         {
             targetColor = highlightedColor();
+        }
+
+        if (Input.GetKeyDown(key) || Input.GetKeyDown(optionalKey))
+        {
+            if (!interactable)
+            {
+                return;
+            }
+
+            pressed = true;
+
+            PlaySound();
+        }
+
+        if (Input.GetKeyUp(key) || Input.GetKeyUp(optionalKey))
+        {
+            if (pressed)
+            {
+                SendData();
+            }
+
+            pressed = false;
+            StopSound();
+            targetColor = initColor;
         }
     }
 

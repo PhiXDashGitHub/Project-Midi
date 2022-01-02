@@ -147,6 +147,8 @@ public class NoteEditor : MonoBehaviour
             currentActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
             vibrator = currentActivity.Call<AndroidJavaObject>("getSystemService", "vibrator");
         }
+
+        DecodeSoundData();
     }
 
     void Update()
